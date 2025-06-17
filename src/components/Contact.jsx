@@ -49,11 +49,15 @@ function Contact() {
   return (
     <div id="contact">
       <div className="items-container">
-        <div className="contact_wrapper">
-          <h1>Contact Me</h1>
+        <div className="contact_wrapper space-y-8">
+          <h1 className="flex items-center justify-center font-extrabold text-3xl">
+            Contact{" "}
+          </h1>
           <p>
-            Got a project waiting to be realized? Let's collaborate and make it
-            happen!
+            Have a digital vision? Let’s make it a reality! As a Full Stack Web
+            Developer, I’m here to deliver efficient, responsive solutions that
+            bring your ideas to life. Contact me by phone or email, and I’ll
+            respond promptly to discuss your project needs.
           </p>
           <Box
             ref={form}

@@ -7,31 +7,23 @@ function Footer() {
   return (
     <footer>
       <div>
-        <a
-          href="https://github.com/yujisatojr"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://github.com/miladmo68" target="_blank" rel="noreferrer">
           <GitHubIcon />
         </a>
         <a
-          href="https://www.linkedin.com/in/yujisato/"
+          href="https://www.linkedin.com/in/miladmo68/"
           target="_blank"
           rel="noreferrer"
         >
           <LinkedInIcon />
         </a>
       </div>
+
       <p>
-        A portfolio designed & built by{" "}
-        <a
-          href="https://github.com/yujisatojr/react-portfolio-template"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Milad Mo
-        </a>{" "}
-        with 💜
+        Designed by{" "}
+        <a href="https://miladweb.com" target="_blank" rel="noreferrer">
+          Miladweb.com
+        </a>
       </p>
     </footer>
   );
