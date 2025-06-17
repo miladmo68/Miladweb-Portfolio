@@ -7,6 +7,8 @@ import {
   Contact,
   Navigation,
   Footer,
+  About,
+  Services,
 } from "./components";
 import FadeIn from "./components/FadeIn";
 import "./index.scss";
@@ -35,9 +37,11 @@ function App() {
       <Navigation parentToChild={{ mode }} modeChange={handleModeChange} />
       <FadeIn transitionDuration={700}>
         <Main />
+        <About />
         <Skills />
-        <Timeline />
+        {/* <Timeline /> */}
         <Project />
+        <Services />
         <Contact />
       </FadeIn>
       <Footer />
