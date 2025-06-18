@@ -1,6 +1,6 @@
 // ──────────────────────────────────────────────────────────────
 // src/components/Project.jsx
-// uniform 16 : 9 cards • slide-up overlay • custom filter-chip colours
+// uniform 16 : 9 cards • slide-up overlay • native image lazy-loading
 // ──────────────────────────────────────────────────────────────
 import React, { useState } from "react";
 import {
@@ -21,7 +21,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 /* 1 ▸ load every screenshot that lives in src/assets/img */
 const images = import.meta.glob("../assets/img/*.{png,jpg,jpeg,gif}", {
-  eager: true,
+  eager: true, // keep eager=true → no async refactor needed
   import: "default",
 });
 const getImg = (file) => images[`../assets/img/${file}`];
@@ -33,9 +33,9 @@ const FILTERS = [
   { label: "Web Design", value: "web" },
 ];
 
-/* 3 ▸ FULL PROJECT ARRAY (unchanged names / order) */
+/* 3 ▸ FULL PROJECT ARRAY (unchanged) */
 const PROJECTS = [
-  // ——— Web Apps ———
+  /* ---------------  Web Apps  --------------- */
   {
     title: "Millionaire Quiz",
     img: "Millionaire-Quiz.png",
@@ -247,7 +247,7 @@ const PROJECTS = [
     cat: "app",
   },
 
-  // ——— Web Designs ———
+  /* ---------------  Web Designs  --------------- */
   {
     title: "Intershine",
     img: "intershine.png",
@@ -313,7 +313,7 @@ const PROJECTS = [
 
 /* 4 ▸ card settings */
 const CARD_W = 380;
-const ASPECT_16_9 = "56.25%"; // 16:9 ⇒  9 / 16
+const ASPECT_16_9 = "56.25%"; // 9 / 16
 
 /* 5 ▸ component */
 export default function Project() {
@@ -372,8 +372,6 @@ export default function Project() {
               onClick={() => setFilter(f.value)}
               sx={{
                 color: active ? "#ffffff" : "#252525",
-
-                // color: "#3b3b3b", // text always white
                 backgroundColor: active ? "#5000ca" : "#f5f5f5",
                 border: "1px solid",
                 borderColor: active ? "#5000ca" : "#252525",
@@ -404,21 +402,33 @@ export default function Project() {
                 position: "relative",
                 transition: "transform .25s",
                 "&:hover": { transform: "scale(1.04)" },
-                "&:hover .overlay": { transform: "translateY(0)", opacity: 1 },
+                "&:hover .overlay": {
+                  transform: "translateY(0)",
+                  opacity: 1,
+                },
               }}
             >
-              {/* thumbnail */}
-              <Box
-                sx={{
-                  width: "100%",
-                  pt: ASPECT_16_9,
-                  backgroundImage: `url(${getImg(p.img)})`,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  cursor: "pointer",
-                }}
-                onClick={() => preview(p)}
-              />
+              {/* ─── thumbnail (lazy) ─────────────────────────── */}
+              <Box position="relative" sx={{ width: "100%", pt: ASPECT_16_9 }}>
+                <Box
+                  component="img"
+                  src={getImg(p.img)}
+                  alt={p.title}
+                  loading="lazy"
+                  width={CARD_W}
+                  height={Math.round((CARD_W * 9) / 16)}
+                  sx={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "cover",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => preview(p)}
+                />
+              </Box>
 
               {/* overlay bar */}
               <Box
