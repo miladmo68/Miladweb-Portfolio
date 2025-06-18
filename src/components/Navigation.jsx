@@ -20,7 +20,7 @@ const drawerWidth = 240;
 const navItems = [
   ["Home", "home"],
   ["About", "about"],
-  ["Skills", "skills"],
+  // ["Skills", "skills"],
   ["Projects", "projects"],
   ["Services", "services"],
   ["Contact", "contact"],

@@ -8,10 +8,10 @@ function Main() {
     <div className="container" id="home">
       <div className="about-section">
         <div className="image-wrapper">
-          <img
+          {/* <img
             src="https://media.licdn.com/dms/image/v2/D5635AQH0LxDQO_M4Sg/profile-framedphoto-shrink_400_400/B56ZZeb0FnGcAc-/0/1745341072068?e=1750788000&v=beta&t=9sBDfNDLuzhoQLTFmd_bACsTu20Rv_DJoZvbxUz5s84"
             alt="Avatar"
-          />
+          /> */}
         </div>
         <div className="content">
           <div className="social_icons">

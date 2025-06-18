@@ -1,5 +1,6 @@
 // ──────────────────────────────────────────────────────────────
-// src/components/Project.jsx   (all data, uniform cards, hover bar)
+// src/components/Project.jsx
+// uniform 16 : 9 cards • slide-up overlay • custom filter-chip colours
 // ──────────────────────────────────────────────────────────────
 import React, { useState } from "react";
 import {
@@ -18,21 +19,21 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import OpenInNewIcon from "@mui/icons-material/OpenInNew";
 import CloseIcon from "@mui/icons-material/Close";
 
-/* 1.  Load screenshots in src/assets/img ----------------------------------- */
+/* 1 ▸ load every screenshot that lives in src/assets/img */
 const images = import.meta.glob("../assets/img/*.{png,jpg,jpeg,gif}", {
   eager: true,
   import: "default",
 });
 const getImg = (file) => images[`../assets/img/${file}`];
 
-/* 2.  Filter buttons ------------------------------------------------------- */
+/* 2 ▸ filter buttons */
 const FILTERS = [
   { label: "All", value: "all" },
   { label: "Web App", value: "app" },
   { label: "Web Design", value: "web" },
 ];
 
-/* 3.  Full PROJECTS array (exactly as you provided) ------------------------ */
+/* 3 ▸ FULL PROJECT ARRAY (unchanged names / order) */
 const PROJECTS = [
   // ——— Web Apps ———
   {
@@ -310,24 +311,24 @@ const PROJECTS = [
   { title: "Sidhu Clinic", img: "Sidhu-Clinic.jpg", link: "#", cat: "web" },
 ];
 
-/* 4.  Fixed card width & 16:9 aspect -------------------------------------- */
-const CARD_W = 380; // px
-const ASPECT_16_9 = "56.25%"; // 9 / 16
+/* 4 ▸ card settings */
+const CARD_W = 380;
+const ASPECT_16_9 = "56.25%"; // 16:9 ⇒  9 / 16
 
-/* 5.  Component ------------------------------------------------------------ */
+/* 5 ▸ component */
 export default function Project() {
   const [filter, setFilter] = useState("all");
-  const items =
+  const visible =
     filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
 
   /* modal state */
   const [open, setOpen] = useState(false);
-  const [modalImg, setModalImg] = useState("");
-  const [modalTitle, setModalTitle] = useState("");
+  const [modalImg, setImg] = useState("");
+  const [modalTitle, setTitle] = useState("");
 
-  const openPreview = (p) => {
-    setModalImg(getImg(p.img));
-    setModalTitle(p.title);
+  const preview = (p) => {
+    setImg(getImg(p.img));
+    setTitle(p.title);
     setOpen(true);
   };
 
@@ -353,7 +354,7 @@ export default function Project() {
         </Typography>
       </Box>
 
-      {/* filters */}
+      {/* filter chips */}
       <Box
         display="flex"
         justifyContent="center"
@@ -361,21 +362,39 @@ export default function Project() {
         gap={1}
         mb={5}
       >
-        {FILTERS.map((f) => (
-          <Chip
-            key={f.value}
-            label={f.label}
-            clickable
-            color={filter === f.value ? "primary" : "default"}
-            variant={filter === f.value ? "filled" : "outlined"}
-            onClick={() => setFilter(f.value)}
-          />
-        ))}
+        {FILTERS.map((f) => {
+          const active = filter === f.value;
+          return (
+            <Chip
+              key={f.value}
+              label={f.label}
+              clickable
+              onClick={() => setFilter(f.value)}
+              sx={{
+                color: active ? "#ffffff" : "#252525",
+
+                // color: "#3b3b3b", // text always white
+                backgroundColor: active ? "#5000ca" : "#f5f5f5",
+                border: "1px solid",
+                borderColor: active ? "#5000ca" : "#252525",
+                padding: "6px 10px",
+                fontSize: "0.9rem",
+                transition: "all 0.3s ease",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: active ? "#5000ca" : "#e7d8fd",
+                  color: active ? "#fff" : "#5000ca",
+                  borderColor: "#5000ca",
+                },
+              }}
+            />
+          );
+        })}
       </Box>
 
-      {/* grid */}
+      {/* project grid */}
       <Grid container spacing={4} justifyContent="center">
-        {items.map((p) => (
+        {visible.map((p) => (
           <Grid item key={p.title}>
             <Card
               elevation={4}
@@ -388,7 +407,7 @@ export default function Project() {
                 "&:hover .overlay": { transform: "translateY(0)", opacity: 1 },
               }}
             >
-              {/* thumbnail 16:9 */}
+              {/* thumbnail */}
               <Box
                 sx={{
                   width: "100%",
@@ -398,10 +417,10 @@ export default function Project() {
                   backgroundPosition: "center",
                   cursor: "pointer",
                 }}
-                onClick={() => openPreview(p)}
+                onClick={() => preview(p)}
               />
 
-              {/* hover overlay bar */}
+              {/* overlay bar */}
               <Box
                 className="overlay"
                 sx={{
@@ -429,18 +448,16 @@ export default function Project() {
                   {p.title}
                 </Typography>
 
-                {/* preview icon */}
                 <Tooltip title="Preview">
                   <IconButton
                     size="small"
                     sx={{ color: "white" }}
-                    onClick={() => openPreview(p)}
+                    onClick={() => preview(p)}
                   >
                     <VisibilityIcon fontSize="small" />
                   </IconButton>
                 </Tooltip>
 
-                {/* visit icon */}
                 {p.link !== "#" && (
                   <Tooltip title="Visit">
                     <IconButton
@@ -462,7 +479,7 @@ export default function Project() {
         ))}
       </Grid>
 
-      {/* modal preview */}
+      {/* preview dialog */}
       <Dialog
         open={open}
         onClose={() => setOpen(false)}
@@ -476,7 +493,7 @@ export default function Project() {
             color: "white",
             display: "flex",
             justifyContent: "space-between",
-            backgroundColor: "transparent",
+            bgcolor: "transparent",
           }}
         >
           {modalTitle}

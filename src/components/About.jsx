@@ -1,4 +1,5 @@
 import React from "react";
+import Skills from "./Skills";
 
 function About() {
   return (
@@ -27,6 +28,7 @@ function About() {
           best practices, and troubleshooting complex issues.
         </p>
       </div>
+      <Skills />
     </div>
   );
 }

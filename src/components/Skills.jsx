@@ -69,10 +69,10 @@ const workflowItems = [
 function Skills() {
   return (
     <div
-      className="items-container w-full px-4 sm:px-6 md:px-10 lg:px-20 py-10 flex flex-col items-center justify-center"
+      className=" w-full px-4 sm:px-6 md:px-10 lg:px-20 py-10 flex flex-col items-center justify-center"
       id="skills"
     >
-      <h1 className="text-3xl font-extrabold text-center mb-2">Skills</h1>
+      {/* <h1 className="text-3xl font-extrabold text-center mb-2">Skills</h1> */}
       <h2 className="text-lg text-gray-600 mb-6 text-center">
         My Technical Skills & Expertise
       </h2>
@@ -107,8 +107,8 @@ function Skills() {
               cursor: "pointer",
 
               "&:hover": {
-                backgroundColor: "#e7d8fd", // light blue
-                color: "#5000ca", // blue-600
+                backgroundColor: "#e7d8fd", //
+                color: "#5000ca", //
                 borderColor: "#5000ca",
               },
             }}
