@@ -88,6 +88,7 @@ function Skills() {
           justifyContent: "center",
           gap: "0.75rem",
           maxWidth: "1200px",
+          marginBottom: "20px",
         }}
       >
         {techList.map((item, index) => (
@@ -103,6 +104,8 @@ function Skills() {
               padding: "6px 10px",
               fontSize: "0.9rem",
               transition: "all 0.3s ease",
+              cursor: "pointer",
+
               "&:hover": {
                 backgroundColor: "#e7d8fd", // light blue
                 color: "#5000ca", // blue-600
@@ -115,19 +118,19 @@ function Skills() {
 
       {/* Workflow Section */}
       <div className="mt-12 w-full max-w-3xl">
-        <h3 className="text-xl font-semibold mb-4 text-center">Workflow</h3>
-        <ul className="space-y-3">
+        <h3 className="text-xl font-semibold mb-4 text-left ">Workflow</h3>
+        <ul className="space-y-3 ">
           {workflowItems.map((item, index) => (
-            <a
+            <p
               key={index}
-              className="flex items-start text-gray-700 hover:text-blue-600 transition-colors duration-200 cursor-pointer"
+              className="flex items-start text-gray-700 hover:text-blue-600 transition-colors duration-200 cursor-pointer "
             >
               <CheckCircleIcon
-                className="text-green-500 mt-0.5 mr-2"
+                className="text-green-500 mt-0.5 mr-2 "
                 fontSize="small"
               />
               <span>{item}</span>
-            </a>
+            </p>
           ))}
         </ul>
       </div>
