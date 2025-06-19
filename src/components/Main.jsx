@@ -52,8 +52,7 @@ export default function Main() {
     <div className="container" id="home">
       <div className="about-section">
         <div className="image-wrapper">
-          {/* adjust path if needed */}
-          <img src="../../public/milad.png" alt="Avatar" loading="lazy" />
+          <img src="/milad.png" alt="Avatar" loading="lazy" />
         </div>
 
         <div className="content">
