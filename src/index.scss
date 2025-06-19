@@ -180,3 +180,34 @@ button {
     }
   }
 }
+
+/* typewriter look -------------------------------------------*/
+.typed-wrapper {
+  font-size: 1.2rem; /* tweak to taste */
+  font-weight: 500;
+  display: inline-block;
+}
+
+.typed {
+  // color: #ffffff; /* accent colour */
+  white-space: nowrap;
+}
+
+.typed-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 1.1em;
+  margin-left: 3px;
+  background: #ffffff;
+  animation: blink 0.9s steps(2) infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
