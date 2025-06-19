@@ -110,18 +110,17 @@
 
   @media (max-width: 768px) {
     .about-section {
-      padding-top: 100px; // ← Fix for header overlap (if header is 60px tall)
-      padding-bottom: 40px;
+      padding-top: 100px; // 👈 Push content down
+      padding-bottom: 60px;
       display: block;
       padding-left: 5%;
       padding-right: 5%;
       min-height: auto;
 
-      // 📱 Mobile-friendly background
       background-attachment: scroll !important;
       background-size: contain !important;
-      background-position: top center;
       background-repeat: no-repeat;
+      background-position: center 60px; // 👈 Push background image down
     }
 
     .about-section h1 {
