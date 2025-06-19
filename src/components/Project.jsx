@@ -34,8 +34,8 @@ const FILTERS = [
 ];
 
 /* 3 ▸ FULL PROJECT ARRAY (unchanged) */
+
 const PROJECTS = [
-  /* ---------------  Web Apps  --------------- */
   {
     title: "Millionaire Quiz",
     img: "Millionaire-Quiz.png",
@@ -49,10 +49,82 @@ const PROJECTS = [
     cat: "app",
   },
   {
+    title: "Intershine",
+    img: "intershine.png",
+    link: "https://intershine.ca/",
+    cat: "web",
+  },
+  {
     title: "Expenses",
     img: "expenses.jpg",
     link: "https://miladmo68.github.io/expenses/",
     cat: "app",
+  },
+  {
+    title: "Book Library",
+    img: "Book-Library.png",
+    link: "https://miladmo68.github.io/Book-Library/",
+    cat: "app",
+  },
+  {
+    title: "Fair Construction",
+    img: "fairconstruction.jpg",
+    link: "https://fairconstruction.ca/",
+    cat: "web",
+  },
+  {
+    title: "User Directory",
+    img: "MY-USER-DIRECTORY.png",
+    link: "https://miladmo68.github.io/User-Directory/",
+    cat: "app",
+  },
+  {
+    title: "Note App",
+    img: "NoteApp.png",
+    link: "https://miladmo68.github.io/Note-App/",
+    cat: "app",
+  },
+  {
+    title: "Tarahan Choob",
+    img: "tarahanchoob.jpg",
+    link: "https://tarahanchoob.com/",
+    cat: "web",
+  },
+  {
+    title: "Todos Redux Toolkit",
+    img: "Todos-Redux-Toolkit.png",
+    link: "https://miladmo68.github.io/Todos-Redux-Toolkit/",
+    cat: "app",
+  },
+  {
+    title: "ShopEase",
+    img: "ShopEase.png",
+    link: "https://miladmo68.github.io/products",
+    cat: "app",
+  },
+  {
+    title: "Sky Contracting",
+    img: "sky.jpg",
+    link: "https://skyinc.ca/",
+    cat: "web",
+  },
+  {
+    title: "Quick Notes",
+    img: "Quick-Notes.png",
+    link: "https://miladmo68.github.io/QuickNotes/",
+    cat: "app",
+  },
+  {
+    title: "Countries Info App",
+    img: "COUNTRIES-INFO-APP.png",
+    link: "https://miladmo68.github.io/Countries-Info-App/#//",
+    cat: "app",
+  },
+  {
+    title: "Techfahm Systems",
+    img: "Techfahm.jpg",
+    link: "https://Techfahm.com/",
+    cat: "web",
   },
   {
     title: "Fast Pizza",
@@ -66,6 +138,7 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Image-Gallery/",
     cat: "app",
   },
+  { title: "Zarsa Gold", img: "zarsagold.jpg", link: "#", cat: "web" },
   {
     title: "Countdown App",
     img: "Countdown.png",
@@ -78,18 +151,33 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Bank-App/",
     cat: "app",
   },
+  { title: "Milad Web", img: "milad.png", link: "#", cat: "web" },
+  {
+    title: "E-commerce Store",
+    img: "E-commerce-Store.png",
+    link: "https://miladmo68.github.io/E-commerce-Store/",
+    cat: "app",
+  },
   {
     title: "Usepopcorn",
     img: "usepopcorn.jpg",
     link: "https://miladmo68.github.io/usepopcorn/",
     cat: "app",
   },
+  { title: "Spa", img: "Spa.jpg", link: "#", cat: "web" },
   {
     title: "Gym App",
     img: "gym-app.jpg",
     link: "https://miladmo68.github.io/Gym-App/",
     cat: "app",
   },
+  {
+    title: "Task Manager",
+    img: "Task-Manager.png",
+    link: "https://miladmo68.github.io/Task-Manager/",
+    cat: "app",
+  },
+  { title: "Jahan Ariya", img: "jahanariya.jpg", link: "#", cat: "web" },
   {
     title: "Travel List",
     img: "travel-list.png",
@@ -102,6 +190,7 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Investment-Calculator/",
     cat: "app",
   },
+  { title: "Asiakar Auto", img: "asiakar.png", link: "#", cat: "web" },
   {
     title: "Play List",
     img: "PlayList.jpg",
@@ -114,6 +203,7 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Movieland/",
     cat: "app",
   },
+  { title: "Javan Food", img: "javanfood.png", link: "#", cat: "web" },
   {
     title: "Pokedex",
     img: "Pokedex.jpg",
@@ -126,6 +216,7 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/classy-weather/",
     cat: "app",
   },
+  { title: "Samanor", img: "samanor.jpg", link: "#", cat: "web" },
   {
     title: "Quiz App",
     img: "Quiz-App.png",
@@ -138,6 +229,7 @@ const PROJECTS = [
     link: "https://github.com/miladmo68/upload-Image-To-Google-Drive",
     cat: "app",
   },
+  { title: "Poya Josh", img: "poyajosh.jpg", link: "#", cat: "web" },
   {
     title: "Student System",
     img: "student-system.png",
@@ -150,6 +242,7 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/SignUp/",
     cat: "app",
   },
+  { title: "RAAGS", img: "RAAGS.jpg", link: "#", cat: "web" },
   {
     title: "Shopping Cart",
     img: "SHOPPING-CART.png",
@@ -162,6 +255,7 @@ const PROJECTS = [
     link: "https://github.com/miladmo68/Google-Login-Registration",
     cat: "app",
   },
+  { title: "Hefaz System", img: "hefazsystem.jpg", link: "#", cat: "web" },
   {
     title: "Full-stack Employment",
     img: "fullstack-employment.png",
@@ -174,6 +268,7 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Food-Recipe-App/",
     cat: "app",
   },
+  { title: "Milad Web", img: "miladweb2.png", link: "#", cat: "web" },
   {
     title: "Expense Tracker",
     img: "Expense-Tracker.png",
@@ -186,6 +281,7 @@ const PROJECTS = [
     link: "https://github.com/miladmo68/Contact-API-App",
     cat: "app",
   },
+  { title: "Iran Golden", img: "irangolden.jpg", link: "#", cat: "web" },
   {
     title: "Feeder",
     img: "Feeder.jpg",
@@ -198,12 +294,14 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Todo-List/",
     cat: "app",
   },
+  { title: "Auto Studio", img: "carstudio.jpg", link: "#", cat: "web" },
   {
     title: "Eat & Split",
     img: "eat-n-split.png",
     link: "https://miladmo68.github.io/eat-n-split/",
     cat: "app",
   },
+  { title: "Octove Agency", img: "octove.jpg", link: "#", cat: "web" },
   {
     title: "PlacePicker",
     img: "Place-Picker.png",
@@ -211,29 +309,39 @@ const PROJECTS = [
     cat: "app",
   },
   {
+    title: "Bakirkoy Zeugma",
+    img: "bakirkoyzeugmaapart.jpg",
+    link: "#",
+    cat: "web",
+  },
+  {
     title: "Chat App",
     img: "Chat-App.jpg",
     link: "https://miladmo68.github.io/Chat-App/",
     cat: "app",
   },
+  { title: "Net Lady", img: "netlady.jpg", link: "#", cat: "web" },
   {
     title: "SpaceX",
     img: "SpaceX.jpg",
     link: "https://miladmo68.github.io/SpaceX/",
     cat: "app",
   },
+  { title: "Ide System", img: "idesystem.jpg", link: "#", cat: "web" },
   {
     title: "Atomic Blog",
     img: "Atomic-blog.jpg",
     link: "https://miladmo68.github.io/Atomic-blog/",
     cat: "app",
   },
+  { title: "Tasvir Bartar", img: "tasvirbartar.jpg", link: "#", cat: "web" },
   {
     title: "Workout Timer",
     img: "workout-timer.png",
     link: "https://miladmo68.github.io/workout-timer/",
     cat: "app",
   },
+  { title: "MDF 14", img: "mdf14.jpg", link: "#", cat: "web" },
   {
     title: "Project Management",
     img: "Project-Management.png",
@@ -241,71 +349,16 @@ const PROJECTS = [
     cat: "app",
   },
   {
-    title: "Quiz App (alt.)",
-    img: "Quiz-App1.png",
-    link: "https://miladmo68.github.io/Quiz-App/",
-    cat: "app",
-  },
-
-  /* ---------------  Web Designs  --------------- */
-  {
-    title: "Intershine",
-    img: "intershine.png",
-    link: "https://intershine.ca/",
-    cat: "web",
-  },
-  {
-    title: "Fair Construction",
-    img: "fairconstruction.jpg",
-    link: "https://fairconstruction.ca/",
-    cat: "web",
-  },
-  {
-    title: "Tarahan Choob",
-    img: "tarahanchoob.jpg",
-    link: "https://tarahanchoob.com/",
-    cat: "web",
-  },
-  {
-    title: "Sky Contracting",
-    img: "sky.jpg",
-    link: "https://skyinc.ca/",
-    cat: "web",
-  },
-  {
-    title: "Techfahm Systems",
-    img: "Techfahm.jpg",
-    link: "https://Techfahm.com/",
-    cat: "web",
-  },
-  { title: "Zarsa Gold", img: "zarsagold.jpg", link: "#", cat: "web" },
-  { title: "Milad Web", img: "milad.png", link: "#", cat: "web" },
-  { title: "Spa", img: "Spa.jpg", link: "#", cat: "web" },
-  { title: "Jahan Ariya", img: "jahanariya.jpg", link: "#", cat: "web" },
-  { title: "Asiakar Auto", img: "asiakar.png", link: "#", cat: "web" },
-  { title: "Javan Food", img: "javanfood.png", link: "#", cat: "web" },
-  { title: "Samanor", img: "samanor.jpg", link: "#", cat: "web" },
-  { title: "Poya Josh", img: "poyajosh.jpg", link: "#", cat: "web" },
-  { title: "RAAGS", img: "RAAGS.jpg", link: "#", cat: "web" },
-  { title: "Hefaz System", img: "hefazsystem.jpg", link: "#", cat: "web" },
-  { title: "Iran Golden", img: "irangolden.jpg", link: "#", cat: "web" },
-  { title: "Auto Studio", img: "carstudio.jpg", link: "#", cat: "web" },
-  {
-    title: "Bakirkoy Zeugma",
-    img: "bakirkoyzeugmaapart.jpg",
-    link: "#",
-    cat: "web",
-  },
-  { title: "Octove Agency", img: "octove.jpg", link: "#", cat: "web" },
-  { title: "Net Lady", img: "netlady.jpg", link: "#", cat: "web" },
-  { title: "Ide System", img: "idesystem.jpg", link: "#", cat: "web" },
-  { title: "Tasvir Bartar", img: "tasvirbartar.jpg", link: "#", cat: "web" },
-  { title: "MDF 14", img: "mdf14.jpg", link: "#", cat: "web" },
-  {
     title: "Insurance Darmani",
     img: "insurance-darmani.jpg",
     link: "#",
     cat: "web",
+  },
+  {
+    title: "Quiz App (alt.)",
+    img: "Quiz-App1.png",
+    link: "https://miladmo68.github.io/Quiz-App/",
+    cat: "app",
   },
   { title: "Metal Works", img: "metal.jpg", link: "#", cat: "web" },
   { title: "Sidhu Clinic", img: "Sidhu-Clinic.jpg", link: "#", cat: "web" },
@@ -500,17 +553,19 @@ export default function Project() {
         <DialogTitle
           sx={{
             p: 1.2,
-            color: "white",
             display: "flex",
             justifyContent: "space-between",
-            bgcolor: "transparent",
+
+            bgcolor: "#3a3a3a",
+            color: "#fff",
           }}
         >
           {modalTitle}
-          <IconButton onClick={() => setOpen(false)} sx={{ color: "white" }}>
+          <IconButton onClick={() => setOpen(false)} sx={{ color: "#fff" }}>
             <CloseIcon />
           </IconButton>
         </DialogTitle>
+
         <DialogContent
           sx={{
             p: 0,

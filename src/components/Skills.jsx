@@ -73,9 +73,9 @@ function Skills() {
       id="skills"
     >
       {/* <h1 className="text-3xl font-extrabold text-center mb-2">Skills</h1> */}
-      <h2 className="text-lg text-gray-600 mb-6 text-center">
+      {/* <h2 className="text-lg text-gray-600 mb-6 text-center">
         My Technical Skills & Expertise
-      </h2>
+      </h2> */}
       <h2 className="text-lg text-gray-600 mb-6 text-center">
         Programming Languages & Tools
       </h2>
