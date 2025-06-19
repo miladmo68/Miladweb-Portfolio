@@ -3,7 +3,7 @@ import Skills from "./Skills";
 
 function About() {
   return (
-    <div id="about" className="items-container section py-12 px-4">
+    <div id="about" className="container items-container section py-12 px-4">
       {/* Section Title */}
       <div
         className="container mx-auto max-w-4xl text-center"

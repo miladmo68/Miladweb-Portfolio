@@ -151,7 +151,12 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Bank-App/",
     cat: "app",
   },
-  { title: "Milad Web", img: "milad.png", link: "#", cat: "web" },
+  {
+    title: "Milad Web",
+    img: "miladweb2.png",
+    link: "https://miladmo68.github.io/Portfolio/",
+    cat: "web",
+  },
   {
     title: "E-commerce Store",
     img: "E-commerce-Store.png",
@@ -268,7 +273,8 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Food-Recipe-App/",
     cat: "app",
   },
-  { title: "Milad Web", img: "miladweb2.png", link: "#", cat: "web" },
+  { title: "Milad Web", img: "milad.png", link: "#", cat: "web" },
+
   {
     title: "Expense Tracker",
     img: "Expense-Tracker.png",
@@ -386,202 +392,207 @@ export default function Project() {
   };
 
   return (
-    <Box component="section" id="projects" sx={{ py: 8 }}>
-      {/* heading */}
-      <Box textAlign="center" mb={6}>
-        <Typography variant="h4" fontWeight={700}>
-          Portfolio
-        </Typography>
-        <Typography sx={{ maxWidth: 640, mx: "auto", mt: 1 }}>
-          A selection of my recent work. See more on{" "}
-          <Box
-            component="a"
-            href="https://github.com/miladmo68"
-            target="_blank"
-            rel="noreferrer"
-            sx={{ textDecoration: "underline", fontWeight: 500 }}
-          >
-            GitHub
-          </Box>
-          .
-        </Typography>
-      </Box>
-
-      {/* filter chips */}
-      <Box
-        display="flex"
-        justifyContent="center"
-        flexWrap="wrap"
-        gap={1}
-        mb={5}
-      >
-        {FILTERS.map((f) => {
-          const active = filter === f.value;
-          return (
-            <Chip
-              key={f.value}
-              label={f.label}
-              clickable
-              onClick={() => setFilter(f.value)}
-              sx={{
-                color: active ? "#ffffff" : "#252525",
-                backgroundColor: active ? "#5000ca" : "#f5f5f5",
-                border: "1px solid",
-                borderColor: active ? "#5000ca" : "#252525",
-                padding: "6px 10px",
-                fontSize: "0.9rem",
-                transition: "all 0.3s ease",
-                cursor: "pointer",
-                "&:hover": {
-                  backgroundColor: active ? "#5000ca" : "#e7d8fd",
-                  color: active ? "#fff" : "#5000ca",
-                  borderColor: "#5000ca",
-                },
-              }}
-            />
-          );
-        })}
-      </Box>
-
-      {/* project grid */}
-      <Grid container spacing={4} justifyContent="center">
-        {visible.map((p) => (
-          <Grid item key={p.title}>
-            <Card
-              elevation={4}
-              sx={{
-                width: CARD_W,
-                overflow: "hidden",
-                position: "relative",
-                transition: "transform .25s",
-                "&:hover": { transform: "scale(1.04)" },
-                "&:hover .overlay": {
-                  transform: "translateY(0)",
-                  opacity: 1,
-                },
-              }}
+    <div className="container">
+      <Box component="section" id="projects" sx={{ py: 8 }}>
+        {/* heading */}
+        <Box textAlign="center" mb={6}>
+          <Typography variant="h4" fontWeight={700}>
+            Portfolio
+          </Typography>
+          <Typography sx={{ maxWidth: 640, mx: "auto", mt: 1 }}>
+            A selection of my recent work. See more on{" "}
+            <Box
+              component="a"
+              href="https://github.com/miladmo68"
+              target="_blank"
+              rel="noreferrer"
+              sx={{ textDecoration: "underline", fontWeight: 500 }}
             >
-              {/* ─── thumbnail (lazy) ─────────────────────────── */}
-              <Box position="relative" sx={{ width: "100%", pt: ASPECT_16_9 }}>
-                <Box
-                  component="img"
-                  src={getImg(p.img)}
-                  alt={p.title}
-                  loading="lazy"
-                  width={CARD_W}
-                  height={Math.round((CARD_W * 9) / 16)}
-                  sx={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "cover",
-                    cursor: "pointer",
-                  }}
-                  onClick={() => preview(p)}
-                />
-              </Box>
+              GitHub
+            </Box>
+            .
+          </Typography>
+        </Box>
 
-              {/* overlay bar */}
-              <Box
-                className="overlay"
+        {/* filter chips */}
+        <Box
+          display="flex"
+          justifyContent="center"
+          flexWrap="wrap"
+          gap={1}
+          mb={5}
+        >
+          {FILTERS.map((f) => {
+            const active = filter === f.value;
+            return (
+              <Chip
+                key={f.value}
+                label={f.label}
+                clickable
+                onClick={() => setFilter(f.value)}
                 sx={{
-                  position: "absolute",
-                  bottom: 0,
-                  left: 0,
-                  width: "100%",
-                  height: 56,
-                  bgcolor: "rgba(0,0,0,0.7)",
-                  color: "white",
-                  display: "flex",
-                  alignItems: "center",
-                  px: 1,
-                  gap: 1,
-                  transform: "translateY(100%)",
-                  opacity: 0,
-                  transition: "all .25s",
+                  color: active ? "#ffffff" : "#252525",
+                  backgroundColor: active ? "#5000ca" : "#f5f5f5",
+                  border: "1px solid",
+                  borderColor: active ? "#5000ca" : "#252525",
+                  padding: "6px 10px",
+                  fontSize: "0.9rem",
+                  transition: "all 0.3s ease",
+                  cursor: "pointer",
+                  "&:hover": {
+                    backgroundColor: active ? "#5000ca" : "#e7d8fd",
+                    color: active ? "#fff" : "#5000ca",
+                    borderColor: "#5000ca",
+                  },
+                }}
+              />
+            );
+          })}
+        </Box>
+
+        {/* project grid */}
+        <Grid container spacing={4} justifyContent="center">
+          {visible.map((p) => (
+            <Grid item key={p.title}>
+              <Card
+                elevation={4}
+                sx={{
+                  width: CARD_W,
+                  overflow: "hidden",
+                  position: "relative",
+                  transition: "transform .25s",
+                  "&:hover": { transform: "scale(1.04)" },
+                  "&:hover .overlay": {
+                    transform: "translateY(0)",
+                    opacity: 1,
+                  },
                 }}
               >
-                <Typography
-                  variant="subtitle2"
-                  noWrap
-                  sx={{ flexGrow: 1, pl: 0.5 }}
+                {/* ─── thumbnail (lazy) ─────────────────────────── */}
+                <Box
+                  position="relative"
+                  sx={{ width: "100%", pt: ASPECT_16_9 }}
                 >
-                  {p.title}
-                </Typography>
-
-                <Tooltip title="Preview">
-                  <IconButton
-                    size="small"
-                    sx={{ color: "white" }}
+                  <Box
+                    component="img"
+                    src={getImg(p.img)}
+                    alt={p.title}
+                    loading="lazy"
+                    width={CARD_W}
+                    height={Math.round((CARD_W * 9) / 16)}
+                    sx={{
+                      position: "absolute",
+                      top: 0,
+                      left: 0,
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                    }}
                     onClick={() => preview(p)}
-                  >
-                    <VisibilityIcon fontSize="small" />
-                  </IconButton>
-                </Tooltip>
+                  />
+                </Box>
 
-                {p.link !== "#" && (
-                  <Tooltip title="Visit">
+                {/* overlay bar */}
+                <Box
+                  className="overlay"
+                  sx={{
+                    position: "absolute",
+                    bottom: 0,
+                    left: 0,
+                    width: "100%",
+                    height: 56,
+                    bgcolor: "rgba(0,0,0,0.7)",
+                    color: "white",
+                    display: "flex",
+                    alignItems: "center",
+                    px: 1,
+                    gap: 1,
+                    transform: "translateY(100%)",
+                    opacity: 0,
+                    transition: "all .25s",
+                  }}
+                >
+                  <Typography
+                    variant="subtitle2"
+                    noWrap
+                    sx={{ flexGrow: 1, pl: 0.5 }}
+                  >
+                    {p.title}
+                  </Typography>
+
+                  <Tooltip title="Preview">
                     <IconButton
                       size="small"
                       sx={{ color: "white" }}
-                      component="a"
-                      href={p.link}
-                      target="_blank"
-                      rel="noreferrer"
-                      onClick={(e) => e.stopPropagation()}
+                      onClick={() => preview(p)}
                     >
-                      <OpenInNewIcon fontSize="small" />
+                      <VisibilityIcon fontSize="small" />
                     </IconButton>
                   </Tooltip>
-                )}
-              </Box>
-            </Card>
-          </Grid>
-        ))}
-      </Grid>
 
-      {/* preview dialog */}
-      <Dialog
-        open={open}
-        onClose={() => setOpen(false)}
-        maxWidth="lg"
-        fullWidth
-        sx={{ ".MuiBackdrop-root": { backgroundColor: "rgba(0,0,0,.9)" } }}
-      >
-        <DialogTitle
-          sx={{
-            p: 1.2,
-            display: "flex",
-            justifyContent: "space-between",
+                  {p.link !== "#" && (
+                    <Tooltip title="Visit">
+                      <IconButton
+                        size="small"
+                        sx={{ color: "white" }}
+                        component="a"
+                        href={p.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        <OpenInNewIcon fontSize="small" />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                </Box>
+              </Card>
+            </Grid>
+          ))}
+        </Grid>
 
-            bgcolor: "#3a3a3a",
-            color: "#fff",
-          }}
+        {/* preview dialog */}
+        <Dialog
+          open={open}
+          onClose={() => setOpen(false)}
+          maxWidth="lg"
+          fullWidth
+          sx={{ ".MuiBackdrop-root": { backgroundColor: "rgba(0,0,0,.9)" } }}
         >
-          {modalTitle}
-          <IconButton onClick={() => setOpen(false)} sx={{ color: "#fff" }}>
-            <CloseIcon />
-          </IconButton>
-        </DialogTitle>
+          <DialogTitle
+            sx={{
+              p: 1.2,
+              display: "flex",
+              justifyContent: "space-between",
 
-        <DialogContent
-          sx={{
-            p: 0,
-            display: "flex",
-            justifyContent: "center",
-            bgcolor: "transparent",
-          }}
-        >
-          <Box
-            component="img"
-            src={modalImg}
-            alt={modalTitle}
-            sx={{ width: "100%", height: "auto" }}
-          />
-        </DialogContent>
-      </Dialog>
-    </Box>
+              bgcolor: "#3a3a3a",
+              color: "#fff",
+            }}
+          >
+            {modalTitle}
+            <IconButton onClick={() => setOpen(false)} sx={{ color: "#fff" }}>
+              <CloseIcon />
+            </IconButton>
+          </DialogTitle>
+
+          <DialogContent
+            sx={{
+              p: 0,
+              display: "flex",
+              justifyContent: "center",
+              bgcolor: "transparent",
+            }}
+          >
+            <Box
+              component="img"
+              src={modalImg}
+              alt={modalTitle}
+              sx={{ width: "100%", height: "auto" }}
+            />
+          </DialogContent>
+        </Dialog>
+      </Box>
+    </div>
   );
 }
