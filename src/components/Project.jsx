@@ -273,7 +273,7 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Food-Recipe-App/",
     cat: "app",
   },
-  { title: "Milad Web", img: "milad.png", link: "#", cat: "web" },
+  { title: "Milad Web 2", img: "milad.png", link: "#", cat: "web" },
 
   {
     title: "Expense Tracker",
@@ -361,7 +361,7 @@ const PROJECTS = [
     cat: "web",
   },
   {
-    title: "Quiz App (alt.)",
+    title: "Quiz App 1",
     img: "Quiz-App1.png",
     link: "https://miladmo68.github.io/Quiz-App/",
     cat: "app",
@@ -453,7 +453,7 @@ export default function Project() {
         {/* project grid */}
         <Grid container spacing={4} justifyContent="center">
           {visible.map((p) => (
-            <Grid item key={p.title}>
+            <Grid key={p.title}>
               <Card
                 elevation={4}
                 sx={{

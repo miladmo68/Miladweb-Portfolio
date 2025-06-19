@@ -1,48 +1,90 @@
-.contact_wrapper svg {
-  font-size: 1em;
-  vertical-align: middle;
-  margin-right: 5px;
+// CONTACT SECTION STYLING
+.contact_wrapper {
+  svg {
+    font-size: 1.2em;
+    vertical-align: middle;
+    margin-right: 8px;
+    color: #5000ca; // Add accent color
+  }
 }
 
+// FORM STYLING
 .contact-form {
-  padding-top: 20px;
+  padding-top: 2rem;
 
   button {
     float: right;
-    background-color: white;
-    color: #050f0b;
-  }
+    padding: 10px 20px;
+    background-color: #ffffff;
+    color: #3700a0;
+    font-weight: 600;
+    text-transform: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(80, 0, 202, 0.2);
+    transition: background-color 0.3s ease, color 0.3s ease;
 
-  button:hover {
-    background-color: #5000ca;
-    color: white;
+    &:hover {
+      background-color: #3700a0;
+      color: #fff;
+    }
   }
 
   fieldset {
-    background-color: white;
+    background-color: transparent;
   }
 }
 
+// LABEL STYLING
 label {
-  font-size: 1.2rem;
-  font-family: 'DomaineDispNar-Medium', sans-serif;
+  font-size: 1rem;
+  font-family: "DomaineDispNar-Medium", sans-serif;
+  color: #333;
 }
 
+// FORM FLEX GROUP
 .form-flex {
   display: flex;
-  gap: 15px;
-  padding-bottom: 15px;
-}
+  gap: 1rem;
+  padding-bottom: 1rem;
 
-.form-flex .MuiFormControl-root {
-  width: 100%;
+  .MuiFormControl-root {
+    width: 100%;
+  }
 }
 
 form {
   width: 100% !important;
+  color: #000;
 }
 
 .body-form {
   width: 100% !important;
-  margin-bottom: 15px !important;
+  margin-bottom: 1rem !important;
+}
+
+// INPUT & TEXTAREA THEMING
+.contact-form {
+  .MuiOutlinedInput-root {
+    border-radius: 8px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .MuiOutlinedInput-input,
+  input,
+  textarea {
+    font-size: 1rem;
+    padding: 0.75rem;
+    color: #0d1116 !important;
+    // background-color: #ffffff !important;
+  }
+
+  .MuiInputLabel-root {
+    font-size: 1rem;
+    color: #666;
+  }
+
+  .MuiFormHelperText-root {
+    font-size: 0.85rem;
+    color: #5000ca; // error color
+  }
 }
