@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
 import "../assets/styles/Contact.scss";
 
@@ -13,31 +13,41 @@ import {
 import SendIcon from "@mui/icons-material/Send";
 
 export default function Contact() {
-  /* theme for dark / light colour choice  ------------------- */
   const theme = useTheme();
   const isDark = theme.palette.mode === "dark";
   const inputTextColor = isDark ? "#fff" : "#000";
   const inputBgColor = isDark ? "#1e1e1e" : "#fff";
 
-  /* form state ---------------------------------------------- */
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
-
   const [err, setErr] = useState({ name: false, email: false, message: false });
-
-  /* toast feedback ------------------------------------------ */
   const [snack, setSnack] = useState({ open: false, ok: true });
 
-  /* EmailJS env vars ---------------------------------------- */
+  // CAPTCHA
+  const [captcha, setCaptcha] = useState({ question: "", answer: 0 });
+  const [userCaptcha, setUserCaptcha] = useState("");
+  const [captchaError, setCaptchaError] = useState(false);
+
   const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID;
   const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
   const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
+
+  const generateCaptcha = () => {
+    const a = Math.floor(Math.random() * 10);
+    const b = Math.floor(Math.random() * 10);
+    setCaptcha({ question: `${a} + ${b}`, answer: a + b });
+    setUserCaptcha("");
+    setCaptchaError(false);
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    /* required-field validation */
     const bad = {
       name: name.trim() === "",
       email: email.trim() === "",
@@ -46,7 +56,11 @@ export default function Contact() {
     setErr(bad);
     if (bad.name || bad.email || bad.message) return;
 
-    /* try to send ------------------------------------------------ */
+    if (parseInt(userCaptcha) !== captcha.answer) {
+      setCaptchaError(true);
+      return;
+    }
+
     try {
       await emailjs.send(
         SERVICE_ID,
@@ -55,18 +69,17 @@ export default function Contact() {
         PUBLIC_KEY
       );
 
-      /* success */
       setName("");
       setEmail("");
       setMessage("");
+      generateCaptcha(); // reset CAPTCHA
       setSnack({ open: true, ok: true });
     } catch (error) {
-      console.error("EmailJS error →", error); // <-- look here if it fails
+      console.error("EmailJS error →", error);
       setSnack({ open: true, ok: false });
     }
   };
 
-  /* reusable props for all TextFields (visible text!) -------- */
   const commonInputProps = {
     variant: "outlined",
     fullWidth: true,
@@ -83,12 +96,12 @@ export default function Contact() {
             Contact
           </h1>
 
-          <p className=" flex items-center justify-center">
+          <p className="flex items-center justify-center text-center">
             Have a digital vision? Let’s make it a reality! Feel free to reach
             out and I’ll reply promptly.
           </p>
 
-          {/* contact form -------------------------------------- */}
+          {/* Contact Form */}
           <Box
             component="form"
             noValidate
@@ -128,21 +141,52 @@ export default function Contact() {
               error={err.message}
               helperText={err.message && "Please enter your message"}
               onChange={(e) => setMessage(e.target.value)}
+              sx={{ mt: 2 }}
             />
 
-            <Button
-              type="submit"
-              variant="contained"
-              sx={{ mt: 2 }}
-              endIcon={<SendIcon />}
+            {/* CAPTCHA and Submit */}
+            <Box
+              mt={3}
+              display="flex"
+              flexDirection={{ xs: "column", md: "row" }}
+              justifyContent={{ md: "space-between" }}
+              alignItems="center"
+              gap={2}
             >
-              Send
-            </Button>
+              <TextField
+                {...commonInputProps}
+                fullWidth={false}
+                size="small"
+                required
+                label={`What is ${captcha.question}?`}
+                value={userCaptcha}
+                error={captchaError}
+                helperText={captchaError && "Incorrect answer, try again."}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  if (/^\d*$/.test(val)) {
+                    setUserCaptcha(val);
+                    setCaptchaError(false);
+                  }
+                }}
+                sx={{ width: "150px" }}
+              />
+
+              <Button
+                type="submit"
+                variant="contained"
+                size="small"
+                endIcon={<SendIcon />}
+                className="whitespace-nowrap"
+              >
+                Send
+              </Button>
+            </Box>
           </Box>
         </div>
       </div>
 
-      {/* toast ------------------------------------------------ */}
+      {/* Snackbar Feedback */}
       <Snackbar
         open={snack.open}
         autoHideDuration={4000}
