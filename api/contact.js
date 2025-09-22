@@ -1,7 +1,7 @@
-// api/contact.js  (CommonJS – مناسب وقتی package.json فاقد "type":"module" است)
-const nodemailer = require("nodemailer");
+// api/contact.js  (ESM چون package.json → "type":"module")
+import nodemailer from "nodemailer";
 
-// خواندن JSON در سرورلس
+// read JSON (Vercel + Vite)
 async function readJsonBody(req) {
   return await new Promise((resolve, reject) => {
     let data = "";
@@ -17,7 +17,7 @@ async function readJsonBody(req) {
   });
 }
 
-module.exports = async (req, res) => {
+export default async function handler(req, res) {
   if (req.method !== "POST") {
     res.status(405).json({ error: "Method not allowed" });
     return;
@@ -47,27 +47,27 @@ module.exports = async (req, res) => {
   if (!SMTP_HOST || !SMTP_USER || !SMTP_PASS || !TO_EMAIL) {
     res.status(500).json({
       error: "Server not configured",
-      hint: "Check env vars: SMTP_HOST/PORT/USER/PASS and TO_EMAIL (Targets: Production/Preview).",
+      hint: "Check env: SMTP_HOST/PORT/USER/PASS, TO_EMAIL (All Environments).",
     });
     return;
   }
 
   const port = Number(SMTP_PORT);
-  const secure = port === 465;
+  const secure = port === 465; // SSL on 465
 
   try {
-    // پیکربندی ساده‌تر: gmail
     const transporter = nodemailer.createTransport({
-      host: SMTP_HOST, // smtp.gmail.com
+      host: SMTP_HOST,
       port,
-      secure, // 465 → true
+      secure,
       auth: { user: SMTP_USER, pass: SMTP_PASS },
     });
 
-    await transporter.verify(); // اگر مشکلی در لاگین/اتصال باشد همین‌جا می‌افتد
+    // clearer errors if auth/network wrong
+    await transporter.verify();
 
     await transporter.sendMail({
-      from: `"${name}" <${SMTP_USER}>`, // Gmail می‌خواهد فرستنده همون کاربر احراز شده باشد
+      from: `"${name}" <${SMTP_USER}>`, // Gmail wants the authenticated user here
       to: TO_EMAIL,
       subject: `New message — ${name}`,
       text: `From: ${name} <${email}>\n\n${message}`,
@@ -78,18 +78,16 @@ module.exports = async (req, res) => {
 
     res.status(200).json({ ok: true });
   } catch (err) {
-    let hint = "Open Vercel → Functions → Logs for full error.";
+    let hint = "Open Vercel → Functions → Logs.";
     if (err?.message?.includes("Invalid login") || err?.code === "EAUTH") {
       hint =
-        "EAUTH: Check SMTP_USER & SMTP_PASS (App Password for the SAME account, 16 chars, NO SPACES).";
+        "EAUTH: Check SMTP_USER & SMTP_PASS (App Password 16 chars, NO SPACES).";
     } else if (err?.code === "ESOCKET" || err?.code === "ETIMEDOUT") {
       hint =
-        "Network/port: Use SMTP_HOST=smtp.gmail.com and SMTP_PORT=465 (or try 587 with secure:false).";
-    } else if (/nodemailer/.test(String(err))) {
-      hint = "Make sure 'nodemailer' is installed and in package.json.";
+        "Connection: Use SMTP_HOST=smtp.gmail.com, SMTP_PORT=465 (or try 587).";
     }
     res
       .status(500)
       .json({ error: "Send failed", code: err.code || null, hint });
   }
-};
+}
