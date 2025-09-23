@@ -138,7 +138,12 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/Image-Gallery/",
     cat: "app",
   },
-  { title: "Zarsa Gold", img: "zarsagold.jpg", link: "#", cat: "web" },
+  {
+    title: "Zarsa Gold",
+    img: "zarsagold.jpg",
+    link: "https://miladmo68.github.io/zarsa1/",
+    cat: "web",
+  },
   {
     title: "Countdown App",
     img: "Countdown.png",
