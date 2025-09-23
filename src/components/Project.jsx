@@ -87,7 +87,7 @@ const PROJECTS = [
   {
     title: "Tarahan Choob",
     img: "tarahanchoob.jpg",
-    link: "https://tarahanchoob.com/",
+    link: "#",
     cat: "web",
   },
   {
