@@ -67,9 +67,9 @@ const PROJECTS = [
     cat: "app",
   },
   {
-    title: "Fair Construction",
-    img: "fairconstruction.jpg",
-    link: "https://fairconstruction.ca/",
+    title: "Milink",
+    img: "Milink.png",
+    link: "https://milink.ca/",
     cat: "web",
   },
   {
@@ -78,6 +78,13 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/User-Directory/",
     cat: "app",
   },
+  {
+    title: "Fair Construction",
+    img: "fairconstruction.jpg",
+    link: "https://fairconstruction.ca/",
+    cat: "web",
+  },
+
   {
     title: "Note App",
     img: "NoteApp.png",
