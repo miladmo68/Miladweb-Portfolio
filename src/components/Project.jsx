@@ -1,7 +1,3 @@
-// ──────────────────────────────────────────────────────────────
-// src/components/Project.jsx
-// uniform 16 : 9 cards • slide-up overlay • native image lazy-loading
-// ──────────────────────────────────────────────────────────────
 import React, { useState } from "react";
 import {
   Box,
@@ -43,8 +39,8 @@ const PROJECTS = [
     cat: "app",
   },
   {
-    title: "Zarsa Gold",
-    img: "zarsagold.png",
+    title: "Zarsa2 Gold",
+    img: "zarsagold2.png",
     link: "https://zarsa2.vercel.app/",
     cat: "web",
   },
