@@ -39,7 +39,7 @@ const PROJECTS = [
     cat: "app",
   },
   {
-    title: "Zarsa2 Gold",
+    title: "Zarsa Gold2",
     img: "zarsagold2.png",
     link: "https://zarsa2.vercel.app/",
     cat: "web",
