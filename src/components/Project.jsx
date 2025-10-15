@@ -43,6 +43,12 @@ const PROJECTS = [
     cat: "app",
   },
   {
+    title: "Zarsa Gold",
+    img: "zarsagold.png",
+    link: "https://zarsa2.vercel.app/",
+    cat: "web",
+  },
+  {
     title: "Tic-Tac-Toe",
     img: "tic-tac-toe.png",
     link: "https://miladmo68.github.io/tic-tac-toe/",
