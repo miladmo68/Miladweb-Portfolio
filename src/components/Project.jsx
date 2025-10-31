@@ -45,6 +45,12 @@ const PROJECTS = [
     cat: "web",
   },
   {
+    title: "Kind Steps",
+    img: "kindsteps.png",
+    link: "https://kindsteps.ca/",
+    cat: "web",
+  },
+  {
     title: "Tic-Tac-Toe",
     img: "tic-tac-toe.png",
     link: "https://miladmo68.github.io/tic-tac-toe/",
