@@ -111,11 +111,12 @@
 //     };
 //   }, [isLight]);
 
-//   // ✅ Logo sizes (desktop unchanged)
+//   // ✅ Logo sizes
 //   const LOGO_DESKTOP = 84;
-//   // ✅ Mobile = مثل عکس دوم (جمع‌وجورتر)
-//   const LOGO_MOBILE = 56; // ⬅️ کوچیک‌تر مثل MILINK
-//   const LOGO_DRAWER = 84;
+//   const LOGO_MOBILE = 56;
+
+//   // ✅ Drawer header logo (ONLY mobile) کوچیک‌تر شد
+//   const LOGO_DRAWER = 64; // قبلاً 84 بود
 
 //   const drawerWidth = "min(380px, 90vw)";
 
@@ -152,6 +153,7 @@
 //               border: "none",
 //               boxShadow: "none",
 //               display: "block",
+//               flexShrink: 0,
 //             }}
 //           />
 //           <Box sx={{ lineHeight: 1.05 }}>
@@ -322,9 +324,7 @@
 //     "&:hover": {
 //       background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.06)",
 //     },
-//     "&:hover:after": {
-//       transform: "scaleX(1)",
-//     },
+//     "&:hover:after": { transform: "scaleX(1)" },
 //   };
 
 //   const DesktopThemeButton = (
@@ -350,7 +350,6 @@
 //     </IconButton>
 //   );
 
-//   // ✅ Burger = مثل عکس دوم (کوچیک‌تر و دقیق‌تر)
 //   const BurgerButton = (
 //     <IconButton
 //       onClick={handleDrawerToggle}
@@ -391,7 +390,6 @@
 //   return (
 //     <Box sx={{ width: "100%", overflowX: "hidden" }}>
 //       <CssBaseline />
-
 //       {/* ✅ Desktop Navbar (unchanged) */}
 //       <AppBar
 //         component="nav"
@@ -492,8 +490,7 @@
 //           </Box>
 //         </Toolbar>
 //       </AppBar>
-
-//       {/* ✅ Mobile pill bar (UPDATED: مثل عکس دوم) */}
+//       {/* ✅ Mobile pill bar (top فاصله بیشتر شد) */}
 //       <AppBar
 //         component="nav"
 //         elevation={0}
@@ -501,16 +498,16 @@
 //           display: { xs: "block", sm: "none" },
 //           background: "transparent",
 //           boxShadow: "none",
-//           pt: 1.4, // ✅ کمتر
-//           left: 14, // ✅ مثل عکس دوم
-//           right: 14, // ✅ مثل عکس دوم
+//           top: 14, // ✅ فاصله از بالا بیشتر
+//           left: 14,
+//           right: 14,
 //           width: "auto",
 //         }}
 //       >
 //         <Toolbar
 //           sx={{
-//             minHeight: "74px !important", // ✅ کوتاه‌تر
-//             px: 1.6, // ✅ padding کمتر
+//             minHeight: "74px !important",
+//             px: 1.6,
 //             borderRadius: "26px",
 //             border: isLight
 //               ? "1px solid rgba(0,0,0,0.10)"
@@ -570,7 +567,7 @@
 //                   fontWeight: 950,
 //                   letterSpacing: ".07em",
 //                   color: styles.TEXT,
-//                   fontSize: 14, // ✅ کوچیک‌تر
+//                   fontSize: 14,
 //                   whiteSpace: "nowrap",
 //                   overflow: "hidden",
 //                   textOverflow: "ellipsis",
@@ -579,7 +576,6 @@
 //                 MiladWeb
 //               </Box>
 
-//               {/* ✅ subtitle مثل عکس دوم (کم‌رنگ و کوچیک) */}
 //               {!scrolled && (
 //                 <Box
 //                   sx={{
@@ -600,10 +596,9 @@
 //           {BurgerButton}
 //         </Toolbar>
 //       </AppBar>
-
-//       {/* ✅ Mobile spacer (UPDATED) */}
-//       <Box sx={{ display: { xs: "block", sm: "none" }, height: 86 }} />
-
+//       {/* ✅ Mobile spacer (bottom margin کمتر شد) */}
+//       <Box sx={{ display: { xs: "block", sm: "none" }, height: 72 }} />{" "}
+//       {/* قبلاً 86 بود */}
 //       {/* Mobile Drawer */}
 //       <Drawer
 //         anchor="right"
@@ -677,7 +672,6 @@ function Navigation({ parentToChild, modeChange }) {
 
   const handleDrawerToggle = () => setMobileOpen((p) => !p);
 
-  // ✅ prevent horizontal scroll
   useEffect(() => {
     const prev = document.body.style.overflowX;
     document.body.style.overflowX = "hidden";
@@ -692,7 +686,6 @@ function Navigation({ parentToChild, modeChange }) {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // ✅ active section highlight
   useEffect(() => {
     const ids = navItems.map(([, id]) => id);
     const sections = ids
@@ -753,12 +746,10 @@ function Navigation({ parentToChild, modeChange }) {
     };
   }, [isLight]);
 
-  // ✅ Logo sizes
+  // sizes
   const LOGO_DESKTOP = 84;
   const LOGO_MOBILE = 56;
-
-  // ✅ Drawer header logo (ONLY mobile) کوچیک‌تر شد
-  const LOGO_DRAWER = 64; // قبلاً 84 بود
+  const LOGO_DRAWER = 56; // ✅ کوچیک‌تر
 
   const drawerWidth = "min(380px, 90vw)";
 
@@ -767,21 +758,23 @@ function Navigation({ parentToChild, modeChange }) {
       {/* Header */}
       <Box
         sx={{
-          mb: 2,
-          p: 1.5,
+          mb: 1.6, // ✅ کمتر
+          p: 1.15, // ✅ کمتر
           borderRadius: 2.5,
           background: styles.CARD_BG,
           border: `1px solid ${styles.BORDER}`,
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
-          gap: 1.5,
+          gap: 1.2,
           boxShadow: isLight
             ? "0 10px 22px rgba(0,0,0,0.10)"
             : "0 10px 22px rgba(0,0,0,0.35)",
         }}
       >
-        <Box sx={{ display: "flex", alignItems: "center", gap: 1.2 }}>
+        <Box
+          sx={{ display: "flex", alignItems: "center", gap: 1.0, minWidth: 0 }}
+        >
           <Box
             component="img"
             src="/favicon.png"
@@ -798,17 +791,31 @@ function Navigation({ parentToChild, modeChange }) {
               flexShrink: 0,
             }}
           />
-          <Box sx={{ lineHeight: 1.05 }}>
+
+          <Box sx={{ lineHeight: 1.05, minWidth: 0 }}>
             <Box
               sx={{
                 fontWeight: 950,
                 letterSpacing: ".08em",
                 color: styles.TEXT,
+                fontSize: 14, // ✅ خط اول کوچیک‌تر
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
               }}
             >
               MiladWeb
             </Box>
-            <Box sx={{ fontSize: 12, color: styles.MUTED, fontWeight: 700 }}>
+            <Box
+              sx={{
+                fontSize: 11, // ✅ کوچیک‌تر
+                color: styles.MUTED,
+                fontWeight: 700,
+                whiteSpace: "nowrap",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+              }}
+            >
               Full Stack Developer
             </Box>
           </Box>
@@ -818,8 +825,8 @@ function Navigation({ parentToChild, modeChange }) {
           onClick={handleDrawerToggle}
           sx={{
             color: styles.TEXT,
-            width: 44,
-            height: 44,
+            width: 42,
+            height: 42,
             borderRadius: 2,
             border: `1px solid ${styles.BORDER}`,
             background: isLight
@@ -832,11 +839,11 @@ function Navigation({ parentToChild, modeChange }) {
         </IconButton>
       </Box>
 
-      {/* Theme Toggle (ONLY inside drawer ✅) */}
+      {/* Theme Toggle */}
       <Box
         sx={{
-          mb: 1.5,
-          p: 1.2,
+          mb: 1.4,
+          p: 1.1,
           borderRadius: 2,
           background: styles.CARD_BG,
           border: `1px solid ${styles.BORDER}`,
@@ -852,8 +859,8 @@ function Navigation({ parentToChild, modeChange }) {
           onClick={modeChange}
           sx={{
             color: styles.TEXT,
-            width: 44,
-            height: 44,
+            width: 42,
+            height: 42,
             borderRadius: 2,
             border: `1px solid ${styles.BORDER}`,
             background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.06)",
@@ -940,7 +947,6 @@ function Navigation({ parentToChild, modeChange }) {
     </Box>
   );
 
-  // ✅ Desktop hover EXACT like before
   const desktopBtnSx = {
     color: styles.TEXT,
     textTransform: "none",
@@ -1032,7 +1038,8 @@ function Navigation({ parentToChild, modeChange }) {
   return (
     <Box sx={{ width: "100%", overflowX: "hidden" }}>
       <CssBaseline />
-      {/* ✅ Desktop Navbar (unchanged) */}
+
+      {/* Desktop */}
       <AppBar
         component="nav"
         id="navigation"
@@ -1057,7 +1064,6 @@ function Navigation({ parentToChild, modeChange }) {
             gap: 2,
           }}
         >
-          {/* Brand */}
           <Box
             onClick={() => scrollToSection("home")}
             sx={{
@@ -1073,8 +1079,8 @@ function Navigation({ parentToChild, modeChange }) {
               src="/favicon.png"
               alt="MiladWeb logo"
               sx={{
-                width: LOGO_DESKTOP,
-                height: LOGO_DESKTOP,
+                width: 84,
+                height: 84,
                 borderRadius: "50%",
                 objectFit: "contain",
                 background: "transparent",
@@ -1094,7 +1100,6 @@ function Navigation({ parentToChild, modeChange }) {
               >
                 MiladWeb
               </Box>
-
               {!scrolled && (
                 <Box
                   sx={{ fontSize: 12, color: styles.MUTED, fontWeight: 700 }}
@@ -1105,7 +1110,6 @@ function Navigation({ parentToChild, modeChange }) {
             </Box>
           </Box>
 
-          {/* Menu + Theme */}
           <Box sx={{ display: "flex", alignItems: "center", gap: 1.2 }}>
             <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
               {navItems.map(([label, id]) => {
@@ -1127,12 +1131,12 @@ function Navigation({ parentToChild, modeChange }) {
                 );
               })}
             </Box>
-
             {DesktopThemeButton}
           </Box>
         </Toolbar>
       </AppBar>
-      {/* ✅ Mobile pill bar (top فاصله بیشتر شد) */}
+
+      {/* Mobile pill (top بیشتر) */}
       <AppBar
         component="nav"
         elevation={0}
@@ -1140,7 +1144,7 @@ function Navigation({ parentToChild, modeChange }) {
           display: { xs: "block", sm: "none" },
           background: "transparent",
           boxShadow: "none",
-          top: 14, // ✅ فاصله از بالا بیشتر
+          top: 22, // ✅ بیشتر
           left: 14,
           right: 14,
           width: "auto",
@@ -1238,10 +1242,11 @@ function Navigation({ parentToChild, modeChange }) {
           {BurgerButton}
         </Toolbar>
       </AppBar>
-      {/* ✅ Mobile spacer (bottom margin کمتر شد) */}
-      <Box sx={{ display: { xs: "block", sm: "none" }, height: 72 }} />{" "}
-      {/* قبلاً 86 بود */}
-      {/* Mobile Drawer */}
+
+      {/* Mobile spacer (پایین کمتر) */}
+      <Box sx={{ display: { xs: "block", sm: "none" }, height: 62 }} />
+
+      {/* Drawer */}
       <Drawer
         anchor="right"
         variant="temporary"
