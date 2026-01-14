@@ -126,10 +126,10 @@
 //     };
 //   }, [isLight]);
 
-//   // ✅ BIGGER LOGO SIZES (change only here 👇)
-//   const LOGO_DESKTOP = 56; // was 46
-//   const LOGO_MOBILE = 54; // was 44
-//   const LOGO_DRAWER = 60; // was 52
+//   // ✅ MUCH BIGGER LOGO (change only here)
+//   const LOGO_DESKTOP = 72; // 🔥 bigger
+//   const LOGO_MOBILE = 68; // 🔥 bigger
+//   const LOGO_DRAWER = 72; // 🔥 bigger
 
 //   const drawerWidth = "min(380px, 90vw)";
 
@@ -369,8 +369,8 @@
 //       onClick={handleDrawerToggle}
 //       aria-label="open menu"
 //       sx={{
-//         width: 52,
-//         height: 52,
+//         width: 56,
+//         height: 56,
 //         borderRadius: "999px",
 //         position: "relative",
 //         border: isLight
@@ -430,7 +430,7 @@
 //             mx: "auto",
 //             width: "100%",
 //             maxWidth: 1200,
-//             minHeight: "88px !important", // ✅ bigger for big logo
+//             minHeight: "104px !important", // ✅ more height for huge logo
 //             display: "flex",
 //             alignItems: "center",
 //             justifyContent: "space-between",
@@ -443,7 +443,7 @@
 //             sx={{
 //               display: "flex",
 //               alignItems: "center",
-//               gap: 1.4,
+//               gap: 1.6,
 //               cursor: "pointer",
 //               userSelect: "none",
 //             }}
@@ -529,7 +529,7 @@
 //       >
 //         <Toolbar
 //           sx={{
-//             minHeight: "80px !important", // ✅ bigger for big logo
+//             minHeight: "92px !important", // ✅ more height for huge logo
 //             px: 2,
 //             borderRadius: "28px",
 //             border: styles.MOBILE_PILL_BORDER,
@@ -596,7 +596,7 @@
 //       </AppBar>
 
 //       {/* Mobile spacer */}
-//       <Box sx={{ display: { xs: "block", sm: "none" }, height: 64 }} />
+//       <Box sx={{ display: { xs: "block", sm: "none" }, height: 76 }} />
 
 //       {/* Mobile Drawer */}
 //       <Drawer
@@ -617,7 +617,7 @@
 //         PaperProps={{
 //           sx: {
 //             boxSizing: "border-box",
-//             width: "min(380px, 90vw)",
+//             width: drawerWidth,
 //             height: "100dvh",
 //             background: styles.DRAWER_BG,
 //             borderLeft: `1px solid ${styles.BORDER}`,
@@ -735,18 +735,6 @@ function Navigation({ parentToChild, modeChange }) {
 
     const CARD_BG = isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.06)";
 
-    const MOBILE_PILL_BG = isLight
-      ? "radial-gradient(160% 140% at 85% 20%, rgba(0,118,255,0.10) 0%, rgba(0,118,255,0) 60%), linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245,247,255,0.86))"
-      : "radial-gradient(160% 140% at 85% 20%, rgba(0,118,255,0.10) 0%, rgba(0,118,255,0) 60%), linear-gradient(180deg, rgba(26,30,40,0.92), rgba(14,18,28,0.88))";
-
-    const MOBILE_PILL_BORDER = isLight
-      ? "1px solid rgba(0,0,0,0.08)"
-      : "1px solid rgba(255,255,255,0.10)";
-
-    const MOBILE_PILL_SHADOW = isLight
-      ? "0 8px 24px rgba(0,0,0,0.12), 0 0 28px rgba(0,118,255,0.14), inset 0 1px 2px rgba(255,255,255,0.22)"
-      : "0 8px 24px rgba(0,0,0,0.45), 0 0 28px rgba(0,118,255,0.20), inset 0 1px 2px rgba(255,255,255,0.06)";
-
     return {
       TEXT,
       MUTED,
@@ -756,16 +744,14 @@ function Navigation({ parentToChild, modeChange }) {
       SHADOW,
       DRAWER_BG,
       CARD_BG,
-      MOBILE_PILL_BG,
-      MOBILE_PILL_BORDER,
-      MOBILE_PILL_SHADOW,
     };
   }, [isLight]);
 
-  // ✅ MUCH BIGGER LOGO (change only here)
-  const LOGO_DESKTOP = 72; // 🔥 bigger
-  const LOGO_MOBILE = 68; // 🔥 bigger
-  const LOGO_DRAWER = 72; // 🔥 bigger
+  // ✅ Logo sizes (desktop unchanged)
+  const LOGO_DESKTOP = 72;
+  // ✅ Mobile = مثل عکس دوم (جمع‌وجورتر)
+  const LOGO_MOBILE = 44; // ⬅️ کوچیک‌تر مثل MILINK
+  const LOGO_DRAWER = 72;
 
   const drawerWidth = "min(380px, 90vw)";
 
@@ -1000,38 +986,32 @@ function Navigation({ parentToChild, modeChange }) {
     </IconButton>
   );
 
+  // ✅ Burger = مثل عکس دوم (کوچیک‌تر و دقیق‌تر)
   const BurgerButton = (
     <IconButton
       onClick={handleDrawerToggle}
       aria-label="open menu"
       sx={{
-        width: 56,
-        height: 56,
+        width: 46,
+        height: 46,
         borderRadius: "999px",
         position: "relative",
         border: isLight
-          ? "1px solid rgba(0,0,0,0.10)"
-          : "1px solid rgba(255,255,255,0.12)",
+          ? "1px solid rgba(0,0,0,0.12)"
+          : "1px solid rgba(255,255,255,0.14)",
         background: isLight
-          ? "radial-gradient(120% 120% at 30% 20%, rgba(0,96,255,0.10), rgba(255,255,255,0.92) 55%), linear-gradient(180deg, #FFFFFF, #F2F6FF)"
-          : "radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,0.25), rgba(255,255,255,0.05) 60%), linear-gradient(180deg, #0E1422, #0A101B)",
+          ? "linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245,248,255,0.86))"
+          : "linear-gradient(180deg, rgba(12,16,26,0.78), rgba(10,14,23,0.70))",
         boxShadow: isLight
-          ? `inset 0 1px 2px rgba(255,255,255,0.70),
-             0 0 0 2px rgba(0,0,0,0.06),
-             0 0 0 4px rgba(0,96,255,0.18),
-             0 14px 34px rgba(0,0,0,0.14)`
-          : `inset 0 1px 2px rgba(255,255,255,0.10),
-             0 0 0 2px rgba(255,255,255,0.20),
-             0 0 0 4px rgba(0,107,206,0.45),
-             0 16px 40px rgba(0,0,0,0.35)`,
+          ? "0 10px 24px rgba(0,0,0,0.12), 0 0 0 3px rgba(0,96,255,0.16)"
+          : "0 12px 28px rgba(0,0,0,0.40), 0 0 0 3px rgba(0,107,206,0.45)",
         "&:before": {
           content: '""',
           position: "absolute",
-          inset: 0,
+          inset: -3,
           borderRadius: "999px",
-          boxShadow: isLight
-            ? "0 0 22px rgba(0,96,255,0.18)"
-            : "0 0 26px rgba(0,107,206,0.45)",
+          border: "2px solid rgba(0,96,255,0.55)",
+          opacity: 0.75,
           pointerEvents: "none",
         },
       }}
@@ -1048,7 +1028,7 @@ function Navigation({ parentToChild, modeChange }) {
     <Box sx={{ width: "100%", overflowX: "hidden" }}>
       <CssBaseline />
 
-      {/* ✅ Desktop Navbar */}
+      {/* ✅ Desktop Navbar (unchanged) */}
       <AppBar
         component="nav"
         id="navigation"
@@ -1066,7 +1046,7 @@ function Navigation({ parentToChild, modeChange }) {
             mx: "auto",
             width: "100%",
             maxWidth: 1200,
-            minHeight: "104px !important", // ✅ more height for huge logo
+            minHeight: "104px !important",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -1149,7 +1129,7 @@ function Navigation({ parentToChild, modeChange }) {
         </Toolbar>
       </AppBar>
 
-      {/* ✅ Mobile pill bar */}
+      {/* ✅ Mobile pill bar (UPDATED: مثل عکس دوم) */}
       <AppBar
         component="nav"
         elevation={0}
@@ -1157,21 +1137,27 @@ function Navigation({ parentToChild, modeChange }) {
           display: { xs: "block", sm: "none" },
           background: "transparent",
           boxShadow: "none",
-          pt: 2.0,
-          left: 12,
-          right: 12,
+          pt: 1.4, // ✅ کمتر
+          left: 14, // ✅ مثل عکس دوم
+          right: 14, // ✅ مثل عکس دوم
           width: "auto",
         }}
       >
         <Toolbar
           sx={{
-            minHeight: "92px !important", // ✅ more height for huge logo
-            px: 2,
-            borderRadius: "28px",
-            border: styles.MOBILE_PILL_BORDER,
-            background: styles.MOBILE_PILL_BG,
-            boxShadow: styles.MOBILE_PILL_SHADOW,
-            backdropFilter: "blur(12px)",
+            minHeight: "74px !important", // ✅ کوتاه‌تر
+            px: 1.6, // ✅ padding کمتر
+            borderRadius: "26px",
+            border: isLight
+              ? "1px solid rgba(0,0,0,0.10)"
+              : "1px solid rgba(255,255,255,0.12)",
+            background: isLight
+              ? "linear-gradient(180deg, rgba(255,255,255,0.86), rgba(245,248,255,0.80))"
+              : "linear-gradient(180deg, rgba(12,16,26,0.74), rgba(10,14,23,0.70))",
+            boxShadow: isLight
+              ? "0 14px 34px rgba(0,0,0,0.12), 0 0 28px rgba(0,96,255,0.10)"
+              : "0 16px 40px rgba(0,0,0,0.48), 0 0 32px rgba(0,107,206,0.26)",
+            backdropFilter: "blur(14px)",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -1180,16 +1166,23 @@ function Navigation({ parentToChild, modeChange }) {
             "&:before": {
               content: '""',
               position: "absolute",
-              inset: -40,
+              inset: -50,
               background:
-                "radial-gradient(220px 90px at 20% 10%, rgba(0,96,255,0.18), transparent 70%)",
+                "radial-gradient(260px 100px at 18% 12%, rgba(0,96,255,0.18), transparent 70%)",
               filter: "blur(18px)",
               opacity: 0.9,
               pointerEvents: "none",
             },
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.2 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 1.1,
+              minWidth: 0,
+            }}
+          >
             <Box
               component="img"
               src="/favicon.png"
@@ -1197,29 +1190,42 @@ function Navigation({ parentToChild, modeChange }) {
               sx={{
                 width: LOGO_MOBILE,
                 height: LOGO_MOBILE,
-                borderRadius: 2,
+                borderRadius: "14px",
                 objectFit: "contain",
                 background: "transparent",
                 border: "none",
                 boxShadow: "none",
                 display: "block",
+                flexShrink: 0,
               }}
             />
-            <Box sx={{ lineHeight: 1.05 }}>
+
+            <Box sx={{ lineHeight: 1.05, minWidth: 0 }}>
               <Box
                 sx={{
                   fontWeight: 950,
-                  letterSpacing: ".08em",
+                  letterSpacing: ".07em",
                   color: styles.TEXT,
-                  fontSize: 15,
+                  fontSize: 14, // ✅ کوچیک‌تر
+                  whiteSpace: "nowrap",
+                  overflow: "hidden",
+                  textOverflow: "ellipsis",
                 }}
               >
                 MiladWeb
               </Box>
 
+              {/* ✅ subtitle مثل عکس دوم (کم‌رنگ و کوچیک) */}
               {!scrolled && (
                 <Box
-                  sx={{ color: styles.MUTED, fontSize: 12, fontWeight: 700 }}
+                  sx={{
+                    color: styles.MUTED,
+                    fontSize: 11.5,
+                    fontWeight: 700,
+                    whiteSpace: "nowrap",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                  }}
                 >
                   Full Stack Developer
                 </Box>
@@ -1231,8 +1237,8 @@ function Navigation({ parentToChild, modeChange }) {
         </Toolbar>
       </AppBar>
 
-      {/* Mobile spacer */}
-      <Box sx={{ display: { xs: "block", sm: "none" }, height: 76 }} />
+      {/* ✅ Mobile spacer (UPDATED) */}
+      <Box sx={{ display: { xs: "block", sm: "none" }, height: 86 }} />
 
       {/* Mobile Drawer */}
       <Drawer
