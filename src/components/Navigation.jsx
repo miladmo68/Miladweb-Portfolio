@@ -126,10 +126,10 @@
 //     };
 //   }, [isLight]);
 
-//   // ✅ LOGO SIZES (only change here 👇)
-//   const LOGO_DESKTOP = 46; // was 40
-//   const LOGO_MOBILE = 44; // was 38
-//   const LOGO_DRAWER = 52; // was 44
+//   // ✅ BIGGER LOGO SIZES (change only here 👇)
+//   const LOGO_DESKTOP = 56; // was 46
+//   const LOGO_MOBILE = 54; // was 44
+//   const LOGO_DRAWER = 60; // was 52
 
 //   const drawerWidth = "min(380px, 90vw)";
 
@@ -430,7 +430,7 @@
 //             mx: "auto",
 //             width: "100%",
 //             maxWidth: 1200,
-//             minHeight: "78px !important", // ✅ was 72 (space for bigger logo)
+//             minHeight: "88px !important", // ✅ bigger for big logo
 //             display: "flex",
 //             alignItems: "center",
 //             justifyContent: "space-between",
@@ -443,7 +443,7 @@
 //             sx={{
 //               display: "flex",
 //               alignItems: "center",
-//               gap: 1.2,
+//               gap: 1.4,
 //               cursor: "pointer",
 //               userSelect: "none",
 //             }}
@@ -464,7 +464,6 @@
 //               }}
 //             />
 
-//             {/* Desktop title + subtitle */}
 //             <Box sx={{ lineHeight: 1.05 }}>
 //               <Box
 //                 sx={{
@@ -509,7 +508,6 @@
 //               })}
 //             </Box>
 
-//             {/* ✅ Desktop Light/Dark on right */}
 //             {DesktopThemeButton}
 //           </Box>
 //         </Toolbar>
@@ -531,7 +529,7 @@
 //       >
 //         <Toolbar
 //           sx={{
-//             minHeight: "72px !important", // ✅ was 66 (space for bigger logo)
+//             minHeight: "80px !important", // ✅ bigger for big logo
 //             px: 2,
 //             borderRadius: "28px",
 //             border: styles.MOBILE_PILL_BORDER,
@@ -598,7 +596,7 @@
 //       </AppBar>
 
 //       {/* Mobile spacer */}
-//       <Box sx={{ display: { xs: "block", sm: "none" }, height: 58 }} />
+//       <Box sx={{ display: { xs: "block", sm: "none" }, height: 64 }} />
 
 //       {/* Mobile Drawer */}
 //       <Drawer
@@ -619,7 +617,7 @@
 //         PaperProps={{
 //           sx: {
 //             boxSizing: "border-box",
-//             width: drawerWidth,
+//             width: "min(380px, 90vw)",
 //             height: "100dvh",
 //             background: styles.DRAWER_BG,
 //             borderLeft: `1px solid ${styles.BORDER}`,
@@ -764,10 +762,10 @@ function Navigation({ parentToChild, modeChange }) {
     };
   }, [isLight]);
 
-  // ✅ BIGGER LOGO SIZES (change only here 👇)
-  const LOGO_DESKTOP = 56; // was 46
-  const LOGO_MOBILE = 54; // was 44
-  const LOGO_DRAWER = 60; // was 52
+  // ✅ MUCH BIGGER LOGO (change only here)
+  const LOGO_DESKTOP = 72; // 🔥 bigger
+  const LOGO_MOBILE = 68; // 🔥 bigger
+  const LOGO_DRAWER = 72; // 🔥 bigger
 
   const drawerWidth = "min(380px, 90vw)";
 
@@ -1007,8 +1005,8 @@ function Navigation({ parentToChild, modeChange }) {
       onClick={handleDrawerToggle}
       aria-label="open menu"
       sx={{
-        width: 52,
-        height: 52,
+        width: 56,
+        height: 56,
         borderRadius: "999px",
         position: "relative",
         border: isLight
@@ -1068,7 +1066,7 @@ function Navigation({ parentToChild, modeChange }) {
             mx: "auto",
             width: "100%",
             maxWidth: 1200,
-            minHeight: "88px !important", // ✅ bigger for big logo
+            minHeight: "104px !important", // ✅ more height for huge logo
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
@@ -1081,7 +1079,7 @@ function Navigation({ parentToChild, modeChange }) {
             sx={{
               display: "flex",
               alignItems: "center",
-              gap: 1.4,
+              gap: 1.6,
               cursor: "pointer",
               userSelect: "none",
             }}
@@ -1167,7 +1165,7 @@ function Navigation({ parentToChild, modeChange }) {
       >
         <Toolbar
           sx={{
-            minHeight: "80px !important", // ✅ bigger for big logo
+            minHeight: "92px !important", // ✅ more height for huge logo
             px: 2,
             borderRadius: "28px",
             border: styles.MOBILE_PILL_BORDER,
@@ -1234,7 +1232,7 @@ function Navigation({ parentToChild, modeChange }) {
       </AppBar>
 
       {/* Mobile spacer */}
-      <Box sx={{ display: { xs: "block", sm: "none" }, height: 64 }} />
+      <Box sx={{ display: { xs: "block", sm: "none" }, height: 76 }} />
 
       {/* Mobile Drawer */}
       <Drawer
@@ -1255,7 +1253,7 @@ function Navigation({ parentToChild, modeChange }) {
         PaperProps={{
           sx: {
             boxSizing: "border-box",
-            width: "min(380px, 90vw)",
+            width: drawerWidth,
             height: "100dvh",
             background: styles.DRAWER_BG,
             borderLeft: `1px solid ${styles.BORDER}`,
