@@ -1,151 +1,3 @@
-// import React, { useEffect, useState } from "react";
-// import AppBar from "@mui/material/AppBar";
-// import Box from "@mui/material/Box";
-// import Button from "@mui/material/Button";
-// import CssBaseline from "@mui/material/CssBaseline";
-// import DarkModeIcon from "@mui/icons-material/DarkMode";
-// import Divider from "@mui/material/Divider";
-// import Drawer from "@mui/material/Drawer";
-// import IconButton from "@mui/material/IconButton";
-// import LightModeIcon from "@mui/icons-material/LightMode";
-// import List from "@mui/material/List";
-// import ListIcon from "@mui/icons-material/List";
-// import ListItem from "@mui/material/ListItem";
-// import ListItemButton from "@mui/material/ListItemButton";
-// import ListItemText from "@mui/material/ListItemText";
-// import MenuIcon from "@mui/icons-material/Menu";
-// import Toolbar from "@mui/material/Toolbar";
-
-// const drawerWidth = 240;
-// const navItems = [
-//   ["Home", "home"],
-//   ["About", "about"],
-//   // ["Skills", "skills"],
-//   ["Projects", "projects"],
-//   ["Services", "services"],
-//   ["Contact", "contact"],
-// ];
-
-// function Navigation({ parentToChild, modeChange }) {
-//   const { mode } = parentToChild;
-
-//   const [mobileOpen, setMobileOpen] = useState(false);
-//   const [scrolled, setScrolled] = useState(false);
-
-//   const handleDrawerToggle = () => {
-//     setMobileOpen((prevState) => !prevState);
-//   };
-
-//   useEffect(() => {
-//     const handleScroll = () => {
-//       const navbar = document.getElementById("navigation");
-//       if (navbar) {
-//         const isScrolled = window.scrollY > navbar.clientHeight;
-//         setScrolled(isScrolled);
-//       }
-//     };
-
-//     window.addEventListener("scroll", handleScroll);
-//     return () => window.removeEventListener("scroll", handleScroll);
-//   }, []);
-
-//   const scrollToSection = (sectionId) => {
-//     const section = document.getElementById(sectionId);
-//     if (section) {
-//       section.scrollIntoView({ behavior: "smooth" });
-//     } else {
-//       console.error(`Element with id "${sectionId}" not found`);
-//     }
-//   };
-
-//   const drawer = (
-//     <Box
-//       className="navigation-bar-responsive"
-//       onClick={handleDrawerToggle}
-//       sx={{ textAlign: "center" }}
-//     >
-//       <p className="mobile-menu-top">
-//         <ListIcon />
-//         Menu
-//       </p>
-//       <Divider />
-//       <List>
-//         {navItems.map((item) => (
-//           <ListItem key={item[0]} disablePadding>
-//             <ListItemButton
-//               sx={{ textAlign: "center" }}
-//               onClick={() => scrollToSection(item[1])}
-//             >
-//               <ListItemText primary={item[0]} />
-//             </ListItemButton>
-//           </ListItem>
-//         ))}
-//       </List>
-//     </Box>
-//   );
-
-//   return (
-//     <Box sx={{ display: "flex" }}>
-//       <CssBaseline />
-//       <AppBar
-//         component="nav"
-//         id="navigation"
-//         className={`navbar-fixed-top${scrolled ? " scrolled" : ""}`}
-//       >
-//         <Toolbar className="navigation-bar">
-//           <IconButton
-//             color="inherit"
-//             aria-label="open drawer"
-//             edge="start"
-//             onClick={handleDrawerToggle}
-//             sx={{ mr: 2, display: { sm: "none" } }}
-//           >
-//             <MenuIcon />
-//           </IconButton>
-
-//           {mode === "dark" ? (
-//             <LightModeIcon onClick={modeChange} />
-//           ) : (
-//             <DarkModeIcon onClick={modeChange} />
-//           )}
-
-//           <Box sx={{ display: { xs: "none", sm: "block" } }}>
-//             {navItems.map((item) => (
-//               <Button
-//                 key={item[0]}
-//                 onClick={() => scrollToSection(item[1])}
-//                 sx={{ color: "#fff" }}
-//               >
-//                 {item[0]}
-//               </Button>
-//             ))}
-//           </Box>
-//         </Toolbar>
-//       </AppBar>
-
-//       <nav>
-//         <Drawer
-//           variant="temporary"
-//           open={mobileOpen}
-//           onClose={handleDrawerToggle}
-//           ModalProps={{ keepMounted: true }}
-//           sx={{
-//             display: { xs: "block", sm: "none" },
-//             "& .MuiDrawer-paper": {
-//               boxSizing: "border-box",
-//               width: drawerWidth,
-//             },
-//           }}
-//         >
-//           {drawer}
-//         </Drawer>
-//       </nav>
-//     </Box>
-//   );
-// }
-
-// export default Navigation;
-
 import React, { useEffect, useMemo, useState } from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
@@ -192,9 +44,7 @@ function Navigation({ parentToChild, modeChange }) {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 10);
-    };
+    const handleScroll = () => setScrolled(window.scrollY > 10);
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -218,14 +68,24 @@ function Navigation({ parentToChild, modeChange }) {
       ? "0 10px 26px rgba(0,0,0,0.10)"
       : "0 14px 34px rgba(0,0,0,0.45)";
 
+    // Milink-ish vibe (pill + glow) :contentReference[oaicite:1]{index=1}
+    const MOBILE_PILL_BG = isLight
+      ? "radial-gradient(160% 140% at 85% 20%, rgba(0,118,255,0.10) 0%, rgba(0,118,255,0) 60%), linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245,247,255,0.86))"
+      : "radial-gradient(160% 140% at 85% 20%, rgba(0,118,255,0.10) 0%, rgba(0,118,255,0) 60%), linear-gradient(180deg, rgba(26,30,40,0.92), rgba(14,18,28,0.88))";
+
+    const MOBILE_PILL_BORDER = isLight
+      ? "1px solid rgba(0,0,0,0.08)"
+      : "1px solid rgba(255,255,255,0.10)";
+
+    const MOBILE_PILL_SHADOW = isLight
+      ? "0 8px 24px rgba(0,0,0,0.12), 0 0 28px rgba(0,118,255,0.14), inset 0 1px 2px rgba(255,255,255,0.22)"
+      : "0 8px 24px rgba(0,0,0,0.45), 0 0 28px rgba(0,118,255,0.20), inset 0 1px 2px rgba(255,255,255,0.06)";
+
     const DRAWER_BG = isLight
       ? "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,255,0.96))"
       : "linear-gradient(180deg, rgba(10,14,23,0.96), rgba(10,14,23,0.94))";
 
     const CARD_BG = isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.06)";
-    const MOBILE_BAR_BG = isLight
-      ? "rgba(255,255,255,0.92)"
-      : "rgba(10,14,23,0.90)";
 
     return {
       TEXT,
@@ -236,11 +96,13 @@ function Navigation({ parentToChild, modeChange }) {
       SHADOW,
       DRAWER_BG,
       CARD_BG,
-      MOBILE_BAR_BG,
+      MOBILE_PILL_BG,
+      MOBILE_PILL_BORDER,
+      MOBILE_PILL_SHADOW,
     };
   }, [isLight]);
 
-  const drawerWidth = "min(360px, 90vw)";
+  const drawerWidth = "min(380px, 90vw)";
 
   const drawer = (
     <Box sx={{ p: 2 }}>
@@ -256,6 +118,9 @@ function Navigation({ parentToChild, modeChange }) {
           alignItems: "center",
           justifyContent: "space-between",
           gap: 1.5,
+          boxShadow: isLight
+            ? "0 10px 22px rgba(0,0,0,0.10)"
+            : "0 10px 22px rgba(0,0,0,0.35)",
         }}
       >
         <Box sx={{ display: "flex", alignItems: "center", gap: 1.2 }}>
@@ -264,24 +129,49 @@ function Navigation({ parentToChild, modeChange }) {
             src="/favicon.png"
             alt="MiladWeb logo"
             sx={{
-              width: 42,
-              height: 42,
-              borderRadius: "50%",
+              width: 44,
+              height: 44,
+              borderRadius: 2,
               objectFit: "contain",
               border: `1px solid ${styles.BORDER}`,
               background: isLight
-                ? "rgba(255,255,255,0.7)"
-                : "rgba(255,255,255,0.06)",
+                ? "linear-gradient(180deg, #FFFFFF, #F3F6FF)"
+                : "linear-gradient(180deg, #0E1524, #0B111C)",
+              boxShadow: isLight
+                ? "inset 0 1px 2px rgba(255,255,255,0.5), 0 10px 22px rgba(0,0,0,0.12)"
+                : "inset 0 1px 2px rgba(255,255,255,0.06), 0 10px 22px rgba(0,0,0,0.35)",
             }}
           />
-          <Box
-            sx={{ fontWeight: 900, letterSpacing: ".06em", color: styles.TEXT }}
-          >
-            MiladWeb
+          <Box sx={{ lineHeight: 1.05 }}>
+            <Box
+              sx={{
+                fontWeight: 950,
+                letterSpacing: ".08em",
+                color: styles.TEXT,
+              }}
+            >
+              MiladWeb
+            </Box>
+            <Box sx={{ fontSize: 12, color: styles.MUTED, fontWeight: 700 }}>
+              Portfolio / Agency
+            </Box>
           </Box>
         </Box>
 
-        <IconButton onClick={handleDrawerToggle} sx={{ color: styles.TEXT }}>
+        <IconButton
+          onClick={handleDrawerToggle}
+          sx={{
+            color: styles.TEXT,
+            width: 44,
+            height: 44,
+            borderRadius: 2,
+            border: `1px solid ${styles.BORDER}`,
+            background: isLight
+              ? "radial-gradient(circle at 30% 30%, rgba(0,0,0,0.06), rgba(0,0,0,0.02))"
+              : "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.06))",
+            boxShadow: "0 0 18px rgba(0,96,255,0.22)",
+          }}
+        >
           <CloseIcon />
         </IconButton>
       </Box>
@@ -299,15 +189,15 @@ function Navigation({ parentToChild, modeChange }) {
           justifyContent: "space-between",
         }}
       >
-        <Box sx={{ color: styles.MUTED, fontSize: 13, fontWeight: 700 }}>
+        <Box sx={{ color: styles.MUTED, fontSize: 13, fontWeight: 800 }}>
           Theme
         </Box>
         <IconButton
           onClick={modeChange}
           sx={{
             color: styles.TEXT,
-            width: 42,
-            height: 42,
+            width: 44,
+            height: 44,
             borderRadius: 2,
             border: `1px solid ${styles.BORDER}`,
             background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.06)",
@@ -321,7 +211,7 @@ function Navigation({ parentToChild, modeChange }) {
       <Divider sx={{ my: 1.2, opacity: 0.25 }} />
 
       {/* Nav items */}
-      <List sx={{ display: "grid", gap: 1 }}>
+      <List sx={{ display: "grid", gap: 1.2 }}>
         {navItems.map(([label, id]) => (
           <ListItem key={label} disablePadding>
             <ListItemButton
@@ -330,19 +220,64 @@ function Navigation({ parentToChild, modeChange }) {
                 scrollToSection(id);
               }}
               sx={{
-                borderRadius: 2,
+                borderRadius: 2.2,
                 background: styles.CARD_BG,
                 border: `1px solid ${styles.BORDER}`,
                 px: 2,
-                py: 1.5,
+                py: 1.6,
+                position: "relative",
+                overflow: "hidden",
+                boxShadow: isLight
+                  ? "0 10px 22px rgba(0,0,0,0.10)"
+                  : "0 10px 22px rgba(0,0,0,0.32)",
+                transition: "transform .15s ease, box-shadow .2s ease",
+                "&:hover": {
+                  transform: "translateY(-1px)",
+                  boxShadow: isLight
+                    ? "0 14px 26px rgba(0,0,0,0.12)"
+                    : "0 14px 26px rgba(0,0,0,0.38)",
+                },
+                "&:before": {
+                  content: '""',
+                  position: "absolute",
+                  left: 0,
+                  top: 0,
+                  bottom: 0,
+                  width: 3,
+                  opacity: 0.7,
+                  background:
+                    "linear-gradient(180deg, rgba(0,96,255,0.85), rgba(0,96,255,0.20))",
+                },
+                "&:after": {
+                  content: '""',
+                  position: "absolute",
+                  inset: -40,
+                  opacity: 0,
+                  filter: "blur(18px)",
+                  transition: "opacity .25s ease",
+                  background:
+                    "radial-gradient(140px 60px at 50% 30%, rgba(0,96,255,0.16), transparent 70%)",
+                },
+                "&:hover:after": { opacity: 1 },
               }}
             >
+              <Box
+                sx={{
+                  width: 10,
+                  height: 10,
+                  borderRadius: 999,
+                  mr: 1.4,
+                  background:
+                    "radial-gradient(circle at 40% 40%, #73A6FF, #0060FF 80%)",
+                  boxShadow: "0 0 10px rgba(0,96,255,0.45)",
+                }}
+              />
               <ListItemText
                 primary={label}
                 primaryTypographyProps={{
                   sx: {
                     fontSize: 15,
-                    fontWeight: 750,
+                    fontWeight: 800,
                     letterSpacing: ".02em",
                     color: styles.TEXT,
                   },
@@ -355,10 +290,15 @@ function Navigation({ parentToChild, modeChange }) {
       </List>
 
       <Divider sx={{ my: 2, opacity: 0.25 }} />
+
+      {/* Optional: footer hint */}
+      <Box sx={{ color: styles.MUTED, fontSize: 12, textAlign: "center" }}>
+        © {new Date().getFullYear()} MiladWeb
+      </Box>
     </Box>
   );
 
-  // Desktop button: clean underline hover (professional)
+  // Desktop button: clean underline hover
   const desktopBtnSx = {
     color: styles.TEXT,
     textTransform: "none",
@@ -388,6 +328,54 @@ function Navigation({ parentToChild, modeChange }) {
       transform: "scaleX(1)",
     },
   };
+
+  // ✅ Milink-style burger button (MUI)
+  const BurgerButton = (
+    <IconButton
+      onClick={handleDrawerToggle}
+      aria-label="open menu"
+      sx={{
+        width: 52,
+        height: 52,
+        borderRadius: "999px",
+        position: "relative",
+        border: isLight
+          ? "1px solid rgba(0,0,0,0.10)"
+          : "1px solid rgba(255,255,255,0.12)",
+        background: isLight
+          ? "radial-gradient(120% 120% at 30% 20%, rgba(0,96,255,0.10), rgba(255,255,255,0.92) 55%), linear-gradient(180deg, #FFFFFF, #F2F6FF)"
+          : "radial-gradient(120% 120% at 30% 20%, rgba(255,255,255,0.25), rgba(255,255,255,0.05) 60%), linear-gradient(180deg, #0E1422, #0A101B)",
+        boxShadow: isLight
+          ? `inset 0 1px 2px rgba(255,255,255,0.70),
+             0 0 0 2px rgba(0,0,0,0.06),
+             0 0 0 4px rgba(0,96,255,0.18),
+             0 14px 34px rgba(0,0,0,0.14)`
+          : `inset 0 1px 2px rgba(255,255,255,0.10),
+             0 0 0 2px rgba(255,255,255,0.20),
+             0 0 0 4px rgba(0,107,206,0.45),
+             0 16px 40px rgba(0,0,0,0.35)`,
+        "&:before": {
+          content: '""',
+          position: "absolute",
+          inset: 0,
+          borderRadius: "999px",
+          boxShadow: isLight
+            ? "0 0 22px rgba(0,96,255,0.18)"
+            : "0 0 26px rgba(0,107,206,0.45)",
+          pointerEvents: "none",
+        },
+      }}
+    >
+      <MenuIcon
+        sx={{
+          color: isLight ? "rgba(15,23,42,0.72)" : "rgba(255,255,255,0.90)",
+          filter: isLight
+            ? "none"
+            : "drop-shadow(0 0 10px rgba(0,96,255,0.15))",
+        }}
+      />
+    </IconButton>
+  );
 
   return (
     <Box sx={{ width: "100%", overflowX: "hidden" }}>
@@ -471,7 +459,7 @@ function Navigation({ parentToChild, modeChange }) {
         </Toolbar>
       </AppBar>
 
-      {/* ✅ Mobile top bar: only hamburger */}
+      {/* ✅ Mobile pill bar (Milink-ish) */}
       <AppBar
         component="nav"
         elevation={0}
@@ -487,65 +475,58 @@ function Navigation({ parentToChild, modeChange }) {
       >
         <Toolbar
           sx={{
-            background: styles.MOBILE_BAR_BG,
+            minHeight: "66px !important",
+            px: 2,
+            borderRadius: "28px",
+            border: styles.MOBILE_PILL_BORDER,
+            background: styles.MOBILE_PILL_BG,
+            boxShadow: styles.MOBILE_PILL_SHADOW,
             backdropFilter: "blur(12px)",
-            border: `1px solid ${styles.BORDER}`,
-            borderRadius: "18px",
-            minHeight: "62px !important",
-            px: 1.5,
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
+            overflow: "hidden",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.1 }}>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.2 }}>
             <Box
               component="img"
               src="/favicon.png"
               alt="MiladWeb logo"
               sx={{
-                width: 36,
-                height: 36,
-                borderRadius: "50%",
+                width: 38,
+                height: 38,
+                borderRadius: 2,
                 objectFit: "contain",
                 border: `1px solid ${styles.BORDER}`,
                 background: isLight
-                  ? "rgba(255,255,255,0.8)"
-                  : "rgba(255,255,255,0.06)",
+                  ? "linear-gradient(180deg, #FFFFFF, #F3F6FF)"
+                  : "linear-gradient(180deg, #0E1524, #0B111C)",
               }}
             />
-            <Box
-              sx={{
-                fontWeight: 900,
-                letterSpacing: ".08em",
-                color: styles.TEXT,
-              }}
-            >
-              MiladWeb
+            <Box sx={{ lineHeight: 1.05 }}>
+              <Box
+                sx={{
+                  fontWeight: 950,
+                  letterSpacing: ".08em",
+                  color: styles.TEXT,
+                  fontSize: 15,
+                }}
+              >
+                MiladWeb
+              </Box>
+              <Box sx={{ color: styles.MUTED, fontSize: 12, fontWeight: 700 }}>
+                Full-Stack / Agency
+              </Box>
             </Box>
           </Box>
 
-          <IconButton
-            onClick={handleDrawerToggle}
-            aria-label="open menu"
-            sx={{
-              color: styles.TEXT,
-              width: 46,
-              height: 46,
-              borderRadius: 2,
-              border: `1px solid ${styles.BORDER}`,
-              background: isLight
-                ? "rgba(0,0,0,0.03)"
-                : "rgba(255,255,255,0.06)",
-            }}
-          >
-            <MenuIcon />
-          </IconButton>
+          {BurgerButton}
         </Toolbar>
       </AppBar>
 
-      {/* ✅ Mobile spacer: pushes content a bit down */}
-      <Box sx={{ display: { xs: "block", sm: "none" }, height: 25 }} />
+      {/* ✅ Mobile spacer (content goes پایین‌تر مثل Milink) */}
+      <Box sx={{ display: { xs: "block", sm: "none" }, height: 76 }} />
 
       {/* Mobile Drawer */}
       <Drawer
