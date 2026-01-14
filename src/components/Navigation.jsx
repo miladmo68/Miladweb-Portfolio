@@ -748,10 +748,10 @@ function Navigation({ parentToChild, modeChange }) {
   }, [isLight]);
 
   // ✅ Logo sizes (desktop unchanged)
-  const LOGO_DESKTOP = 72;
+  const LOGO_DESKTOP = 84;
   // ✅ Mobile = مثل عکس دوم (جمع‌وجورتر)
-  const LOGO_MOBILE = 44; // ⬅️ کوچیک‌تر مثل MILINK
-  const LOGO_DRAWER = 72;
+  const LOGO_MOBILE = 56; // ⬅️ کوچیک‌تر مثل MILINK
+  const LOGO_DRAWER = 84;
 
   const drawerWidth = "min(380px, 90vw)";
 
