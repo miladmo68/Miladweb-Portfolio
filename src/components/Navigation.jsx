@@ -607,7 +607,7 @@ function Navigation({ parentToChild, modeChange }) {
       </AppBar>
 
       {/* Mobile spacer (پایین کمتر) */}
-      <Box sx={{ display: { xs: "block", sm: "none" }, height: 32 }} />
+      <Box sx={{ display: { xs: "block", sm: "none" }, height: 40 }} />
 
       {/* Drawer */}
       <Drawer
