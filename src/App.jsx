@@ -37,7 +37,7 @@ function App() {
       <FadeIn transitionDuration={700}>
         <Main />
         <About />
-        <Skills />
+        {/* <Skills /> */}
         {/* <Timeline /> */}
 
         {/* ─── Project loads only when user reaches this point ─── */}
