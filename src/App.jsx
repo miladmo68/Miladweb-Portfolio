@@ -46,7 +46,7 @@ function App() {
             <div style={{ padding: "2rem", textAlign: "center" }}>Loading…</div>
           }
         >
-          {/* <Project /> */}
+          <Project />
         </Suspense>
 
         <Services />
