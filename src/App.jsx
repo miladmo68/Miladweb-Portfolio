@@ -38,7 +38,7 @@ function App() {
         <Main />
         <About />
         <Skills />
-        <Timeline />
+        {/* <Timeline /> */}
 
         {/* ─── Project loads only when user reaches this point ─── */}
         <Suspense
