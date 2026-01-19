@@ -37,8 +37,8 @@ function App() {
       <FadeIn transitionDuration={700}>
         <Main />
         <About />
-        {/* <Skills /> */}
-        {/* <Timeline /> */}
+        <Skills />
+        <Timeline />
 
         {/* ─── Project loads only when user reaches this point ─── */}
         <Suspense
@@ -46,10 +46,10 @@ function App() {
             <div style={{ padding: "2rem", textAlign: "center" }}>Loading…</div>
           }
         >
-          <Project />
+          {/* <Project /> */}
         </Suspense>
 
-        <Services />
+        {/* <Services /> */}
         <Contact />
       </FadeIn>
 
