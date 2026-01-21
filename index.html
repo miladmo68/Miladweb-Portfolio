@@ -2,14 +2,33 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <!-- <link rel="icon" type="image/svg+xml" href="/favicon.png" /> -->
-    <link rel="icon" type="image/png" href="/favicon.png" />
 
-    <link rel="preload" as="image" href="/bg-dark.png" />
+    <title>MiladWeb | Web Developer</title>
+
+    <meta
+      name="description"
+      content="MiladWeb personal website and web development portfolio."
+    />
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>miladweb.com</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Preload background -->
+    <link rel="preload" as="image" href="/bg-dark.png" />
+
+    <!-- Site name for Google -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "MiladWeb",
+        "url": "https://miladweb.com"
+      }
+    </script>
   </head>
+
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
