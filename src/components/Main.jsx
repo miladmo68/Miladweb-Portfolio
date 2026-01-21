@@ -95,10 +95,11 @@
 //     </div>
 //   );
 // }
+
 import React, { useEffect, useRef, useState } from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import "../assets/styles/Main.scss";
+import "../assets/styles/Main.scss"; // همون قبلی بمونه، خراب نمیشه
 
 const WORDS = [
   "Full-Stack Developer",
@@ -139,11 +140,19 @@ export default function Main() {
   }, [text, deleting, wordIndex]);
 
   return (
-    <section id="home" className="main-hero">
-      {/* ✅ فقط “زیرِ Main” فول‌واید می‌شود (بدون دست زدن به کانتینر محتوا) */}
-      <div className="main-hero-bg full-bleed" aria-hidden="true" />
+    <section id="home" className="relative">
+      {/* ✅ فقط بک‌گراند زیر Main فول‌واید */}
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute inset-0 -z-10
+          w-screen
+          ml-[calc(50%-50vw)] mr-[calc(50%-50vw)]
+          bg-[radial-gradient(60%_40%_at_50%_15%,rgba(125,169,255,0.18),transparent_70%)]
+        "
+      />
 
-      {/* ✅ محتوای اصلی همون محدودیت قبلی رو حفظ می‌کند */}
+      {/* ✅ محتوا همون محدودیت قبلی رو حفظ می‌کنه */}
       <div className="container">
         <div className="about-section">
           <div className="image-wrapper">
