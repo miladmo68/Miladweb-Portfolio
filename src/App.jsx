@@ -21,7 +21,6 @@ function App() {
   const handleModeChange = () =>
     setMode((prev) => (prev === "dark" ? "light" : "dark"));
 
-  /* always start at the top */
   useEffect(() => {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
@@ -32,27 +31,33 @@ function App() {
         mode === "dark" ? "dark-mode" : "light-mode"
       }`}
     >
+      {/* ✅ دست نخورده */}
       <Navigation parentToChild={{ mode }} modeChange={handleModeChange} />
 
-      <FadeIn transitionDuration={700}>
-        <Main />
-        <About />
-        {/* <Skills /> */}
-        {/* <Timeline /> */}
+      {/* ✅ فقط محتوای اصلی محدود میشه (امن) */}
+      <div className="mx-auto w-full max-w-[1536px] px-4">
+        <FadeIn transitionDuration={700}>
+          <Main />
+          <About />
+          {/* <Skills /> */}
+          {/* <Timeline /> */}
 
-        {/* ─── Project loads only when user reaches this point ─── */}
-        <Suspense
-          fallback={
-            <div style={{ padding: "2rem", textAlign: "center" }}>Loading…</div>
-          }
-        >
-          <Project />
-        </Suspense>
+          <Suspense
+            fallback={
+              <div style={{ padding: "2rem", textAlign: "center" }}>
+                Loading…
+              </div>
+            }
+          >
+            <Project />
+          </Suspense>
 
-        <Services />
-        <Contact />
-      </FadeIn>
+          <Services />
+          <Contact />
+        </FadeIn>
+      </div>
 
+      {/* ✅ دست نخورده */}
       <Footer />
     </div>
   );
