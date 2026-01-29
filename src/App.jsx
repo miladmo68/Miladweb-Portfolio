@@ -52,8 +52,8 @@ function App() {
             <Project />
           </Suspense>
 
-          <Services />
-          <Contact />
+          {/* <Services /> */}
+          {/* <Contact /> */}
         </FadeIn>
       </div>
 
