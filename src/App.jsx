@@ -34,7 +34,6 @@ function App() {
       {/* ✅ دست نخورده */}
       <Navigation parentToChild={{ mode }} modeChange={handleModeChange} />
 
-      {/* ✅ فقط محتوای اصلی محدود میشه (امن) */}
       <div className="mx-auto w-full max-w-[1536px] px-4">
         <FadeIn transitionDuration={700}>
           <Main />
