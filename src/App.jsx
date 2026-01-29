@@ -12,7 +12,6 @@ import {
 import FadeIn from "./components/FadeIn";
 import "./index.scss";
 
-/* ── code-split the heavy gallery ── */
 const Project = lazy(() => import("./components/Project"));
 
 function App() {
