@@ -58,7 +58,7 @@ function App() {
       </div>
 
       {/* ✅ دست نخورده */}
-      {/* <Footer /> */}
+      <Footer />
     </div>
   );
 }
