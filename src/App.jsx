@@ -57,7 +57,6 @@ function App() {
         </FadeIn>
       </div>
 
-      {/* ✅ دست نخورده */}
       <Footer />
     </div>
   );
