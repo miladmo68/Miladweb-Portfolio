@@ -31,7 +31,6 @@ function App() {
         mode === "dark" ? "dark-mode" : "light-mode"
       }`}
     >
-      {/* ✅ دست نخورده */}
       <Navigation parentToChild={{ mode }} modeChange={handleModeChange} />
 
       <div className="mx-auto w-full max-w-[1536px] px-4">
