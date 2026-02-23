@@ -69,8 +69,8 @@ const PROJECTS = [
     cat: "app",
   },
   {
-    title: "Contact-Managerses",
-    img: "Contact-Manager.png.jpg",
+    title: "Contact Manager",
+    img: "Contact-Manager.png",
     link: "https://contact-manager-coral-one.vercel.app/",
     cat: "app",
   },
