@@ -1,43 +1,75 @@
 // @tailwind base;
 // @tailwind components;
 // @tailwind utilities;
+
+/* ================================
+   🎨 GLOBAL STYLES - DARK BLUE THEME
+=================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
   overflow-y: scroll;
   scroll-behavior: smooth;
+  font-size: 16px;
 }
+
 body {
-  background-image: url("/bg-dark.png");
   margin: 0;
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
-    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  font-size: 1.1rem !important;
+  font-size: var(--text-base);
+  background: var(--color-bg);
+  color: var(--color-text-primary);
+  overflow-x: hidden;
 }
 
 code {
   font-family:
-    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace !important;
-  font-size: 1rem !important;
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: var(--text-sm);
 }
+
+/* ================================
+   🎯 MAIN CONTAINER
+=================================== */
 
 .main-container {
   position: relative;
-  background-color: #0d1116;
+  background: var(--color-bg);
+  min-height: 100vh;
+  transition: background 0.3s ease;
 }
+
+/* ================================
+   🔗 LINKS & BUTTONS - DARK BLUE
+=================================== */
 
 a {
   text-decoration: none;
+  color: inherit;
+  transition: color var(--transition-base);
 }
 
 a:hover {
-  color: #5000ca;
-  transition:
-    color 0.15s ease-in-out,
-    background-color 0.15s ease-in-out,
-    border-color 0.15s ease-in-out;
+  color: var(--color-primary);
 }
+
+button {
+  font-family: var(--font-sans);
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+/* ================================
+   📝 TYPOGRAPHY
+=================================== */
 
 p,
 a,
@@ -48,33 +80,67 @@ h4,
 h5,
 label,
 button {
-  color: white;
-  font-family: "Lato", sans-serif;
+  color: var(--color-text-primary);
+  font-family: var(--font-display);
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: var(--font-bold);
+  line-height: var(--leading-tight);
+}
+
+p {
+  line-height: var(--leading-relaxed);
+}
+
+/* ================================
+   🧭 NAVIGATION
+=================================== */
 
 .navigation-bar {
   justify-content: space-between;
-  background-color: #0d1116;
+  background: var(--color-surface);
+  backdrop-filter: blur(var(--blur-lg));
+  transition: all var(--transition-base);
 
   button {
-    font-size: 1.1rem;
-    font-family: "Lato", sans-serif;
+    font-size: var(--text-base);
+    font-family: var(--font-display);
     text-transform: initial;
-    padding: 6px 10px;
+    padding: var(--space-sm) var(--space-md);
+    transition: all var(--transition-base);
+
+    &:hover {
+      color: var(--color-primary);
+    }
   }
 
   svg {
     cursor: pointer;
+    transition: all var(--transition-base);
+
+    &:hover {
+      color: var(--color-primary);
+    }
   }
 }
 
 .navigation-bar-responsive {
   span,
   p {
-    color: #0d1116;
-    font-family: "Lato", sans-serif;
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
   }
 }
+
+/* ================================
+   📦 CONTAINERS
+=================================== */
 
 .container {
   margin-top: 64px;
@@ -85,38 +151,27 @@ button {
   justify-content: center;
 }
 
-.header-image {
-  width: 100%;
-  height: 450px;
-
-  img {
-    width: 100%;
-    height: 450px;
-    object-fit: cover;
-  }
-}
-
-.mobile-menu-top {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  font-weight: bold;
-}
-
 .items-container {
-  padding: 5% 10%;
-  text-align: left;
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 10%);
+  text-align: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
+  width: 100%;
 }
 
+/* ================================
+   🌓 LIGHT MODE
+=================================== */
+
 .light-mode {
-  background-color: #f8f9fa;
+  background: var(--color-bg-light);
 
   .navigation-bar {
-    background-color: #f8f9fa;
+    background: var(--color-surface-light);
   }
 
   p,
@@ -128,80 +183,110 @@ button {
   h5,
   label,
   button {
-    color: #0d1116;
+    color: var(--color-text-primary-light);
   }
 
-  a:hover {
-    color: #5000ca;
-    transition:
-      color 0.15s ease-in-out,
-      background-color 0.15s ease-in-out,
-      border-color 0.15s ease-in-out;
+  a:hover,
+  button:hover,
+  svg:hover {
+    color: var(--color-primary);
   }
 
   .navigation-bar svg {
-    color: #0d1116;
+    color: var(--color-text-primary-light);
   }
 
   .about-section {
-    background-image: url("./assets/images/bg-light.png");
+    &::before {
+      background:
+        radial-gradient(
+          circle at 20% 30%,
+          rgba(30, 58, 138, 0.08) 0%,
+          transparent 50%
+        ),
+        radial-gradient(
+          circle at 80% 70%,
+          rgba(14, 165, 233, 0.06) 0%,
+          transparent 50%
+        );
+    }
   }
 
-  .skills-container svg {
-    color: #0d1116;
+  .about-section .content {
+    h1 {
+      background: linear-gradient(
+        135deg,
+        #0a0e17 0%,
+        rgba(10, 14, 23, 0.8) 100%
+      );
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    p {
+      color: var(--color-text-secondary-light);
+    }
   }
 
-  .chip {
-    background-color: rgba(0, 0, 0, 0.08);
-    box-shadow:
-      0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-      0px 2px 2px 0px rgba(0, 0, 0, 0.14),
-      0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+  .MuiChip-root {
+    background-color: rgba(30, 58, 138, 0.08);
+    box-shadow: var(--shadow-sm);
+
+    &:hover {
+      background-color: rgba(30, 58, 138, 0.15);
+      color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
   }
 
   .vertical-timeline::before {
-    background-color: rgba(0, 0, 0, 0.08);
+    background-color: rgba(30, 58, 138, 0.15);
   }
 
   .vertical-timeline--animate .vertical-timeline-element-content.bounce-in {
-    box-shadow:
-      0px 3px 1px -2px rgba(0, 0, 0, 0.2),
-      0px 2px 2px 0px rgba(0, 0, 0, 0.14),
-      0px 1px 5px 0px rgba(0, 0, 0, 0.12);
+    box-shadow: var(--shadow-lg);
   }
 
   .vertical-timeline--two-columns
     .vertical-timeline-element-content
     .vertical-timeline-element-date {
-    color: gray;
+    color: var(--color-text-secondary-light);
   }
 
   .vertical-timeline-element-content-arrow {
-    border-right: 7px solid rgba(0, 0, 0, 0.08) !important;
-  }
-
-  .flex-chips .chip-title {
-    color: #0d1116;
+    border-right: 7px solid rgba(30, 58, 138, 0.08) !important;
   }
 }
 
-@media screen {
-  @media (max-width: 768px) {
-    .items-container {
-      padding: 5% 5%;
-    }
+/* ================================
+   📱 RESPONSIVE UTILITIES
+=================================== */
+
+@media screen and (max-width: 768px) {
+  .items-container {
+    padding: clamp(2rem, 5vw, 3rem) 5%;
+  }
+
+  html {
+    font-size: 14px;
   }
 }
 
-/* typewriter look -------------------------------------------*/
+/* ================================
+   ⌨️ TYPEWRITER EFFECT - DARK BLUE
+=================================== */
+
 .typed-wrapper {
   font-size: clamp(1rem, 2vw, 1.2rem);
-  font-weight: 500;
+  font-weight: var(--font-medium);
   display: inline-block;
 }
 
 .typed {
   white-space: nowrap;
+  color: var(--color-accent);
+  font-weight: var(--font-semibold);
 }
 
 .typed-cursor {
@@ -209,8 +294,9 @@ button {
   width: 2px;
   height: 1.1em;
   margin-left: 3px;
-  background: #ffffff;
+  background: var(--color-accent);
   animation: blink 0.9s steps(2) infinite;
+  box-shadow: 0 0 10px var(--color-accent);
 }
 
 @keyframes blink {
@@ -221,4 +307,39 @@ button {
   50% {
     opacity: 0;
   }
+}
+
+/* ================================
+   🎨 SELECTION STYLING - DARK BLUE
+=================================== */
+
+::selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+::-moz-selection {
+  background: var(--color-primary);
+  color: white;
+}
+
+/* ================================
+   📜 SCROLLBAR STYLING - DARK BLUE
+=================================== */
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary-light);
 }

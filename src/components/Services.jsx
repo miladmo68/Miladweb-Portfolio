@@ -102,7 +102,7 @@ function Timeline() {
               contentStyle={{ background: "white", color: "rgb(39, 40, 34)" }}
               contentArrowStyle={{ borderRight: "7px solid white" }}
               date={`Service ${index + 1}`}
-              iconStyle={{ background: "#5000ca", color: "#fff" }}
+              iconStyle={{ background: "#1e3a8a", color: "#fff" }}
               icon={<FontAwesomeIcon icon={service.icon} />}
             >
               <h3 className="vertical-timeline-element-title">

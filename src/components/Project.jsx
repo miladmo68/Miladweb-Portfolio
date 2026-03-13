@@ -504,17 +504,17 @@ export default function Project() {
                 onClick={() => setFilter(f.value)}
                 sx={{
                   color: active ? "#ffffff" : "#252525",
-                  backgroundColor: active ? "#5000ca" : "#f5f5f5",
+                  backgroundColor: active ? "#1e3a8a" : "#f5f5f5",
                   border: "1px solid",
-                  borderColor: active ? "#5000ca" : "#252525",
+                  borderColor: active ? "#1e3a8a" : "#252525",
                   padding: "6px 10px",
                   fontSize: "0.9rem",
                   transition: "all 0.3s ease",
                   cursor: "pointer",
                   "&:hover": {
-                    backgroundColor: active ? "#5000ca" : "#e7d8fd",
-                    color: active ? "#fff" : "#5000ca",
-                    borderColor: "#5000ca",
+                    backgroundColor: active ? "#1e3a8a" : "#dbeafe",
+                    color: active ? "#fff" : "#1e3a8a",
+                    borderColor: "#1e3a8a",
                   },
                 }}
               />
@@ -562,9 +562,6 @@ export default function Project() {
                       src={getImg(p.img)}
                       alt={p.title}
                       loading="lazy"
-                      decoding="async"
-                      width={cardWidth}
-                      height={Math.round((cardWidth * 9) / 16)}
                       sx={{
                         position: "absolute",
                         top: 0,

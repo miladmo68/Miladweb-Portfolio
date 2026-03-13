@@ -26,6 +26,10 @@ import {
   SiAdobephotoshop,
   SiWoocommerce,
   SiNpm,
+  SiNextdotjs,
+  SiExpress,
+  SiRedux,
+  SiGraphql,
 } from "react-icons/si";
 import Chip from "@mui/material/Chip";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
@@ -33,12 +37,16 @@ import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 const techList = [
   { label: "JavaScript", icon: <SiJavascript /> },
   { label: "React", icon: <FaReact /> },
+  { label: "Next.js", icon: <SiNextdotjs /> },
+  { label: "Node.js", icon: <FaNodeJs /> },
+  { label: "Express.js", icon: <SiExpress /> },
+  { label: "Redux", icon: <SiRedux /> },
+  { label: "GraphQL", icon: <SiGraphql /> },
   { label: "HTML5", icon: <SiHtml5 /> },
   { label: "CSS3", icon: <SiCss3 /> },
   { label: "TailwindCSS", icon: <SiTailwindcss /> },
   { label: "Bootstrap", icon: <SiBootstrap /> },
   { label: "jQuery", icon: <SiJquery /> },
-  { label: "Node.js", icon: <FaNodeJs /> },
   { label: "Python", icon: <FaPython /> },
   { label: "Django", icon: <SiDjango /> },
   { label: "PHP", icon: <FaPhp /> },
@@ -124,9 +132,9 @@ function Skills() {
               cursor: "pointer",
 
               "&:hover": {
-                backgroundColor: "#e7d8fd",
-                color: "#5000ca",
-                borderColor: "#5000ca",
+                backgroundColor: "#dbeafe",
+                color: "#1e3a8a",
+                borderColor: "#1e3a8a",
                 transform: "translateY(-2px)",
               },
             }}

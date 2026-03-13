@@ -1,11 +1,18 @@
+/* ================================
+   🎨 HERO SECTION - WITH BACKGROUND
+=================================== */
+
 .dark-mode .about-section {
-  background-color: rgba(0, 0, 0, 0.2);
+  background-image: url("../images/bg-dark.png");
+  background-color: rgba(0, 0, 0, 0.3);
+  background-blend-mode: overlay;
 }
 
 .about-section {
+  position: relative;
   display: flex;
-  gap: 30px;
-  justify-content: flex-start;
+  gap: clamp(20px, 4vw, 40px);
+  justify-content: center;
   align-items: center;
   width: 100%;
   padding: 0px 15%;
@@ -13,17 +20,39 @@
   background-image: url("../images/bg-dark.png");
   background-repeat: no-repeat;
   background-size: cover;
-  background-attachment: scroll;
+  background-attachment: fixed;
   background-position: center;
+  overflow: hidden;
   opacity: 0;
-  animation: fadeInUp 0.8s ease-out forwards;
-  animation-delay: 0.2s;
+  animation: fadeInUp 0.6s ease-out forwards;
+  animation-delay: 0.1s;
+  will-change: opacity, transform;
+
+  /* Subtle Overlay */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(30, 58, 138, 0.12) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(14, 165, 233, 0.08) 0%,
+        transparent 50%
+      );
+    z-index: 1;
+    pointer-events: none;
+  }
 }
 
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px);
   }
   to {
     opacity: 1;
@@ -31,26 +60,65 @@
   }
 }
 
+/* ================================
+   🎯 CONTENT STYLING
+=================================== */
+
 .about-section .content {
   text-align: left;
   z-index: 2;
   flex: 1;
+  max-width: 700px;
 
   .social_icons {
     display: flex;
     flex-direction: row;
-    gap: 10px;
-    color: white;
+    gap: 12px;
+    margin-bottom: 20px;
 
-    svg {
-      font-size: clamp(1.5em, 2vw, 1.8em);
-      transition:
-        transform 0.3s ease,
-        color 0.3s ease;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      position: relative;
+      overflow: hidden;
+
+      &::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        opacity: 0;
+        transition: opacity 0.2s ease;
+      }
+
+      svg {
+        font-size: clamp(1.3em, 2vw, 1.6em);
+        color: white;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.2s ease;
+      }
 
       &:hover {
-        transform: translateY(-3px) scale(1.1);
-        color: #5000ca;
+        transform: translateY(-3px) scale(1.05);
+        box-shadow: 0 8px 20px rgba(30, 58, 138, 0.4);
+        border-color: #1e3a8a;
+
+        &::before {
+          opacity: 1;
+        }
+
+        svg {
+          transform: scale(1.1);
+        }
       }
     }
   }
@@ -63,45 +131,82 @@
     font-size: clamp(1.1em, 2vw, 1.5em);
     margin-block-start: 0px;
     margin-block-end: 0px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.85);
+    font-weight: 500;
   }
 
   h1 {
     font-size: clamp(2.5em, 6vw, 5em);
     margin-block-start: 0px;
-    margin-block-end: 0px;
-    line-height: 1.2;
+    margin-block-end: 15px;
+    line-height: 1.1;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    background: linear-gradient(
+      135deg,
+      #ffffff 0%,
+      rgba(255, 255, 255, 0.8) 100%
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
   }
 }
+
+/* ================================
+   🖼️ IMAGE WRAPPER - OPTIMIZED
+=================================== */
 
 .about-section .image-wrapper {
   z-index: 2;
   flex-shrink: 0;
+  position: relative;
+
+  /* Simplified Glow */
+  &::before {
+    content: "";
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    opacity: 0.25;
+    filter: blur(15px);
+    animation: pulseGlow 3s ease-in-out infinite;
+    z-index: -1;
+  }
 
   img {
     width: clamp(120px, 15vw, 180px);
     height: clamp(120px, 15vw, 180px);
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    transition:
-      transform 0.3s ease,
-      box-shadow 0.3s ease;
+    border: 3px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    z-index: 1;
 
     &:hover {
-      transform: scale(1.05);
-      box-shadow: 0 15px 40px rgba(80, 0, 202, 0.4);
+      transform: scale(1.05) rotate(3deg);
+      box-shadow: 0 20px 45px rgba(30, 58, 138, 0.4);
+      border-color: rgba(30, 58, 138, 0.5);
     }
   }
 }
 
-.about p {
-  text-align: center;
-  padding-top: 30%;
-  padding-bottom: 30%;
+@keyframes pulseGlow {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.4;
+  }
 }
 
 /* ================================
-   ✅ Responsive Breakpoints
+   📱 RESPONSIVE BREAKPOINTS
 =================================== */
 
 /* Mobile Small (320px - 480px) */
@@ -112,6 +217,7 @@
     flex-direction: column-reverse;
     gap: 20px;
     text-align: center;
+    background-attachment: scroll;
   }
 
   .about-section .content {
@@ -125,6 +231,10 @@
 
     p {
       font-size: 1em !important;
+    }
+
+    .social_icons {
+      justify-content: center;
     }
   }
 
@@ -149,8 +259,28 @@
     gap: 15px;
     padding-top: 15px;
 
-    svg {
-      font-size: 1.6em !important;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+
+      svg {
+        font-size: 1.6em !important;
+        color: white;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        box-shadow: 0 6px 15px rgba(30, 58, 138, 0.4);
+      }
     }
   }
 }
@@ -163,6 +293,7 @@
     flex-direction: column-reverse;
     gap: 25px;
     text-align: center;
+    background-attachment: scroll;
   }
 
   .about-section .content {
@@ -175,6 +306,10 @@
 
     p {
       font-size: 1.15em !important;
+    }
+
+    .social_icons {
+      justify-content: center;
     }
   }
 
@@ -199,8 +334,28 @@
     gap: 15px;
     padding-top: 15px;
 
-    svg {
-      font-size: 1.7em !important;
+    a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.2s ease;
+
+      svg {
+        font-size: 1.7em !important;
+        color: white;
+      }
+
+      &:hover {
+        transform: translateY(-2px);
+        background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        box-shadow: 0 6px 15px rgba(30, 58, 138, 0.4);
+      }
     }
   }
 }
@@ -272,5 +427,26 @@
   .about-section .image-wrapper img {
     width: 180px !important;
     height: 180px !important;
+  }
+}
+
+/* Light Mode Background */
+.light-mode .about-section {
+  background-image: url("../images/bg-light.png");
+  background-color: rgba(255, 255, 255, 0.5);
+  background-blend-mode: overlay;
+
+  &::before {
+    background:
+      radial-gradient(
+        circle at 20% 30%,
+        rgba(30, 58, 138, 0.06) 0%,
+        transparent 50%
+      ),
+      radial-gradient(
+        circle at 80% 70%,
+        rgba(14, 165, 233, 0.04) 0%,
+        transparent 50%
+      );
   }
 }

@@ -61,11 +61,11 @@ function Navigation({ parentToChild, modeChange }) {
         const visible = entries
           .filter((e) => e.isIntersecting)
           .sort(
-            (a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0)
+            (a, b) => (b.intersectionRatio ?? 0) - (a.intersectionRatio ?? 0),
           )[0];
         if (visible?.target?.id) setActiveId(visible.target.id);
       },
-      { root: null, threshold: [0.2, 0.35, 0.5, 0.65] }
+      { root: null, threshold: [0.2, 0.35, 0.5, 0.65] },
     );
 
     sections.forEach((s) => io.observe(s));
@@ -109,20 +109,17 @@ function Navigation({ parentToChild, modeChange }) {
     };
   }, [isLight]);
 
-  // sizes
-  const LOGO_DESKTOP = 84;
   const LOGO_MOBILE = 56;
-  const LOGO_DRAWER = 56; // ✅ کوچیک‌تر
+  const LOGO_DRAWER = 56;
 
   const drawerWidth = "min(380px, 90vw)";
 
   const drawer = (
     <Box sx={{ p: 2 }}>
-      {/* Header */}
       <Box
         sx={{
-          mb: 1.6, // ✅ کمتر
-          p: 1.15, // ✅ کمتر
+          mb: 1.6,
+          p: 1.15,
           borderRadius: 2.5,
           background: styles.CARD_BG,
           border: `1px solid ${styles.BORDER}`,
@@ -147,10 +144,6 @@ function Navigation({ parentToChild, modeChange }) {
               height: LOGO_DRAWER,
               borderRadius: 2,
               objectFit: "contain",
-              background: "transparent",
-              border: "none",
-              boxShadow: "none",
-              display: "block",
               flexShrink: 0,
             }}
           />
@@ -161,7 +154,7 @@ function Navigation({ parentToChild, modeChange }) {
                 fontWeight: 950,
                 letterSpacing: ".08em",
                 color: styles.TEXT,
-                fontSize: 14, // ✅ خط اول کوچیک‌تر
+                fontSize: 14,
                 whiteSpace: "nowrap",
                 overflow: "hidden",
                 textOverflow: "ellipsis",
@@ -171,7 +164,7 @@ function Navigation({ parentToChild, modeChange }) {
             </Box>
             <Box
               sx={{
-                fontSize: 11, // ✅ کوچیک‌تر
+                fontSize: 11,
                 color: styles.MUTED,
                 fontWeight: 700,
                 whiteSpace: "nowrap",
@@ -202,7 +195,6 @@ function Navigation({ parentToChild, modeChange }) {
         </IconButton>
       </Box>
 
-      {/* Theme Toggle */}
       <Box
         sx={{
           mb: 1.4,
@@ -236,7 +228,6 @@ function Navigation({ parentToChild, modeChange }) {
 
       <Divider sx={{ my: 1.2, opacity: 0.25 }} />
 
-      {/* Nav items */}
       <List sx={{ display: "grid", gap: 1.2 }}>
         {navItems.map(([label, id]) => {
           const isActive = activeId === id;
@@ -314,28 +305,36 @@ function Navigation({ parentToChild, modeChange }) {
     color: styles.TEXT,
     textTransform: "none",
     fontWeight: 700,
-    letterSpacing: ".02em",
-    px: 1.25,
-    py: 1,
-    borderRadius: 1.5,
+    fontSize: "0.95rem",
+    letterSpacing: ".03em",
+    px: 2,
+    py: 1.2,
+    borderRadius: 2,
     position: "relative",
+    transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
     "&:after": {
       content: '""',
       position: "absolute",
-      left: 10,
-      right: 10,
-      bottom: 6,
-      height: 2,
+      left: "50%",
+      right: "50%",
+      bottom: 8,
+      height: 3,
       borderRadius: 999,
-      transform: "scaleX(0)",
-      transformOrigin: "center",
-      transition: "transform .18s ease",
-      background: "rgba(0,96,255,0.85)",
+      transform: "translateX(-50%)",
+      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
+      background: "linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%)",
+      boxShadow: "0 0 12px rgba(30, 58, 138, 0.6)",
     },
     "&:hover": {
-      background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.06)",
+      background: isLight
+        ? "linear-gradient(135deg, rgba(30, 58, 138, 0.06) 0%, rgba(59, 130, 246, 0.04) 100%)"
+        : "linear-gradient(135deg, rgba(30, 58, 138, 0.15) 0%, rgba(59, 130, 246, 0.10) 100%)",
+      transform: "translateY(-2px)",
     },
-    "&:hover:after": { transform: "scaleX(1)" },
+    "&:hover:after": {
+      left: 12,
+      right: 12,
+    },
   };
 
   const DesktopThemeButton = (
@@ -343,17 +342,27 @@ function Navigation({ parentToChild, modeChange }) {
       onClick={modeChange}
       aria-label="toggle theme"
       sx={{
-        width: 44,
-        height: 44,
-        borderRadius: 2,
+        width: 48,
+        height: 48,
+        borderRadius: 2.5,
         color: styles.TEXT,
-        border: `1px solid ${styles.BORDER}`,
-        background: isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.06)",
+        border: `1.5px solid ${styles.BORDER}`,
+        background: isLight
+          ? "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(245,248,255,0.8))"
+          : "linear-gradient(135deg, rgba(30,58,138,0.15), rgba(59,130,246,0.10))",
         boxShadow: isLight
-          ? "0 10px 22px rgba(0,0,0,0.08)"
-          : "0 10px 22px rgba(0,0,0,0.28)",
+          ? "0 4px 16px rgba(30, 58, 138, 0.12), inset 0 1px 2px rgba(255,255,255,0.8)"
+          : "0 4px 16px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.1)",
+        transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         "&:hover": {
-          background: isLight ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.10)",
+          background: isLight
+            ? "linear-gradient(135deg, rgba(30,58,138,0.08), rgba(59,130,246,0.06))"
+            : "linear-gradient(135deg, rgba(30,58,138,0.25), rgba(59,130,246,0.18))",
+          transform: "translateY(-2px) scale(1.05)",
+          boxShadow: isLight
+            ? "0 8px 24px rgba(30, 58, 138, 0.2)"
+            : "0 8px 24px rgba(30, 58, 138, 0.4)",
+          borderColor: "#1e3a8a",
         },
       }}
     >
@@ -419,12 +428,13 @@ function Navigation({ parentToChild, modeChange }) {
           sx={{
             mx: "auto",
             width: "100%",
-            maxWidth: 1200,
-            minHeight: "104px !important",
+            maxWidth: 1280,
+            minHeight: "96px !important",
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            gap: 2,
+            gap: 3,
+            px: 3,
           }}
         >
           <Box
@@ -432,9 +442,13 @@ function Navigation({ parentToChild, modeChange }) {
             sx={{
               display: "flex",
               alignItems: "center",
-              gap: 1.6,
+              gap: 2,
               cursor: "pointer",
               userSelect: "none",
+              transition: "all 0.3s ease",
+              "&:hover": {
+                transform: "translateX(4px)",
+              },
             }}
           >
             <Box
@@ -442,30 +456,34 @@ function Navigation({ parentToChild, modeChange }) {
               src="/favicon.png"
               alt="MiladWeb logo"
               sx={{
-                width: 84,
-                height: 84,
+                width: scrolled ? 72 : 84,
+                height: scrolled ? 72 : 84,
                 borderRadius: "50%",
                 objectFit: "contain",
-                background: "transparent",
-                border: "none",
-                boxShadow: "none",
-                display: "block",
+                transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
             />
 
-            <Box sx={{ lineHeight: 1.05 }}>
+            <Box sx={{ lineHeight: 1.15 }}>
               <Box
                 sx={{
                   fontWeight: 950,
-                  letterSpacing: ".10em",
+                  fontSize: scrolled ? "1.1rem" : "1.25rem",
+                  letterSpacing: ".12em",
                   color: styles.TEXT,
+                  transition: "all 0.3s ease",
                 }}
               >
                 MiladWeb
               </Box>
               {!scrolled && (
                 <Box
-                  sx={{ fontSize: 12, color: styles.MUTED, fontWeight: 700 }}
+                  sx={{
+                    fontSize: "0.8rem",
+                    color: styles.MUTED,
+                    fontWeight: 700,
+                    letterSpacing: ".05em",
+                  }}
                 >
                   Full Stack Developer
                 </Box>
@@ -473,33 +491,49 @@ function Navigation({ parentToChild, modeChange }) {
             </Box>
           </Box>
 
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.2 }}>
-            <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
-              {navItems.map(([label, id]) => {
-                const isActive = activeId === id;
-                return (
-                  <Button
-                    key={label}
-                    disableRipple
-                    onClick={() => scrollToSection(id)}
-                    sx={{
-                      ...desktopBtnSx,
-                      ...(isActive && {
-                        "&:after": { transform: "scaleX(1)" },
-                      }),
-                    }}
-                  >
-                    {label}
-                  </Button>
-                );
-              })}
-            </Box>
+          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
+            {navItems.map(([label, id]) => {
+              const isActive = activeId === id;
+              return (
+                <Button
+                  key={label}
+                  disableRipple
+                  onClick={() => scrollToSection(id)}
+                  sx={{
+                    ...desktopBtnSx,
+                    ...(isActive && {
+                      background: isLight
+                        ? "linear-gradient(135deg, rgba(30, 58, 138, 0.10) 0%, rgba(59, 130, 246, 0.08) 100%)"
+                        : "linear-gradient(135deg, rgba(30, 58, 138, 0.25) 0%, rgba(59, 130, 246, 0.18) 100%)",
+                      fontWeight: 900,
+                      "&:after": {
+                        left: 12,
+                        right: 12,
+                      },
+                    }),
+                  }}
+                >
+                  {label}
+                </Button>
+              );
+            })}
+            <Box
+              sx={{
+                width: 2,
+                height: 40,
+                background: isLight
+                  ? "linear-gradient(180deg, transparent, rgba(30, 58, 138, 0.25), transparent)"
+                  : "linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent)",
+                borderRadius: 999,
+                mx: 1.5,
+              }}
+            />
             {DesktopThemeButton}
           </Box>
         </Toolbar>
       </AppBar>
 
-      {/* Mobile pill (top بیشتر) */}
+      {/* Mobile */}
       <AppBar
         component="nav"
         elevation={0}
@@ -507,7 +541,7 @@ function Navigation({ parentToChild, modeChange }) {
           display: { xs: "block", sm: "none" },
           background: "transparent",
           boxShadow: "none",
-          top: 22, // ✅ بیشتر
+          top: 22,
           left: 14,
           right: 14,
           width: "auto",
@@ -562,10 +596,6 @@ function Navigation({ parentToChild, modeChange }) {
                 height: LOGO_MOBILE,
                 borderRadius: "14px",
                 objectFit: "contain",
-                background: "transparent",
-                border: "none",
-                boxShadow: "none",
-                display: "block",
                 flexShrink: 0,
               }}
             />
@@ -606,7 +636,6 @@ function Navigation({ parentToChild, modeChange }) {
         </Toolbar>
       </AppBar>
 
-      {/* Mobile spacer (پایین کمتر) */}
       <Box sx={{ display: { xs: "block", sm: "none" }, height: 40 }} />
 
       {/* Drawer */}

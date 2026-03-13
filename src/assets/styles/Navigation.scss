@@ -1,0 +1,172 @@
+/* ================================
+   🎨 PREMIUM DESKTOP NAVIGATION
+=================================== */
+
+#navigation {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Desktop Navigation Enhancement */
+.desktop-nav-wrapper {
+  position: relative;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(30, 58, 138, 0.03) 50%,
+      transparent 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 1;
+  }
+}
+
+/* Logo Hover Effect */
+.nav-logo-wrapper {
+  position: relative;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -4px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    opacity: 0;
+    filter: blur(12px);
+    transition: opacity 0.3s ease;
+    z-index: -1;
+  }
+
+  &:hover::after {
+    opacity: 0.3;
+  }
+}
+
+/* Navigation Button Enhancement */
+.nav-button {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #1e3a8a, transparent);
+    transform: translateX(-50%);
+    transition: width 0.3s ease;
+  }
+
+  &:hover::before {
+    width: 80%;
+  }
+
+  /* Active indicator */
+  &.active {
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+      box-shadow: 0 0 8px rgba(30, 58, 138, 0.6);
+    }
+  }
+}
+
+/* Theme Toggle Button Enhancement */
+.theme-toggle-btn {
+  position: relative;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    border-radius: inherit;
+  }
+
+  &:hover::before {
+    opacity: 0.1;
+  }
+
+  svg {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover svg {
+    transform: rotate(20deg) scale(1.1);
+  }
+}
+
+/* Scrolled State Enhancement */
+.nav-scrolled {
+  .nav-logo-wrapper img {
+    transform: scale(0.95);
+    transition: transform 0.3s ease;
+  }
+}
+
+/* Desktop Menu Items Container */
+.desktop-menu-items {
+  position: relative;
+  padding: 8px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+
+  .light-mode & {
+    background: rgba(0, 0, 0, 0.02);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+  }
+}
+
+/* Smooth Underline Animation */
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+/* Responsive Adjustments */
+@media screen and (min-width: 1200px) {
+  .desktop-nav-wrapper {
+    padding: 0 2rem;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .desktop-nav-wrapper {
+    padding: 0 3rem;
+  }
+
+  .nav-button {
+    font-size: 1.05rem;
+    padding: 0.75rem 1.5rem;
+  }
+}

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import "../assets/styles/Main.scss"; // Ensure this is correct path
+import "../assets/styles/Main.scss";
 
 const WORDS = [
   "Full-Stack Developer",

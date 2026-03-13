@@ -29,7 +29,7 @@ export async function POST(request) {
       subject: `Portfolio Contact: ${name}`,
       html: `
         <div style="font-family: Arial, sans-serif; padding: 20px; max-width: 600px;">
-          <h2 style="color: #5000ca;">New Contact Form Submission</h2>
+          <h2 style="color: #1e3a8a;">New Contact Form Submission</h2>
           <div style="background: #f5f5f5; padding: 15px; border-radius: 8px; margin: 20px 0;">
             <p><strong>Name:</strong> ${name}</p>
             <p><strong>Email/Phone:</strong> ${email}</p>

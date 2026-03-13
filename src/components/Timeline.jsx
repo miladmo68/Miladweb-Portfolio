@@ -19,7 +19,7 @@ function Timeline() {
             contentStyle={{ background: "white", color: "rgb(39, 40, 34)" }}
             contentArrowStyle={{ borderRight: "7px solid  white" }}
             date="2022 - present"
-            iconStyle={{ background: "#5000ca", color: "rgb(39, 40, 34)" }}
+            iconStyle={{ background: "#1e3a8a", color: "rgb(39, 40, 34)" }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
             <h3 className="vertical-timeline-element-title">
@@ -35,7 +35,7 @@ function Timeline() {
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             date="2020 - 2022"
-            iconStyle={{ background: "#5000ca", color: "rgb(39, 40, 34)" }}
+            iconStyle={{ background: "#1e3a8a", color: "rgb(39, 40, 34)" }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
             <h3 className="vertical-timeline-element-title">
@@ -51,7 +51,7 @@ function Timeline() {
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             date="2021 - 2021"
-            iconStyle={{ background: "#5000ca", color: "rgb(39, 40, 34)" }}
+            iconStyle={{ background: "#1e3a8a", color: "rgb(39, 40, 34)" }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
             <h3 className="vertical-timeline-element-title">
@@ -64,7 +64,7 @@ function Timeline() {
           <VerticalTimelineElement
             className="vertical-timeline-element--work"
             date="2020 - 2020"
-            iconStyle={{ background: "#5000ca", color: "rgb(39, 40, 34)" }}
+            iconStyle={{ background: "#1e3a8a", color: "rgb(39, 40, 34)" }}
             icon={<FontAwesomeIcon icon={faBriefcase} />}
           >
             <h3 className="vertical-timeline-element-title">
