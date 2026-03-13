@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   FaReact,
   FaNodeJs,
@@ -67,20 +67,37 @@ const workflowItems = [
 ];
 
 function Skills() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
-      className=" w-full px-4 sm:px-6 md:px-10 lg:px-20 py-10 flex flex-col items-center justify-center"
+      ref={sectionRef}
+      className="w-full px-4 sm:px-6 md:px-10 lg:px-20 py-10 flex flex-col items-center justify-center fade-in-section"
       id="skills"
     >
-      {/* <h1 className="text-3xl font-extrabold text-center mb-2">Skills</h1> */}
-      {/* <h2 className="text-lg text-gray-600 mb-6 text-center">
-        My Technical Skills & Expertise
-      </h2> */}
       <h2 className="text-lg text-gray-600 mb-6 text-center">
         Programming Languages & Tools
       </h2>
 
-      {/* Tech Chips with Hover */}
       <div
         style={{
           display: "flex",
@@ -107,16 +124,16 @@ function Skills() {
               cursor: "pointer",
 
               "&:hover": {
-                backgroundColor: "#e7d8fd", //
-                color: "#5000ca", //
+                backgroundColor: "#e7d8fd",
+                color: "#5000ca",
                 borderColor: "#5000ca",
+                transform: "translateY(-2px)",
               },
             }}
           />
         ))}
       </div>
 
-      {/* Workflow Section */}
       <div className="mt-12 w-full max-w-3xl">
         <h3 className="text-xl font-semibold mb-4 text-left ">Workflow</h3>
         <ul className="space-y-3 ">

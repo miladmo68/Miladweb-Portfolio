@@ -1,7 +1,9 @@
-import React, { useEffect, useRef } from "react";
+"use client";
+
+import { useEffect, useRef } from "react";
 import Skills from "./Skills";
 
-function About() {
+export default function About() {
   const sectionRef = useRef(null);
 
   useEffect(() => {
@@ -24,16 +26,13 @@ function About() {
   }, []);
 
   return (
-    <div
+    <section
       ref={sectionRef}
       id="about"
       className="container items-container section py-12 px-4 fade-in-section"
     >
-      <div
-        className="container mx-auto max-w-4xl text-center"
-        data-aos="fade-up"
-      >
-        <h1 className="text-3xl font-extrabold text-center mb-2">About</h1>
+      <div className="container mx-auto max-w-4xl text-center">
+        <h2 className="text-3xl font-extrabold text-center mb-2">About</h2>
         <p>
           Experienced Full Stack Developer with a passion for creating dynamic
           and responsive web applications. Skilled in front-end technologies
@@ -43,7 +42,7 @@ function About() {
           Joomla, and Shopify.
         </p>
         <p className="text-gray-700 text-lg leading-relaxed mt-4">
-          With a Master’s in Computer Science/Information Technology, I have
+          With a Master's in Computer Science/Information Technology, I have
           hands-on experience in designing, developing, and maintaining
           full-stack applications, delivering clean, scalable, and efficient
           code. I collaborate closely with cross-functional teams, ensuring
@@ -53,8 +52,6 @@ function About() {
         </p>
       </div>
       <Skills />
-    </div>
+    </section>
   );
 }
-
-export default About;

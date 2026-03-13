@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCode,
@@ -55,8 +55,34 @@ const services = [
 ];
 
 function Timeline() {
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div id="services" style={{ padding: "4rem 1rem" }}>
+    <div
+      ref={sectionRef}
+      id="services"
+      className="fade-in-section"
+      style={{ padding: "4rem 1rem" }}
+    >
       <div
         style={{ textAlign: "center", marginBottom: "3rem" }}
         className="items-container"

@@ -1,19 +1,22 @@
-import React, { useState, useEffect, Suspense, lazy } from "react";
-import {
-  Main,
-  Timeline,
-  Skills,
-  Contact,
-  Navigation,
-  Footer,
-  About,
-  Services,
-} from "./components";
-import "./index.scss";
+"use client";
 
-const Project = lazy(() => import("./components/Project"));
+import { useState, useEffect, Suspense, lazy } from "react";
+import dynamic from "next/dynamic";
+import Navigation from "@/components/Navigation";
+import Main from "@/components/Main";
+import About from "@/components/About";
+import Services from "@/components/Services";
+import Contact from "@/components/Contact";
+import Footer from "@/components/Footer";
 
-function App() {
+const Project = dynamic(() => import("@/components/Project"), {
+  loading: () => (
+    <div style={{ padding: "2rem", textAlign: "center" }}>Loading…</div>
+  ),
+  ssr: false,
+});
+
+export default function Home() {
   const [mode, setMode] = useState("dark");
 
   const handleModeChange = () =>
@@ -34,15 +37,7 @@ function App() {
       <div className="mx-auto w-full max-w-[1536px] px-4">
         <Main />
         <About />
-
-        <Suspense
-          fallback={
-            <div style={{ padding: "2rem", textAlign: "center" }}>Loading…</div>
-          }
-        >
-          <Project />
-        </Suspense>
-
+        <Project />
         <Services />
         <Contact />
       </div>
@@ -51,5 +46,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   Box,
   Grid,
@@ -17,7 +17,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 /* 1 ▸ load every screenshot that lives in src/assets/img */
 const images = import.meta.glob("../assets/img/*.{png,jpg,jpeg,gif}", {
-  eager: true, // keep eager=true → no async refactor needed
+  eager: true,
   import: "default",
 });
 const getImg = (file) => images[`../assets/img/${file}`];
@@ -398,7 +398,15 @@ const PROJECTS = [
 
 /* 4 ▸ card settings */
 const CARD_W = 380;
-const ASPECT_16_9 = "56.25%"; // 9 / 16
+const ASPECT_16_9 = "56.25%";
+
+/* Responsive card width */
+const getCardWidth = () => {
+  if (typeof window === "undefined") return CARD_W;
+  if (window.innerWidth < 480) return Math.min(window.innerWidth - 40, 340);
+  if (window.innerWidth < 768) return Math.min(window.innerWidth - 60, 360);
+  return CARD_W;
+};
 
 /* 5 ▸ component */
 export default function Project() {
@@ -406,10 +414,31 @@ export default function Project() {
   const visible =
     filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
 
+  const sectionRef = useRef(null);
+
   /* modal state */
   const [open, setOpen] = useState(false);
   const [modalImg, setImg] = useState("");
   const [modalTitle, setTitle] = useState("");
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   const preview = (p) => {
     setImg(getImg(p.img));
@@ -418,14 +447,30 @@ export default function Project() {
   };
 
   return (
-    <div className="container">
-      <Box component="section" id="projects" sx={{ py: 8 }}>
+    <div ref={sectionRef} className="container fade-in-section">
+      <Box
+        component="section"
+        id="projects"
+        sx={{ py: { xs: 4, sm: 6, md: 8 } }}
+      >
         {/* heading */}
-        <Box textAlign="center" mb={6}>
-          <Typography variant="h4" fontWeight={700}>
+        <Box textAlign="center" mb={{ xs: 4, sm: 5, md: 6 }}>
+          <Typography
+            variant="h4"
+            fontWeight={700}
+            sx={{ fontSize: { xs: "1.75rem", sm: "2rem", md: "2.125rem" } }}
+          >
             Portfolio
           </Typography>
-          <Typography sx={{ maxWidth: 640, mx: "auto", mt: 1 }}>
+          <Typography
+            sx={{
+              maxWidth: 640,
+              mx: "auto",
+              mt: 1,
+              px: 2,
+              fontSize: { xs: "0.9rem", sm: "1rem" },
+            }}
+          >
             A selection of my recent work. See more on{" "}
             <Box
               component="a"
@@ -446,7 +491,8 @@ export default function Project() {
           justifyContent="center"
           flexWrap="wrap"
           gap={1}
-          mb={5}
+          mb={{ xs: 3, sm: 4, md: 5 }}
+          px={2}
         >
           {FILTERS.map((f) => {
             const active = filter === f.value;
@@ -477,105 +523,123 @@ export default function Project() {
         </Box>
 
         {/* project grid */}
-        <Grid container spacing={4} justifyContent="center">
-          {visible.map((p) => (
-            <Grid key={p.title}>
-              <Card
-                elevation={4}
-                sx={{
-                  width: CARD_W,
-                  overflow: "hidden",
-                  position: "relative",
-                  transition: "transform .25s",
-                  "&:hover": { transform: "scale(1.04)" },
-                  "&:hover .overlay": {
-                    transform: "translateY(0)",
-                    opacity: 1,
-                  },
-                }}
-              >
-                {/* ─── thumbnail (lazy) ─────────────────────────── */}
-                <Box
-                  position="relative"
-                  sx={{ width: "100%", pt: ASPECT_16_9 }}
-                >
-                  <Box
-                    component="img"
-                    src={getImg(p.img)}
-                    alt={p.title}
-                    loading="lazy"
-                    width={CARD_W}
-                    height={Math.round((CARD_W * 9) / 16)}
-                    sx={{
-                      position: "absolute",
-                      top: 0,
-                      left: 0,
-                      width: "100%",
-                      height: "100%",
-                      objectFit: "cover",
-                      cursor: "pointer",
-                    }}
-                    onClick={() => preview(p)}
-                  />
-                </Box>
-
-                {/* overlay bar */}
-                <Box
-                  className="overlay"
+        <Grid
+          container
+          spacing={{ xs: 2, sm: 3, md: 4 }}
+          justifyContent="center"
+          sx={{ px: { xs: 1, sm: 2 } }}
+        >
+          {visible.map((p) => {
+            const cardWidth =
+              typeof window !== "undefined" ? getCardWidth() : CARD_W;
+            return (
+              <Grid key={p.title}>
+                <Card
+                  elevation={4}
                   sx={{
-                    position: "absolute",
-                    bottom: 0,
-                    left: 0,
-                    width: "100%",
-                    height: 56,
-                    bgcolor: "rgba(0,0,0,0.7)",
-                    color: "white",
-                    display: "flex",
-                    alignItems: "center",
-                    px: 1,
-                    gap: 1,
-                    transform: "translateY(100%)",
-                    opacity: 0,
-                    transition: "all .25s",
+                    width: { xs: "calc(100vw - 40px)", sm: 360, md: CARD_W },
+                    maxWidth: CARD_W,
+                    overflow: "hidden",
+                    position: "relative",
+                    transition: "transform .25s ease, box-shadow .25s ease",
+                    "&:hover": {
+                      transform: "scale(1.04)",
+                      boxShadow: "0 12px 40px rgba(80, 0, 202, 0.3)",
+                    },
+                    "&:hover .overlay": {
+                      transform: "translateY(0)",
+                      opacity: 1,
+                    },
                   }}
                 >
-                  <Typography
-                    variant="subtitle2"
-                    noWrap
-                    sx={{ flexGrow: 1, pl: 0.5 }}
+                  {/* ─── thumbnail (lazy) ─────────────────────────── */}
+                  <Box
+                    position="relative"
+                    sx={{ width: "100%", pt: ASPECT_16_9 }}
                   >
-                    {p.title}
-                  </Typography>
-
-                  <Tooltip title="Preview">
-                    <IconButton
-                      size="small"
-                      sx={{ color: "white" }}
+                    <Box
+                      component="img"
+                      src={getImg(p.img)}
+                      alt={p.title}
+                      loading="lazy"
+                      decoding="async"
+                      width={cardWidth}
+                      height={Math.round((cardWidth * 9) / 16)}
+                      sx={{
+                        position: "absolute",
+                        top: 0,
+                        left: 0,
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                        cursor: "pointer",
+                      }}
                       onClick={() => preview(p)}
-                    >
-                      <VisibilityIcon fontSize="small" />
-                    </IconButton>
-                  </Tooltip>
+                    />
+                  </Box>
 
-                  {p.link !== "#" && (
-                    <Tooltip title="Visit">
+                  {/* overlay bar */}
+                  <Box
+                    className="overlay"
+                    sx={{
+                      position: "absolute",
+                      bottom: 0,
+                      left: 0,
+                      width: "100%",
+                      height: 56,
+                      bgcolor: "rgba(0,0,0,0.7)",
+                      color: "white",
+                      display: "flex",
+                      alignItems: "center",
+                      px: 1,
+                      gap: 1,
+                      transform: "translateY(100%)",
+                      opacity: 0,
+                      transition: "all .25s",
+                    }}
+                  >
+                    <Typography
+                      variant="subtitle2"
+                      noWrap
+                      sx={{
+                        flexGrow: 1,
+                        pl: 0.5,
+                        fontSize: { xs: "0.8rem", sm: "0.875rem" },
+                      }}
+                    >
+                      {p.title}
+                    </Typography>
+
+                    <Tooltip title="Preview">
                       <IconButton
                         size="small"
                         sx={{ color: "white" }}
-                        component="a"
-                        href={p.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={(e) => e.stopPropagation()}
+                        onClick={() => preview(p)}
                       >
-                        <OpenInNewIcon fontSize="small" />
+                        <VisibilityIcon fontSize="small" />
                       </IconButton>
                     </Tooltip>
-                  )}
-                </Box>
-              </Card>
-            </Grid>
-          ))}
+
+                    {p.link !== "#" && (
+                      <Tooltip title="Visit">
+                        <IconButton
+                          size="small"
+                          sx={{ color: "white" }}
+                          component="a"
+                          href={p.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <OpenInNewIcon fontSize="small" />
+                        </IconButton>
+                      </Tooltip>
+                    )}
+                  </Box>
+                </Card>
+              </Grid>
+            );
+          })}
         </Grid>
 
         {/* preview dialog */}

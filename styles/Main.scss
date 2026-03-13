@@ -10,7 +10,7 @@
   width: 100%;
   padding: 0px 15%;
   min-height: clamp(500px, 85vh, 900px);
-  background-image: url("../images/bg-dark.png");
+  background-image: url("/bg-dark.png");
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: scroll;
@@ -78,8 +78,8 @@
   flex-shrink: 0;
 
   img {
-    width: clamp(120px, 15vw, 180px);
-    height: clamp(120px, 15vw, 180px);
+    width: clamp(120px, 15vw, 180px) !important;
+    height: clamp(120px, 15vw, 180px) !important;
     border-radius: 50%;
     object-fit: cover;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);

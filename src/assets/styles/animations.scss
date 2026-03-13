@@ -1,0 +1,125 @@
+/* ================================
+   ✅ Global Scroll Animations
+=================================== */
+
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+  will-change: opacity, transform;
+}
+
+.fade-in-section.animate-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Stagger animation delays for child elements */
+.fade-in-section.animate-in > * {
+  animation: fadeInStagger 0.5s ease-out forwards;
+}
+
+@keyframes fadeInStagger {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Smooth transitions for all interactive elements */
+a,
+button,
+.chip,
+.card {
+  transition: all 0.3s ease;
+}
+
+/* Performance optimization */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in-section,
+  .fade-in-section.animate-in,
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ================================
+   ✅ Performance Optimizations
+=================================== */
+
+/* GPU acceleration for smooth animations */
+.about-section,
+.fade-in-section,
+.card,
+.chip {
+  will-change: transform, opacity;
+}
+
+/* Remove will-change after animation completes */
+.fade-in-section.animate-in {
+  will-change: auto;
+}
+
+/* Optimize image loading */
+img {
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Smooth scrolling for entire page */
+html {
+  scroll-behavior: smooth;
+}
+
+/* ================================
+   ✅ Responsive Typography
+=================================== */
+
+@media (max-width: 480px) {
+  h1 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem) !important;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 4vw, 2rem) !important;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 3.5vw, 1.75rem) !important;
+  }
+
+  p {
+    font-size: clamp(0.9rem, 2.5vw, 1.1rem) !important;
+  }
+}
+
+/* ================================
+   ✅ Loading States
+=================================== */
+
+.loading-skeleton {
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0.1) 25%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}

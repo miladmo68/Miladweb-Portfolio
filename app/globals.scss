@@ -1,10 +1,12 @@
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 html {
   overflow-y: scroll;
   scroll-behavior: smooth;
 }
+
 body {
   background-image: url("/bg-dark.png");
   margin: 0;
@@ -49,7 +51,7 @@ h5,
 label,
 button {
   color: white;
-  font-family: "Lato", sans-serif;
+  font-family: var(--font-lato), "Lato", sans-serif;
 }
 
 .navigation-bar {
@@ -58,7 +60,7 @@ button {
 
   button {
     font-size: 1.1rem;
-    font-family: "Lato", sans-serif;
+    font-family: var(--font-lato), "Lato", sans-serif;
     text-transform: initial;
     padding: 6px 10px;
   }
@@ -72,7 +74,7 @@ button {
   span,
   p {
     color: #0d1116;
-    font-family: "Lato", sans-serif;
+    font-family: var(--font-lato), "Lato", sans-serif;
   }
 }
 
@@ -144,7 +146,7 @@ button {
   }
 
   .about-section {
-    background-image: url("./assets/images/bg-light.png");
+    background-image: url("/bg-light.png");
   }
 
   .skills-container svg {
@@ -185,17 +187,15 @@ button {
   }
 }
 
-@media screen {
-  @media (max-width: 768px) {
-    .items-container {
-      padding: 5% 5%;
-    }
+@media screen and (max-width: 768px) {
+  .items-container {
+    padding: 5% 5%;
   }
 }
 
-/* typewriter look -------------------------------------------*/
+/* Typewriter effect */
 .typed-wrapper {
-  font-size: clamp(1rem, 2vw, 1.2rem);
+  font-size: 1.2rem;
   font-weight: 500;
   display: inline-block;
 }
@@ -221,4 +221,18 @@ button {
   50% {
     opacity: 0;
   }
+}
+
+/* Scroll animations */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 0.6s ease-out,
+    transform 0.6s ease-out;
+}
+
+.fade-in-section.animate-in {
+  opacity: 1;
+  transform: translateY(0);
 }

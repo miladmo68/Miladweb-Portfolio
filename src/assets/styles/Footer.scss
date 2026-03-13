@@ -1,15 +1,27 @@
 footer {
-    text-align: center;
-    padding-top: 50px;
-    padding-bottom: 50px;
+  text-align: center;
+  padding: clamp(30px, 5vw, 50px) 20px;
 
-    svg {
-        width: 1.1em !important;
-        height: 1.1em !important;
-        margin-right: 10px;
-    }
+  svg {
+    width: 1.1em !important;
+    height: 1.1em !important;
+    margin-right: 10px;
+    transition:
+      transform 0.3s ease,
+      color 0.3s ease;
 
-    p {
-        font-size: 0.8em;
+    &:hover {
+      transform: translateY(-3px) scale(1.1);
+      color: #5000ca;
     }
+  }
+
+  p {
+    font-size: clamp(0.75em, 2vw, 0.8em);
+    margin-top: 10px;
+  }
+
+  a {
+    transition: color 0.3s ease;
+  }
 }

@@ -204,8 +204,7 @@
 //   );
 // }
 // src/components/Contact.jsx
-import React, { useState, useEffect } from "react";
-// import emailjs from "@emailjs/browser"; // ← دیگر لازم نیست
+import React, { useState, useEffect, useRef } from "react";
 import "../assets/styles/Contact.scss";
 
 import {
@@ -223,6 +222,7 @@ export default function Contact() {
   const isDark = theme.palette.mode === "dark";
   const inputTextColor = isDark ? "#fff" : "#000";
   const inputBgColor = isDark ? "#1e1e1e" : "#fff";
+  const sectionRef = useRef(null);
 
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -237,6 +237,23 @@ export default function Contact() {
 
   useEffect(() => {
     generateCaptcha();
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
   }, []);
 
   const generateCaptcha = () => {
@@ -293,7 +310,7 @@ export default function Contact() {
   };
 
   return (
-    <div id="contact">
+    <div ref={sectionRef} id="contact" className="fade-in-section">
       <div className="items-container">
         <div className="contact_wrapper space-y-8">
           <h1 className="flex items-center justify-center font-extrabold text-3xl">
