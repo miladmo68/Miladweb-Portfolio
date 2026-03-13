@@ -52,7 +52,7 @@
 
 #skills {
   position: relative;
-  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 10%);
+  padding: clamp(3rem, 8vw, 6rem) clamp(1rem, 5vw, 10%) clamp(0.5rem, 1vw, 0.75rem);
   max-width: 1400px;
   margin: 0 auto;
   text-align: center;
@@ -233,7 +233,7 @@
 
 #projects {
   position: relative;
-  padding: clamp(4rem, 10vw, 8rem) clamp(1rem, 5vw, 10%);
+  padding: clamp(0.5rem, 1vw, 1rem) clamp(1rem, 5vw, 10%) clamp(4rem, 10vw, 8rem);
   max-width: 1600px;
   margin: 0 auto;
   text-align: center;
