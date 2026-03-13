@@ -109,7 +109,7 @@
   .about-section {
     padding: 80px 5% 50px;
     min-height: clamp(450px, 75vh, 600px);
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 20px;
     text-align: center;
   }
@@ -160,7 +160,7 @@
   .about-section {
     padding: 90px 6% 60px;
     min-height: clamp(500px, 80vh, 700px);
-    flex-direction: column-reverse;
+    flex-direction: column;
     gap: 25px;
     text-align: center;
   }
