@@ -343,3 +343,51 @@ p {
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-primary-light);
 }
+
+/* ================================
+   🌓 DARK MODE - PORTFOLIO & SERVICES
+=================================== */
+
+/* Ensure Portfolio section is visible in dark mode */
+#projects {
+  h4,
+  p,
+  a,
+  .MuiTypography-root {
+    color: white !important;
+  }
+}
+
+/* Light mode overrides */
+.light-mode #projects {
+  h4,
+  p,
+  a,
+  .MuiTypography-root {
+    color: #0d1116 !important;
+  }
+}
+
+/* Services section visibility */
+.services-section {
+  h1,
+  p {
+    color: white;
+  }
+
+  .vertical-timeline-element-date {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+  }
+}
+
+.light-mode .services-section {
+  h1,
+  p {
+    color: #0d1116;
+  }
+
+  .vertical-timeline-element-date {
+    color: rgba(0, 0, 0, 0.7) !important;
+  }
+}

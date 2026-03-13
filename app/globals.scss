@@ -236,3 +236,25 @@ button {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ================================
+   🌓 DARK MODE - PORTFOLIO & SERVICES
+=================================== */
+
+/* Ensure Portfolio section is visible in dark mode */
+#projects {
+  h4,
+  p,
+  a {
+    color: white !important;
+  }
+}
+
+/* Light mode overrides */
+.light-mode #projects {
+  h4,
+  p,
+  a {
+    color: #0d1116 !important;
+  }
+}

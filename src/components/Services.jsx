@@ -76,11 +76,14 @@ function Timeline() {
     return () => observer.disconnect();
   }, []);
 
+  // Check if dark mode is active
+  const isDarkMode = document.querySelector(".dark-mode") !== null;
+
   return (
     <div
       ref={sectionRef}
       id="services"
-      className="fade-in-section"
+      className="fade-in-section services-section"
       style={{ padding: "4rem 1rem" }}
     >
       <div
@@ -98,9 +101,7 @@ function Timeline() {
           {services.map((service, index) => (
             <VerticalTimelineElement
               key={index}
-              className="vertical-timeline-element--work"
-              contentStyle={{ background: "white", color: "rgb(39, 40, 34)" }}
-              contentArrowStyle={{ borderRight: "7px solid white" }}
+              className="vertical-timeline-element--work service-card"
               date={`Service ${index + 1}`}
               iconStyle={{ background: "#1e3a8a", color: "#fff" }}
               icon={<FontAwesomeIcon icon={service.icon} />}

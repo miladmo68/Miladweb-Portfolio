@@ -415,6 +415,8 @@ export default function Project() {
     filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
 
   const sectionRef = useRef(null);
+  const [visibleCards, setVisibleCards] = useState(new Set());
+  const cardRefs = useRef({});
 
   /* modal state */
   const [open, setOpen] = useState(false);
@@ -440,6 +442,30 @@ export default function Project() {
     return () => observer.disconnect();
   }, []);
 
+  // Intersection Observer for individual cards
+  useEffect(() => {
+    const cardObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const cardId = entry.target.getAttribute("data-card-id");
+            setVisibleCards((prev) => new Set([...prev, cardId]));
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      },
+    );
+
+    Object.values(cardRefs.current).forEach((ref) => {
+      if (ref) cardObserver.observe(ref);
+    });
+
+    return () => cardObserver.disconnect();
+  }, [visible]);
+
   const preview = (p) => {
     setImg(getImg(p.img));
     setTitle(p.title);
@@ -458,7 +484,10 @@ export default function Project() {
           <Typography
             variant="h4"
             fontWeight={700}
-            sx={{ fontSize: { xs: "1.75rem", sm: "2rem", md: "2.125rem" } }}
+            sx={{
+              fontSize: { xs: "1.75rem", sm: "2rem", md: "2.125rem" },
+              color: "inherit",
+            }}
           >
             Portfolio
           </Typography>
@@ -469,6 +498,7 @@ export default function Project() {
               mt: 1,
               px: 2,
               fontSize: { xs: "0.9rem", sm: "1rem" },
+              color: "inherit",
             }}
           >
             A selection of my recent work. See more on{" "}
@@ -477,7 +507,14 @@ export default function Project() {
               href="https://github.com/miladmo68"
               target="_blank"
               rel="noreferrer"
-              sx={{ textDecoration: "underline", fontWeight: 500 }}
+              sx={{
+                textDecoration: "underline",
+                fontWeight: 500,
+                color: "inherit",
+                "&:hover": {
+                  color: "#1e3a8a",
+                },
+              }}
             >
               GitHub
             </Box>
@@ -529,11 +566,40 @@ export default function Project() {
           justifyContent="center"
           sx={{ px: { xs: 1, sm: 2 } }}
         >
-          {visible.map((p) => {
+          {visible.map((p, index) => {
             const cardWidth =
               typeof window !== "undefined" ? getCardWidth() : CARD_W;
+            const isVisible = visibleCards.has(p.title);
+            const delay = Math.min(index * 0.08, 1.5); // Max 1.5s delay, smoother stagger
+
             return (
-              <Grid key={p.title}>
+              <Grid
+                key={p.title}
+                ref={(el) => (cardRefs.current[p.title] = el)}
+                data-card-id={p.title}
+                sx={{
+                  opacity: 0,
+                  transform: "translateY(30px) scale(0.95)",
+                  animation: isVisible
+                    ? `smoothFadeIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) ${delay}s forwards`
+                    : "none",
+                  "@keyframes smoothFadeIn": {
+                    "0%": {
+                      opacity: 0,
+                      transform: "translateY(30px) scale(0.95)",
+                    },
+                    "100%": {
+                      opacity: 1,
+                      transform: "translateY(0) scale(1)",
+                    },
+                  },
+                  "@media (prefers-reduced-motion: reduce)": {
+                    animation: "none !important",
+                    opacity: "1 !important",
+                    transform: "none !important",
+                  },
+                }}
+              >
                 <Card
                   elevation={4}
                   sx={{
@@ -541,14 +607,22 @@ export default function Project() {
                     maxWidth: CARD_W,
                     overflow: "hidden",
                     position: "relative",
-                    transition: "transform .25s ease, box-shadow .25s ease",
+                    backgroundColor: "rgba(255, 255, 255, 0.95)",
+                    transition:
+                      "transform .3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow .3s ease",
+                    willChange: "transform",
                     "&:hover": {
-                      transform: "scale(1.04)",
-                      boxShadow: "0 12px 40px rgba(80, 0, 202, 0.3)",
+                      transform: "translateY(-8px) scale(1.02)",
+                      boxShadow: "0 12px 40px rgba(30, 58, 138, 0.4)",
                     },
                     "&:hover .overlay": {
                       transform: "translateY(0)",
                       opacity: 1,
+                    },
+                    "@media (hover: none)": {
+                      "&:active": {
+                        transform: "scale(0.98)",
+                      },
                     },
                   }}
                 >
@@ -562,6 +636,7 @@ export default function Project() {
                       src={getImg(p.img)}
                       alt={p.title}
                       loading="lazy"
+                      decoding="async"
                       sx={{
                         position: "absolute",
                         top: 0,
@@ -570,6 +645,11 @@ export default function Project() {
                         height: "100%",
                         objectFit: "cover",
                         cursor: "pointer",
+                        willChange: "transform",
+                        transition: "transform 0.3s ease",
+                        "&:hover": {
+                          transform: "scale(1.05)",
+                        },
                       }}
                       onClick={() => preview(p)}
                     />

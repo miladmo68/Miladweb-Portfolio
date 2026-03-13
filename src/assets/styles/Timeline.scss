@@ -1,38 +1,200 @@
-.vertical-timeline span {
-    color: white;
-    font-family: 'Courier Prime', monospace;
+/* ================================
+   🎨 SERVICES TIMELINE - DARK MODE (DEFAULT)
+=================================== */
+
+.services-section {
+  /* Timeline line */
+  .vertical-timeline::before {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Service cards - DARK THEME */
+  .vertical-timeline-element-content {
+    background: rgba(13, 17, 22, 0.8) !important;
+    color: rgba(255, 255, 255, 0.9) !important;
+    box-shadow: 0 3px 15px rgba(30, 58, 138, 0.3) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    cursor: pointer;
+
+    &:hover {
+      background: rgba(30, 58, 138, 0.2) !important;
+      border-color: rgba(30, 58, 138, 0.5) !important;
+      box-shadow: 0 8px 30px rgba(30, 58, 138, 0.5) !important;
+      transform: translateY(-5px) scale(1.02);
+
+      h3 {
+        color: #3b82f6 !important;
+      }
+    }
+  }
+
+  /* Arrow pointing to timeline */
+  .vertical-timeline-element-content-arrow {
+    border-right: 7px solid rgba(13, 17, 22, 0.8) !important;
+    transition: border-color 0.4s ease;
+  }
+
+  .vertical-timeline-element-content:hover
+    + .vertical-timeline-element-content-arrow {
+    border-right-color: rgba(30, 58, 138, 0.2) !important;
+  }
+
+  /* Service card text */
+  .vertical-timeline-element-content h3,
+  .vertical-timeline-element-title {
+    color: rgba(255, 255, 255, 0.95) !important;
+    font-weight: 600;
+    transition: color 0.3s ease;
+  }
+
+  .vertical-timeline-element-content p {
+    color: rgba(255, 255, 255, 0.8) !important;
+    line-height: 1.6;
+    transition: color 0.3s ease;
+  }
+
+  /* Service dates (Service 1, Service 2, etc.) */
+  .vertical-timeline-element-date {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500;
+    transition: all 0.3s ease;
+  }
+
+  .vertical-timeline-element:hover .vertical-timeline-element-date {
+    color: #3b82f6 !important;
+    transform: scale(1.05);
+  }
+
+  /* Icon circles */
+  .vertical-timeline-element-icon {
+    box-shadow:
+      0 0 0 4px rgba(30, 58, 138, 0.3),
+      0 3px 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .vertical-timeline-element:hover .vertical-timeline-element-icon {
+    box-shadow:
+      0 0 0 6px rgba(30, 58, 138, 0.5),
+      0 5px 20px rgba(30, 58, 138, 0.4);
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .svg-inline--fa {
+    color: white !important;
+    transition: transform 0.3s ease;
+  }
+
+  .vertical-timeline-element:hover .svg-inline--fa {
+    transform: scale(1.2);
+  }
 }
 
-.vertical-timeline p {
-    color: rgb(39, 40, 34);
+/* ================================
+   ☀️ LIGHT MODE OVERRIDES
+=================================== */
+
+.light-mode .services-section {
+  /* Timeline line */
+  .vertical-timeline::before {
+    background: rgba(0, 0, 0, 0.15);
+  }
+
+  /* Service cards - LIGHT THEME */
+  .vertical-timeline-element-content {
+    background: rgba(255, 255, 255, 0.95) !important;
+    color: rgb(39, 40, 34) !important;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.15) !important;
+    border: 1px solid rgba(0, 0, 0, 0.1) !important;
+
+    &:hover {
+      background: rgba(255, 255, 255, 1) !important;
+      border-color: rgba(30, 58, 138, 0.3) !important;
+      box-shadow: 0 8px 30px rgba(30, 58, 138, 0.25) !important;
+      transform: translateY(-5px) scale(1.02);
+
+      h3 {
+        color: #1e3a8a !important;
+      }
+    }
+  }
+
+  /* Arrow pointing to timeline */
+  .vertical-timeline-element-content-arrow {
+    border-right: 7px solid rgba(255, 255, 255, 0.95) !important;
+  }
+
+  /* Service card text */
+  .vertical-timeline-element-content h3,
+  .vertical-timeline-element-title {
+    color: rgb(39, 40, 34) !important;
+  }
+
+  .vertical-timeline-element-content p {
+    color: rgba(39, 40, 34, 0.85) !important;
+  }
+
+  /* Service dates */
+  .vertical-timeline-element-date {
+    color: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  .vertical-timeline-element:hover .vertical-timeline-element-date {
+    color: #1e3a8a !important;
+  }
+
+  /* Icon circles */
+  .vertical-timeline-element-icon {
+    box-shadow:
+      0 0 0 4px rgba(30, 58, 138, 0.2),
+      0 3px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  .vertical-timeline-element:hover .vertical-timeline-element-icon {
+    box-shadow:
+      0 0 0 6px rgba(30, 58, 138, 0.4),
+      0 5px 20px rgba(30, 58, 138, 0.3);
+  }
 }
 
-.vertical-timeline-element p {
-    color: rgb(39, 40, 34);
-}
-
-.vertical-timeline-element h3 {
-    color: rgb(39, 40, 34);
-}
-
-.vertical-timeline-element h4 {
-    color: rgb(39, 40, 34);
-}
-
-.vertical-timeline-element span {
-    color: rgb(39, 40, 34);
-}
-
-.vertical-timeline-element .vertical-timeline-element-date {
-    color: white;
-}
-
-.svg-inline--fa {
-    color: white;
-}
+/* ================================
+   📱 RESPONSIVE - MOBILE
+=================================== */
 
 @media screen and (max-width: 1170px) {
-    .vertical-timeline-element .vertical-timeline-element-date {
-        color: rgb(39, 40, 34);
+  .services-section {
+    .vertical-timeline-element-date {
+      color: rgba(255, 255, 255, 0.9) !important;
+      opacity: 1 !important;
     }
+
+    .vertical-timeline-element-content {
+      &:hover {
+        transform: translateY(-3px) scale(1.01);
+      }
+    }
+
+    .vertical-timeline-element:hover .vertical-timeline-element-icon {
+      transform: scale(1.08) rotate(3deg);
+    }
+  }
+
+  .light-mode .services-section {
+    .vertical-timeline-element-date {
+      color: rgba(0, 0, 0, 0.7) !important;
+    }
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .services-section {
+    .vertical-timeline-element-content {
+      &:active {
+        transform: scale(0.98);
+      }
+    }
+  }
 }

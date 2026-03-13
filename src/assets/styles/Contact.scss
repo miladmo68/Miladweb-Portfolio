@@ -1,99 +1,380 @@
-// CONTACT SECTION STYLING
+/* ================================
+   🎨 CONTACT SECTION - MODERN DESIGN
+=================================== */
+
 .contact_wrapper {
-  svg {
-    font-size: clamp(1rem, 2vw, 1.2em);
-    vertical-align: middle;
-    margin-right: 8px;
-    color: #1e3a8a;
+  max-width: 900px;
+  margin: 0 auto;
+  padding: clamp(2rem, 5vw, 4rem) 1rem;
+}
+
+/* ================================
+   📝 HEADER SECTION
+=================================== */
+
+.contact-header {
+  text-align: center;
+  margin-bottom: clamp(2.5rem, 5vw, 4rem);
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.contact-title {
+  font-size: clamp(2rem, 5vw, 3rem) !important;
+  font-weight: 800 !important;
+  margin-bottom: 1rem !important;
+  background: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    rgba(255, 255, 255, 0.8) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  letter-spacing: -0.02em;
+}
+
+.contact-subtitle {
+  font-size: clamp(1rem, 2vw, 1.2rem) !important;
+  color: rgba(255, 255, 255, 0.7) !important;
+  max-width: 600px;
+  margin: 0 auto !important;
+  line-height: 1.6;
+}
+
+/* ================================
+   💳 FORM CARD
+=================================== */
+
+.contact-form-card {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(20px);
+  border-radius: 24px;
+  padding: clamp(2rem, 4vw, 3rem);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+
+  &:hover {
+    border-color: rgba(30, 58, 138, 0.3);
+    box-shadow: 0 12px 48px rgba(30, 58, 138, 0.15);
+    transform: translateY(-4px);
   }
 }
 
-// FORM STYLING
-.contact-form {
-  padding-top: 2rem;
+/* ================================
+   📋 FORM STYLING
+=================================== */
 
-  button {
-    float: right;
-    padding: 10px 20px;
-    background-color: #ffffff;
-    color: #3700a0;
-    font-weight: 600;
-    text-transform: none;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(80, 0, 202, 0.2);
-    transition:
-      background-color 0.3s ease,
-      color 0.3s ease,
-      transform 0.2s ease;
+.contact-form {
+  .submit-button {
+    padding: 14px 36px !important;
+    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%) !important;
+    color: #ffffff !important;
+    font-weight: 600 !important;
+    font-size: 1rem !important;
+    text-transform: none !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 15px rgba(30, 58, 138, 0.3) !important;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    position: relative;
+    overflow: hidden;
+    min-width: 180px;
+
+    &::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.2),
+        transparent
+      );
+      transition: left 0.5s;
+    }
 
     &:hover {
-      background-color: #3700a0;
-      color: #fff;
+      background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%) !important;
       transform: translateY(-2px);
-      box-shadow: 0 4px 15px rgba(80, 0, 202, 0.4);
+      box-shadow: 0 8px 25px rgba(30, 58, 138, 0.5) !important;
+
+      &::before {
+        left: 100%;
+      }
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+}
+
+/* ================================
+   🔤 FORM FIELDS
+=================================== */
+
+.form-flex {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+
+  @media (max-width: 600px) {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+.form-footer {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  flex-wrap: wrap;
+
+  .captcha-input {
+    flex: 0 0 auto;
+    width: 180px;
+
+    .MuiInputBase-root {
+      height: 56px;
     }
   }
 
-  fieldset {
-    background-color: transparent;
-  }
-}
-
-// LABEL STYLING
-label {
-  font-size: clamp(0.9rem, 2vw, 1rem);
-  font-family: "DomaineDispNar-Medium", sans-serif;
-  color: #333;
-}
-
-// FORM FLEX GROUP
-.form-flex {
-  display: flex;
-  gap: 1rem;
-  padding-bottom: 1rem;
-
-  .MuiFormControl-root {
-    width: 100%;
-  }
-
-  @media (max-width: 768px) {
+  @media (max-width: 600px) {
     flex-direction: column;
-    gap: 0.5rem;
+    align-items: stretch;
+
+    .captcha-input {
+      width: 100%;
+    }
+
+    .submit-button {
+      width: 100%;
+    }
   }
 }
 
-form {
-  width: 100% !important;
-  color: #000;
-}
+/* ================================
+   🎨 INPUT STYLING - DARK MODE
+=================================== */
 
-.body-form {
-  width: 100% !important;
-  margin-bottom: 1rem !important;
-}
-
-// INPUT & TEXTAREA THEMING
 .contact-form {
   .MuiOutlinedInput-root {
-    border-radius: 8px;
-    transition: all 0.2s ease-in-out;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(10px);
+
+    fieldset {
+      border: 2px solid rgba(255, 255, 255, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+
+      fieldset {
+        border-color: rgba(30, 58, 138, 0.5);
+      }
+    }
+
+    &.Mui-focused {
+      background: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.1);
+
+      fieldset {
+        border-color: #3b82f6;
+        border-width: 2px;
+      }
+    }
+
+    &.Mui-error {
+      fieldset {
+        border-color: #ef4444;
+      }
+    }
   }
 
   .MuiOutlinedInput-input,
   input,
   textarea {
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    padding: 0.75rem;
-    color: #0d1116 !important;
+    font-size: clamp(0.95rem, 2vw, 1rem);
+    padding: 1rem;
+    color: rgba(255, 255, 255, 0.95) !important;
+
+    &::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+      opacity: 1;
+    }
   }
 
   .MuiInputLabel-root {
-    font-size: clamp(0.9rem, 2vw, 1rem);
-    color: #666;
+    font-size: clamp(0.95rem, 2vw, 1rem);
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 500;
+
+    &.Mui-focused {
+      color: #3b82f6;
+      font-weight: 600;
+    }
+
+    &.Mui-error {
+      color: #ef4444;
+    }
   }
 
   .MuiFormHelperText-root {
-    font-size: 0.85rem;
-    color: #1e3a8a;
+    font-size: 0.875rem;
+    margin-left: 4px;
+    margin-top: 6px;
+
+    &.Mui-error {
+      color: #ef4444;
+      font-weight: 500;
+    }
+  }
+}
+
+/* ================================
+   ☀️ LIGHT MODE
+=================================== */
+
+.light-mode {
+  .contact-title {
+    background: linear-gradient(135deg, #0a0e17 0%, rgba(10, 14, 23, 0.8) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .contact-subtitle {
+    color: rgba(0, 0, 0, 0.7) !important;
+  }
+
+  .contact-form-card {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.08);
+
+    &:hover {
+      border-color: rgba(30, 58, 138, 0.2);
+      box-shadow: 0 12px 48px rgba(30, 58, 138, 0.12);
+    }
+  }
+
+  .contact-form {
+    .MuiOutlinedInput-root {
+      background: rgba(255, 255, 255, 0.95);
+
+      fieldset {
+        border: 2px solid rgba(0, 0, 0, 0.12);
+      }
+
+      &:hover {
+        background: rgba(255, 255, 255, 1);
+
+        fieldset {
+          border-color: rgba(30, 58, 138, 0.4);
+        }
+      }
+
+      &.Mui-focused {
+        background: #ffffff;
+        box-shadow: 0 0 0 4px rgba(30, 58, 138, 0.08);
+
+        fieldset {
+          border-color: #1e3a8a;
+        }
+      }
+    }
+
+    .MuiOutlinedInput-input,
+    input,
+    textarea {
+      color: #0d1116 !important;
+
+      &::placeholder {
+        color: rgba(0, 0, 0, 0.4);
+      }
+    }
+
+    .MuiInputLabel-root {
+      color: rgba(0, 0, 0, 0.6);
+
+      &.Mui-focused {
+        color: #1e3a8a;
+      }
+    }
+
+    .MuiFormHelperText-root.Mui-error {
+      color: #dc2626;
+    }
+  }
+}
+
+/* ================================
+   🎬 ANIMATIONS
+=================================== */
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ================================
+   📱 MOBILE OPTIMIZATIONS
+=================================== */
+
+@media (max-width: 768px) {
+  .contact-form {
+    .MuiOutlinedInput-input,
+    input,
+    textarea {
+      font-size: 16px !important; // Prevents zoom on iOS
+    }
+  }
+
+  .contact-form-card {
+    padding: 1.5rem;
+    border-radius: 20px;
+  }
+}
+
+/* ================================
+   ♿ ACCESSIBILITY
+=================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .contact-header,
+  .contact-form-card {
+    animation: none;
+  }
+
+  .contact-form .MuiOutlinedInput-root,
+  .submit-button {
+    transition: none;
   }
 }
