@@ -391,25 +391,34 @@ const PROJECTS = [
 const CARD_W = 380;
 const ASPECT_16_9 = "56.25%";
 
-const MOBILE_PAGE = 10;
+/* how many projects to show before "Show More" — same behaviour on every screen */
+const PAGE_MOBILE = 6;
+const PAGE_DESKTOP = 9;
 
 export default function Project() {
   const [filter, setFilter] = useState("all");
   const [visibleCards, setVisibleCards] = useState(new Set());
   const cardRefs = useRef({});
+  const sectionRef = useRef(null);
   const [isMobile, setIsMobile] = useState(false);
-  const [mobileLimit, setMobileLimit] = useState(MOBILE_PAGE);
+  const [limit, setLimit] = useState(PAGE_DESKTOP);
   const [loadingMore, setLoadingMore] = useState(false);
 
   const [open, setOpen] = useState(false);
   const [modalImg, setImg] = useState("");
   const [modalTitle, setTitle] = useState("");
 
-  /* detect mobile */
+  const step = isMobile ? PAGE_MOBILE : PAGE_DESKTOP;
+
+  /* detect mobile and keep the initial page size in sync with the breakpoint */
   useEffect(() => {
     const mq = window.matchMedia("(max-width: 599px)");
-    setIsMobile(mq.matches);
-    const handler = (e) => setIsMobile(e.matches);
+    const apply = (matches) => {
+      setIsMobile(matches);
+      setLimit(matches ? PAGE_MOBILE : PAGE_DESKTOP);
+    };
+    apply(mq.matches);
+    const handler = (e) => apply(e.matches);
     mq.addEventListener("change", handler);
     return () => mq.removeEventListener("change", handler);
   }, []);
@@ -417,24 +426,42 @@ export default function Project() {
   const allFiltered =
     filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
 
-  const visible = isMobile ? allFiltered.slice(0, mobileLimit) : allFiltered;
-  const hasMore = isMobile && mobileLimit < allFiltered.length;
+  /* show a few first on every screen, reveal the rest with the button */
+  const visible = allFiltered.slice(0, limit);
+  const hasMore = limit < allFiltered.length;
 
   /* FIX 1 — reset animation set when filter changes */
   const handleFilter = (val) => {
     setFilter(val);
     setVisibleCards(new Set());
     cardRefs.current = {};
-    setMobileLimit(MOBILE_PAGE);
+    setLimit(step);
   };
 
   const handleShowMore = () => {
     setLoadingMore(true);
     setTimeout(() => {
-      setMobileLimit((prev) => prev + MOBILE_PAGE);
+      setLimit((prev) => prev + step);
       setLoadingMore(false);
     }, 300);
   };
+
+  /* section fade-in — same scroll entrance as the other sections */
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("animate-in");
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+    );
+
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
   /* FIX 2 — card entrance animation via IntersectionObserver */
   useEffect(() => {
@@ -460,7 +487,7 @@ export default function Project() {
       clearTimeout(t);
       observer.disconnect();
     };
-  }, [filter, mobileLimit]);
+  }, [filter, limit]);
 
   const preview = (p) => {
     setImg(getImg(p.img));
@@ -471,8 +498,10 @@ export default function Project() {
   return (
     <div className="container">
       <Box
+        ref={sectionRef}
         component="section"
         id="projects"
+        className="fade-in-section"
         sx={{ py: { xs: 4, sm: 6, md: 8 } }}
       >
         {/* heading */}
@@ -789,7 +818,7 @@ export default function Project() {
                   Loading...
                 </>
               ) : (
-                <>Show More</>
+                <>Show More ({allFiltered.length - limit})</>
               )}
             </Box>
           </Box>

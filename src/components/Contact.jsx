@@ -3,6 +3,50 @@ import "../assets/styles/Contact.scss";
 
 import { Box, Button, TextField, Snackbar, Alert } from "@mui/material";
 import SendIcon from "@mui/icons-material/Send";
+import { FiMapPin, FiPhone } from "react-icons/fi";
+import {
+  FaWhatsapp,
+  FaGithub,
+  FaLinkedinIn,
+  FaInstagram,
+} from "react-icons/fa";
+
+const PHONE = "+1 (437) 600-3139";
+const PHONE_TEL = "+14376003139";
+
+const channels = [
+  {
+    icon: <FiMapPin />,
+    label: "Location",
+    value: "GTA, Ontario, Canada",
+  },
+  {
+    icon: <FiPhone />,
+    label: "Phone",
+    value: PHONE,
+    href: `tel:${PHONE_TEL}`,
+  },
+  {
+    icon: <FaWhatsapp />,
+    label: "WhatsApp",
+    value: "Chat on WhatsApp",
+    href: `https://wa.me/${PHONE_TEL.replace("+", "")}`,
+  },
+];
+
+const socials = [
+  { icon: <FaGithub />, label: "GitHub", href: "https://github.com/miladmo68" },
+  {
+    icon: <FaLinkedinIn />,
+    label: "LinkedIn",
+    href: "https://www.linkedin.com/in/miladmo68/",
+  },
+  {
+    icon: <FaInstagram />,
+    label: "Instagram",
+    href: "https://instagram.com/milink.ca",
+  },
+];
 
 export default function Contact() {
   const sectionRef = useRef(null);
@@ -97,13 +141,67 @@ export default function Contact() {
           <div className="contact-header">
             <h1 className="contact-title">Get In Touch</h1>
             <p className="contact-subtitle">
-              Have a digital vision? Let's make it a reality! Feel free to reach
-              out and I'll reply promptly.
+              Have a digital vision? Let's make it a reality. Pick any channel
+              below or send me a message — I usually reply within a day.
             </p>
           </div>
 
-          {/* Contact Form Card */}
-          <Box className="contact-form-card">
+          <div className="contact-layout">
+            {/* Contact Info Panel */}
+            <aside className="contact-info">
+              <h2 className="contact-info-title">Let's connect</h2>
+              <p className="contact-info-text">
+                Whether it's a new project, a collaboration, or just a quick
+                question, I'd love to hear from you.
+              </p>
+
+              <ul className="contact-channels">
+                {channels.map((c) => {
+                  const inner = (
+                    <>
+                      <span className="channel-icon">{c.icon}</span>
+                      <span className="channel-text">
+                        <span className="channel-label">{c.label}</span>
+                        <span className="channel-value">{c.value}</span>
+                      </span>
+                    </>
+                  );
+                  return (
+                    <li className="channel" key={c.label}>
+                      {c.href ? (
+                        <a
+                          href={c.href}
+                          target={c.href.startsWith("http") ? "_blank" : undefined}
+                          rel="noreferrer"
+                        >
+                          {inner}
+                        </a>
+                      ) : (
+                        inner
+                      )}
+                    </li>
+                  );
+                })}
+              </ul>
+
+              <div className="contact-socials">
+                {socials.map((s) => (
+                  <a
+                    key={s.label}
+                    href={s.href}
+                    target="_blank"
+                    rel="noreferrer"
+                    aria-label={s.label}
+                    title={s.label}
+                  >
+                    {s.icon}
+                  </a>
+                ))}
+              </div>
+            </aside>
+
+            {/* Contact Form Card */}
+            <Box className="contact-form-card">
             <Box
               component="form"
               noValidate
@@ -183,7 +281,8 @@ export default function Contact() {
                 </Button>
               </Box>
             </Box>
-          </Box>
+            </Box>
+          </div>
         </div>
       </div>
 

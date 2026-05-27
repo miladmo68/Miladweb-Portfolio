@@ -102,8 +102,12 @@ function Timeline() {
             <VerticalTimelineElement
               key={index}
               className="vertical-timeline-element--work service-card"
-              date={`Service ${index + 1}`}
-              iconStyle={{ background: "#1e3a8a", color: "#fff" }}
+              date={`0${index + 1}`}
+              iconStyle={{
+                background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+                color: "#fff",
+                boxShadow: "0 0 0 4px rgba(59,130,246,0.18)",
+              }}
               icon={<FontAwesomeIcon icon={service.icon} />}
             >
               <h3 className="vertical-timeline-element-title">

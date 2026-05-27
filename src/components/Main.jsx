@@ -19,6 +19,9 @@ export default function Main() {
   const [deleting, setDel] = useState(false);
   const timer = useRef();
 
+  const scrollTo = (id) =>
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+
   useEffect(() => {
     const word = WORDS[wordIndex];
 
@@ -49,6 +52,40 @@ export default function Main() {
         </div>
 
         <div className="content">
+          <p className="hero-eyebrow">Hello, I'm</p>
+
+          <h1 className="hero-name">
+            Milad <span className="name-accent">M.</span>
+          </h1>
+
+          <p className="typed-wrapper">
+            I'm&nbsp;a&nbsp;
+            <span className="typed">{text}</span>
+            <span className="typed-cursor" aria-hidden="true" />
+          </p>
+
+          <p className="hero-tagline">
+            I build fast, scalable and SEO-friendly web apps with React, Next.js
+            &amp; Node.js — turning ideas into polished products.
+          </p>
+
+          <div className="hero-cta">
+            <button
+              type="button"
+              className="hero-btn hero-btn--primary"
+              onClick={() => scrollTo("projects")}
+            >
+              View My Work
+            </button>
+            <button
+              type="button"
+              className="hero-btn hero-btn--ghost"
+              onClick={() => scrollTo("contact")}
+            >
+              Get in Touch
+            </button>
+          </div>
+
           <div className="social_icons">
             <a
               href="https://github.com/miladmo68"
@@ -65,14 +102,6 @@ export default function Main() {
               <LinkedInIcon />
             </a>
           </div>
-
-          <h1>Milad Mo</h1>
-
-          <p className="typed-wrapper">
-            I'm&nbsp;a&nbsp;
-            <span className="typed">{text}</span>
-            <span className="typed-cursor" aria-hidden="true" />
-          </p>
 
           <div className="mobile_social_icons">
             <a

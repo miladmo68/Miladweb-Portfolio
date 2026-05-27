@@ -32,46 +32,62 @@ import {
   SiGraphql,
 } from "react-icons/si";
 import Chip from "@mui/material/Chip";
-import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
-const techList = [
-  { label: "JavaScript", icon: <SiJavascript /> },
-  { label: "React", icon: <FaReact /> },
-  { label: "Next.js", icon: <SiNextdotjs /> },
-  { label: "Node.js", icon: <FaNodeJs /> },
-  { label: "Express.js", icon: <SiExpress /> },
-  { label: "Redux", icon: <SiRedux /> },
-  { label: "GraphQL", icon: <SiGraphql /> },
-  { label: "HTML5", icon: <SiHtml5 /> },
-  { label: "CSS3", icon: <SiCss3 /> },
-  { label: "TailwindCSS", icon: <SiTailwindcss /> },
-  { label: "Bootstrap", icon: <SiBootstrap /> },
-  { label: "jQuery", icon: <SiJquery /> },
-  { label: "Python", icon: <FaPython /> },
-  { label: "Django", icon: <SiDjango /> },
-  { label: "PHP", icon: <FaPhp /> },
-  { label: "Java", icon: <FaJava /> },
-  { label: "MongoDB", icon: <SiMongodb /> },
-  { label: "MySQL", icon: <SiMysql /> },
-  { label: "Git", icon: <FaGitAlt /> },
-  { label: "GitHub", icon: <FaGithub /> },
-  { label: "Photoshop", icon: <SiAdobephotoshop /> },
-  { label: "Postman", icon: <SiPostman /> },
-  { label: "Heroku", icon: <SiHeroku /> },
-  { label: "WordPress", icon: <FaWordpress /> },
-  { label: "Joomla", icon: <FaJoomla /> },
-  { label: "WooCommerce", icon: <SiWoocommerce /> },
-  { label: "NPM", icon: <SiNpm /> },
-  { label: "AWS", icon: <FaAws /> },
-];
-
-const workflowItems = [
-  "Responsive Design & UI/UX Optimization",
-  "Cross-Browser Compatibility & Performance Optimization",
-  "Version Control with Git & API Integration",
-  "Database Management & Security Best Practices",
-  "Testing, Debugging & Continuous Learning",
-  "Cloud Deployment & Client Collaboration",
+/* same skills as before, now organised into labelled groups */
+const skillGroups = [
+  {
+    title: "Frontend",
+    items: [
+      { label: "JavaScript", icon: <SiJavascript /> },
+      { label: "React", icon: <FaReact /> },
+      { label: "Next.js", icon: <SiNextdotjs /> },
+      { label: "Redux", icon: <SiRedux /> },
+      { label: "HTML5", icon: <SiHtml5 /> },
+      { label: "CSS3", icon: <SiCss3 /> },
+      { label: "TailwindCSS", icon: <SiTailwindcss /> },
+      { label: "Bootstrap", icon: <SiBootstrap /> },
+      { label: "jQuery", icon: <SiJquery /> },
+    ],
+  },
+  {
+    title: "Backend",
+    items: [
+      { label: "Node.js", icon: <FaNodeJs /> },
+      { label: "Express.js", icon: <SiExpress /> },
+      { label: "GraphQL", icon: <SiGraphql /> },
+      { label: "Python", icon: <FaPython /> },
+      { label: "Django", icon: <SiDjango /> },
+      { label: "PHP", icon: <FaPhp /> },
+      { label: "Java", icon: <FaJava /> },
+    ],
+  },
+  {
+    title: "Databases",
+    items: [
+      { label: "MongoDB", icon: <SiMongodb /> },
+      { label: "MySQL", icon: <SiMysql /> },
+    ],
+  },
+  {
+    title: "Tools & Cloud",
+    items: [
+      { label: "Git", icon: <FaGitAlt /> },
+      { label: "GitHub", icon: <FaGithub /> },
+      { label: "AWS", icon: <FaAws /> },
+      { label: "Heroku", icon: <SiHeroku /> },
+      { label: "Postman", icon: <SiPostman /> },
+      { label: "NPM", icon: <SiNpm /> },
+      { label: "Photoshop", icon: <SiAdobephotoshop /> },
+    ],
+  },
+  {
+    title: "CMS & E-commerce",
+    items: [
+      { label: "WordPress", icon: <FaWordpress /> },
+      { label: "Joomla", icon: <FaJoomla /> },
+      { label: "WooCommerce", icon: <SiWoocommerce /> },
+    ],
+  },
 ];
 
 function Skills() {
@@ -102,62 +118,32 @@ function Skills() {
       className="w-full px-4 sm:px-6 md:px-10 lg:px-20 py-10 flex flex-col items-center justify-center fade-in-section"
       id="skills"
     >
-      <h2 className="text-lg text-gray-600 mb-6 text-center">
-        Programming Languages & Tools
+      <h2 className="skills-heading text-2xl font-bold mb-2 text-center">
+        Skills &amp; Technologies
       </h2>
+      <p className="skills-subtitle mb-8 text-center">
+        The languages, frameworks, and tools I work with.
+      </p>
 
-      <div
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          justifyContent: "center",
-          gap: "0.75rem",
-          maxWidth: "1200px",
-          marginBottom: "20px",
-        }}
-      >
-        {techList.map((item, index) => (
-          <Chip
-            key={index}
-            label={item.label}
-            icon={React.cloneElement(item.icon, {
-              style: { fontSize: "1.4rem" },
-            })}
-            variant="outlined"
-            sx={{
-              backgroundColor: "#f5f5f5",
-              padding: "6px 10px",
-              fontSize: "0.9rem",
-              transition: "all 0.3s ease",
-              cursor: "pointer",
-
-              "&:hover": {
-                backgroundColor: "#dbeafe",
-                color: "#1e3a8a",
-                borderColor: "#1e3a8a",
-                transform: "translateY(-2px)",
-              },
-            }}
-          />
+      <div className="skills-groups">
+        {skillGroups.map((group) => (
+          <div className="skill-group" key={group.title}>
+            <h3 className="skill-group-title">{group.title}</h3>
+            <div className="skill-group-chips">
+              {group.items.map((item) => (
+                <Chip
+                  key={item.label}
+                  label={item.label}
+                  icon={React.cloneElement(item.icon, {
+                    style: { fontSize: "1.3rem" },
+                  })}
+                  variant="outlined"
+                  className="skill-chip"
+                />
+              ))}
+            </div>
+          </div>
         ))}
-      </div>
-
-      <div className="mt-12 w-full max-w-3xl">
-        <h3 className="text-xl font-semibold mb-4 text-left ">Workflow</h3>
-        <ul className="space-y-3 ">
-          {workflowItems.map((item, index) => (
-            <p
-              key={index}
-              className="flex items-start text-gray-700 hover:text-blue-600 transition-colors duration-200 cursor-pointer "
-            >
-              <CheckCircleIcon
-                className="text-green-500 mt-0.5 mr-2 "
-                fontSize="small"
-              />
-              <span>{item}</span>
-            </p>
-          ))}
-        </ul>
       </div>
     </div>
   );
