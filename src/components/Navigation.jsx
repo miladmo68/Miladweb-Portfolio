@@ -31,6 +31,7 @@ function Navigation({ parentToChild, modeChange }) {
 
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [progress, setProgress] = useState(0);
   const [activeId, setActiveId] = useState("home");
 
   const handleDrawerToggle = () => setMobileOpen((p) => !p);
@@ -44,7 +45,13 @@ function Navigation({ parentToChild, modeChange }) {
   }, []);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => {
+      const el = document.documentElement;
+      const max = el.scrollHeight - el.clientHeight;
+      setScrolled(window.scrollY > 10);
+      setProgress(max > 0 ? (window.scrollY / max) * 100 : 0);
+    };
+    handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -109,7 +116,7 @@ function Navigation({ parentToChild, modeChange }) {
     };
   }, [isLight]);
 
-  const LOGO_MOBILE = 56;
+  const LOGO_MOBILE = 66;
   const LOGO_DRAWER = 56;
 
   const drawerWidth = "min(380px, 90vw)";
@@ -137,7 +144,7 @@ function Navigation({ parentToChild, modeChange }) {
         >
           <Box
             component="img"
-            src="/favicon.png"
+            src="/Logo-Blue.png"
             alt="MiladWeb logo"
             sx={{
               width: LOGO_DRAWER,
@@ -306,33 +313,15 @@ function Navigation({ parentToChild, modeChange }) {
     textTransform: "none",
     fontWeight: 700,
     fontSize: "0.95rem",
-    letterSpacing: ".03em",
-    px: 2,
-    py: 1.2,
-    borderRadius: 2,
+    letterSpacing: ".02em",
+    px: 2.2,
+    py: 0.9,
+    borderRadius: 999,
     position: "relative",
-    transition: "all 0.2s cubic-bezier(0.4, 0, 0.2, 1)",
-    "&:after": {
-      content: '""',
-      position: "absolute",
-      left: "50%",
-      right: "50%",
-      bottom: "calc(50% - 16px)",
-      height: "3px",
-      borderRadius: 999,
-      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
-      background: "linear-gradient(90deg, #1e3a8a 0%, #3b82f6 100%)",
-      boxShadow: "0 0 12px rgba(30, 58, 138, 0.6)",
-    },
+    transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
     "&:hover": {
-      background: isLight
-        ? "linear-gradient(135deg, rgba(30, 58, 138, 0.06) 0%, rgba(59, 130, 246, 0.04) 100%)"
-        : "linear-gradient(135deg, rgba(30, 58, 138, 0.15) 0%, rgba(59, 130, 246, 0.10) 100%)",
-      transform: "translateY(-2px)",
-    },
-    "&:hover:after": {
-      left: 12,
-      right: 12,
+      background: isLight ? "rgba(30, 58, 138, 0.08)" : "rgba(255, 255, 255, 0.08)",
+      color: isLight ? "#1e3a8a" : "#fff",
     },
   };
 
@@ -421,8 +410,32 @@ function Navigation({ parentToChild, modeChange }) {
           boxShadow: scrolled ? styles.SHADOW : "none",
           backdropFilter: "blur(12px)",
           borderBottom: `1px solid ${scrolled ? styles.BORDER : "transparent"}`,
+          transition:
+            "background 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease",
+          "@keyframes navDrop": {
+            from: { transform: "translateY(-100%)", opacity: 0 },
+            to: { transform: "translateY(0)", opacity: 1 },
+          },
+          animation: "navDrop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both",
         }}
       >
+        {/* scroll progress indicator */}
+        <Box
+          aria-hidden
+          sx={{
+            position: "absolute",
+            left: 0,
+            bottom: 0,
+            height: "3px",
+            width: `${progress}%`,
+            background:
+              "linear-gradient(90deg, #1e3a8a 0%, #3b82f6 50%, #0ea5e9 100%)",
+            boxShadow: "0 0 10px rgba(59, 130, 246, 0.7)",
+            borderRadius: "0 3px 3px 0",
+            transition: "width 0.12s linear",
+            pointerEvents: "none",
+          }}
+        />
         <Toolbar
           sx={{
             mx: "auto",
@@ -444,19 +457,15 @@ function Navigation({ parentToChild, modeChange }) {
               gap: 2,
               cursor: "pointer",
               userSelect: "none",
-              transition: "all 0.3s ease",
-              "&:hover": {
-                transform: "translateX(4px)",
-              },
             }}
           >
             <Box
               component="img"
-              src="/favicon.png"
+              src="/Logo-Blue.png"
               alt="MiladWeb logo"
               sx={{
-                width: scrolled ? 72 : 84,
-                height: scrolled ? 72 : 84,
+                width: scrolled ? 84 : 96,
+                height: scrolled ? 84 : 96,
                 borderRadius: "50%",
                 objectFit: "contain",
                 transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
@@ -490,32 +499,49 @@ function Navigation({ parentToChild, modeChange }) {
             </Box>
           </Box>
 
-          <Box sx={{ display: "flex", alignItems: "center", gap: 1.5 }}>
-            {navItems.map(([label, id]) => {
-              const isActive = activeId === id;
-              return (
-                <Button
-                  key={label}
-                  disableRipple
-                  onClick={() => scrollToSection(id)}
-                  sx={{
-                    ...desktopBtnSx,
-                    ...(isActive && {
-                      background: isLight
-                        ? "linear-gradient(135deg, rgba(30, 58, 138, 0.10) 0%, rgba(59, 130, 246, 0.08) 100%)"
-                        : "linear-gradient(135deg, rgba(30, 58, 138, 0.25) 0%, rgba(59, 130, 246, 0.18) 100%)",
-                      fontWeight: 900,
-                      "&:after": {
-                        left: 12,
-                        right: 12,
-                      },
-                    }),
-                  }}
-                >
-                  {label}
-                </Button>
-              );
-            })}
+          <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                gap: 0.5,
+                p: 0.6,
+                borderRadius: "999px",
+                border: `1px solid ${styles.BORDER}`,
+                background: isLight
+                  ? "rgba(0,0,0,0.025)"
+                  : "rgba(255,255,255,0.04)",
+                backdropFilter: "blur(10px)",
+              }}
+            >
+              {navItems.map(([label, id]) => {
+                const isActive = activeId === id;
+                return (
+                  <Button
+                    key={label}
+                    disableRipple
+                    onClick={() => scrollToSection(id)}
+                    sx={{
+                      ...desktopBtnSx,
+                      ...(isActive && {
+                        background:
+                          "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+                        color: "#fff",
+                        fontWeight: 800,
+                        boxShadow: "0 6px 18px rgba(30, 58, 138, 0.45)",
+                        "&:hover": {
+                          background:
+                            "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+                          color: "#fff",
+                        },
+                      }),
+                    }}
+                  >
+                    {label}
+                  </Button>
+                );
+              })}
+            </Box>
             <Box
               sx={{
                 width: 2,
@@ -524,7 +550,6 @@ function Navigation({ parentToChild, modeChange }) {
                   ? "linear-gradient(180deg, transparent, rgba(30, 58, 138, 0.25), transparent)"
                   : "linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent)",
                 borderRadius: 999,
-                mx: 1.5,
               }}
             />
             {DesktopThemeButton}
@@ -588,7 +613,7 @@ function Navigation({ parentToChild, modeChange }) {
           >
             <Box
               component="img"
-              src="/favicon.png"
+              src="/Logo-Blue.png"
               alt="MiladWeb logo"
               sx={{
                 width: LOGO_MOBILE,

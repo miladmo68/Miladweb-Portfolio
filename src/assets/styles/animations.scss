@@ -2,29 +2,37 @@
    ✅ Global Scroll Animations
 =================================== */
 
+$reveal-ease: cubic-bezier(0.22, 1, 0.36, 1);
+
 .fade-in-section {
   opacity: 0;
-  transform: translateY(40px);
+  transform: translateY(44px) scale(0.985);
   transition:
-    opacity 0.6s ease-out,
-    transform 0.6s ease-out;
+    opacity 0.8s $reveal-ease,
+    transform 0.8s $reveal-ease;
   will-change: opacity, transform;
 }
 
 .fade-in-section.animate-in {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) scale(1);
 }
 
-/* Stagger animation delays for child elements */
+/* Staggered reveal for the direct children of a revealed section */
 .fade-in-section.animate-in > * {
-  animation: fadeInStagger 0.5s ease-out forwards;
+  animation: revealUp 0.7s $reveal-ease both;
 }
 
-@keyframes fadeInStagger {
+@for $i from 1 through 8 {
+  .fade-in-section.animate-in > *:nth-child(#{$i}) {
+    animation-delay: #{0.08s * $i};
+  }
+}
+
+@keyframes revealUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(26px);
   }
   to {
     opacity: 1;
