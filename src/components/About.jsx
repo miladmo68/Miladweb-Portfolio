@@ -66,27 +66,68 @@ function Stat({ value, label, run }) {
 
 function About() {
   const sectionRef = useRef(null);
-  const [revealed, setRevealed] = useState(false);
+  /* per-box scroll reveal — same pattern as the Portfolio cards: each box
+     observes itself and animates only when it actually scrolls into view. */
+  const [revealedItems, setRevealedItems] = useState(new Set());
+  const itemRefs = useRef({});
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    /* About sits right below the hero — without a tighter bottom rootMargin
+       the section observer fires while the user is still in the hero area,
+       so the fade-in completes before they actually scroll to About. */
+    const sectionObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("animate-in");
+        });
+      },
+      { threshold: 0.1, rootMargin: "0px 0px -40% 0px" },
+    );
+
+    if (sectionRef.current) sectionObserver.observe(sectionRef.current);
+
+    /* Per-box observer — mirrors the Portfolio card reveal pattern. */
+    const itemObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-            setRevealed(true);
+            const id = entry.target.getAttribute("data-reveal-id");
+            if (id)
+              setRevealedItems((prev) => {
+                if (prev.has(id)) return prev;
+                const next = new Set(prev);
+                next.add(id);
+                return next;
+              });
           }
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
+      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" },
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    const t = setTimeout(() => {
+      Object.values(itemRefs.current).forEach(
+        (el) => el && itemObserver.observe(el),
+      );
+    }, 30);
 
-    return () => observer.disconnect();
+    return () => {
+      clearTimeout(t);
+      sectionObserver.disconnect();
+      itemObserver.disconnect();
+    };
   }, []);
+
+  const revealStyle = (id, delay = 0) => {
+    const shown = revealedItems.has(id);
+    return {
+      opacity: shown ? 1 : 0,
+      transform: shown ? "translateY(0)" : "translateY(28px)",
+      transition: `opacity 0.55s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.55s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
+    };
+  };
+
+  const statsRevealed = revealedItems.has("stats");
 
   return (
     <section ref={sectionRef} id="about" className="fade-in-section">
@@ -105,20 +146,39 @@ function About() {
           that are built to last and easy to grow.
         </p>
 
-        <div className="about-stats">
+        <div
+          className="about-stats"
+          ref={(el) => (itemRefs.current["stats"] = el)}
+          data-reveal-id="stats"
+          style={revealStyle("stats")}
+        >
           {stats.map((s) => (
-            <Stat key={s.label} value={s.value} label={s.label} run={revealed} />
+            <Stat
+              key={s.label}
+              value={s.value}
+              label={s.label}
+              run={statsRevealed}
+            />
           ))}
         </div>
 
         <div className="about-highlights">
-          {highlights.map((h) => (
-            <article className="highlight-card" key={h.title}>
-              <span className="highlight-icon">{h.icon}</span>
-              <h3 className="highlight-title">{h.title}</h3>
-              <p className="highlight-text">{h.text}</p>
-            </article>
-          ))}
+          {highlights.map((h, i) => {
+            const id = `hl-${h.title}`;
+            return (
+              <article
+                className="highlight-card"
+                key={h.title}
+                ref={(el) => (itemRefs.current[id] = el)}
+                data-reveal-id={id}
+                style={revealStyle(id, Math.min(i * 0.08, 0.32))}
+              >
+                <span className="highlight-icon">{h.icon}</span>
+                <h3 className="highlight-title">{h.title}</h3>
+                <p className="highlight-text">{h.text}</p>
+              </article>
+            );
+          })}
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   FaReact,
   FaNodeJs,
@@ -92,25 +92,63 @@ const skillGroups = [
 
 function Skills() {
   const sectionRef = useRef(null);
+  /* per-group scroll reveal — same pattern as the Portfolio cards and the
+     About highlight cards: each group observes itself and animates only
+     when it actually scrolls into view. */
+  const [revealedGroups, setRevealedGroups] = useState(new Set());
+  const groupRefs = useRef({});
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
+    const sectionObserver = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-          }
+          if (entry.isIntersecting) entry.target.classList.add("animate-in");
         });
       },
       { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
     );
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
+    if (sectionRef.current) sectionObserver.observe(sectionRef.current);
 
-    return () => observer.disconnect();
+    const groupObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const id = entry.target.getAttribute("data-reveal-id");
+            if (id)
+              setRevealedGroups((prev) => {
+                if (prev.has(id)) return prev;
+                const next = new Set(prev);
+                next.add(id);
+                return next;
+              });
+          }
+        });
+      },
+      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" },
+    );
+
+    const t = setTimeout(() => {
+      Object.values(groupRefs.current).forEach(
+        (el) => el && groupObserver.observe(el),
+      );
+    }, 30);
+
+    return () => {
+      clearTimeout(t);
+      sectionObserver.disconnect();
+      groupObserver.disconnect();
+    };
   }, []);
+
+  const revealStyle = (id, delay = 0) => {
+    const shown = revealedGroups.has(id);
+    return {
+      opacity: shown ? 1 : 0,
+      transform: shown ? "translateY(0)" : "translateY(28px)",
+      transition: `opacity 0.55s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.55s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
+    };
+  };
 
   return (
     <div
@@ -126,24 +164,33 @@ function Skills() {
       </p>
 
       <div className="skills-groups">
-        {skillGroups.map((group) => (
-          <div className="skill-group" key={group.title}>
-            <h3 className="skill-group-title">{group.title}</h3>
-            <div className="skill-group-chips">
-              {group.items.map((item) => (
-                <Chip
-                  key={item.label}
-                  label={item.label}
-                  icon={React.cloneElement(item.icon, {
-                    style: { fontSize: "1.3rem" },
-                  })}
-                  variant="outlined"
-                  className="skill-chip"
-                />
-              ))}
+        {skillGroups.map((group, i) => {
+          const id = `sg-${group.title}`;
+          return (
+            <div
+              className="skill-group"
+              key={group.title}
+              ref={(el) => (groupRefs.current[id] = el)}
+              data-reveal-id={id}
+              style={revealStyle(id, Math.min(i * 0.08, 0.32))}
+            >
+              <h3 className="skill-group-title">{group.title}</h3>
+              <div className="skill-group-chips">
+                {group.items.map((item) => (
+                  <Chip
+                    key={item.label}
+                    label={item.label}
+                    icon={React.cloneElement(item.icon, {
+                      style: { fontSize: "1.3rem" },
+                    })}
+                    variant="outlined"
+                    className="skill-chip"
+                  />
+                ))}
+              </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );
