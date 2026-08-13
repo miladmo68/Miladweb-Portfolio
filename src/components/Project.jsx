@@ -50,15 +50,15 @@ const PROJECTS = [
     cat: "web",
   },
   {
-    title: "Tic-Tac-Toe",
-    img: "tic-tac-toe.png",
-    link: "https://miladmo68.github.io/tic-tac-toe/",
-    cat: "app",
+    title: "Fair Construction",
+    img: "fairconstruction.png",
+    link: "https://fairconstruction-ca.vercel.app/",
+    cat: "web",
   },
   {
     title: "Intershine",
     img: "intershine.png",
-    link: "https://intershine.ca/",
+    link: "https://intershine-ca.vercel.app/",
     cat: "web",
   },
   {
@@ -68,15 +68,27 @@ const PROJECTS = [
     cat: "app",
   },
   {
-    title: "Contact Manager",
-    img: "Contact-Manager.png",
-    link: "https://contact-manager-coral-one.vercel.app/",
-    cat: "app",
+    title: "PEG Studio",
+    img: "pegstudio.png",
+    link: "https://peg-studio-ten.vercel.app/",
+    cat: "web",
   },
   {
     title: "Book Library",
     img: "Book-Library.png",
     link: "https://miladmo68.github.io/Book-Library/",
+    cat: "app",
+  },
+  {
+    title: "Woodline",
+    img: "tarahanchoob.png",
+    link: "https://woodline-ir.vercel.app/",
+    cat: "web",
+  },
+  {
+    title: "Contact Manager",
+    img: "Contact-Manager.png",
+    link: "https://contact-manager-coral-one.vercel.app/",
     cat: "app",
   },
   {
@@ -91,12 +103,7 @@ const PROJECTS = [
     link: "https://miladmo68.github.io/User-Directory/",
     cat: "app",
   },
-  {
-    title: "Fair Construction",
-    img: "fairconstruction.jpg",
-    link: "https://fairconstruction.ca/",
-    cat: "web",
-  },
+
   {
     title: "Note App",
     img: "NoteApp.png",
@@ -168,6 +175,12 @@ const PROJECTS = [
     title: "Bank App",
     img: "Bank-App.png",
     link: "https://miladmo68.github.io/Bank-App/",
+    cat: "app",
+  },
+  {
+    title: "Tic-Tac-Toe",
+    img: "tic-tac-toe.png",
+    link: "https://miladmo68.github.io/tic-tac-toe/",
     cat: "app",
   },
   {
@@ -385,6 +398,7 @@ const PROJECTS = [
     cat: "app",
   },
   { title: "Metal Works", img: "metal.jpg", link: "#", cat: "web" },
+
   { title: "Sidhu Clinic", img: "Sidhu-Clinic.jpg", link: "#", cat: "web" },
 ];
 
