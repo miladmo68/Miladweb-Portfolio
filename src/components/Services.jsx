@@ -76,9 +76,6 @@ function Timeline() {
     return () => observer.disconnect();
   }, []);
 
-  // Check if dark mode is active
-  const isDarkMode = document.querySelector(".dark-mode") !== null;
-
   return (
     <div
       ref={sectionRef}
@@ -104,9 +101,9 @@ function Timeline() {
               className="vertical-timeline-element--work service-card"
               date={`0${index + 1}`}
               iconStyle={{
-                background: "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
+                background: "linear-gradient(135deg, #ff8a00 0%, #ea580c 100%)",
                 color: "#fff",
-                boxShadow: "0 0 0 4px rgba(59,130,246,0.18)",
+                boxShadow: "0 0 0 4px rgba(255,106,0,0.18)",
               }}
               icon={<FontAwesomeIcon icon={service.icon} />}
             >

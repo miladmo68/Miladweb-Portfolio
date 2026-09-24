@@ -77,12 +77,10 @@ export default function Main() {
         </video>
         <div className="hero-video-overlay" aria-hidden="true" />
 
-        <div className="image-wrapper">
-          <img src="/milad.png" alt="Avatar" />
-        </div>
-
         <div className="content">
-          <p className="hero-eyebrow">Hello, I'm</p>
+          <div className="image-wrapper">
+            <img src="/milad.png" alt="Avatar" />
+          </div>
 
           <h1 className="hero-name">
             Milad <span className="name-accent">M.</span>

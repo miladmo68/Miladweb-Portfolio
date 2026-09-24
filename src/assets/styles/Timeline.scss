@@ -10,35 +10,35 @@
 
   /* Service cards - DARK THEME */
   .vertical-timeline-element-content {
-    background: rgba(30, 58, 138, 0.18) !important;
+    background: rgba(255, 106, 0, 0.08) !important;
     color: rgba(255, 255, 255, 0.9) !important;
-    box-shadow: 0 3px 15px rgba(30, 58, 138, 0.3) !important;
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3) !important;
     border: 1px solid rgba(255, 255, 255, 0.1) !important;
     backdrop-filter: blur(10px);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1) !important;
     cursor: pointer;
 
     &:hover {
-      background: rgba(30, 58, 138, 0.2) !important;
-      border-color: rgba(30, 58, 138, 0.5) !important;
-      box-shadow: 0 8px 30px rgba(30, 58, 138, 0.5) !important;
+      background: rgba(255, 106, 0, 0.12) !important;
+      border-color: rgba(255, 138, 0, 0.48) !important;
+      box-shadow: 0 8px 30px rgba(234, 88, 12, 0.2) !important;
       transform: translateY(-5px) scale(1.02);
 
       h3 {
-        color: #3b82f6 !important;
+        color: #ff9c2e !important;
       }
     }
   }
 
   /* Arrow pointing to timeline */
   .vertical-timeline-element-content-arrow {
-    border-right: 7px solid rgba(30, 58, 138, 0.18) !important;
+    border-right: 7px solid rgba(255, 138, 0, 0.15) !important;
     transition: border-color 0.4s ease;
   }
 
   .vertical-timeline-element-content:hover
     + .vertical-timeline-element-content-arrow {
-    border-right-color: rgba(30, 58, 138, 0.2) !important;
+    border-right-color: rgba(255, 138, 0, 0.24) !important;
   }
 
   /* Service card text */
@@ -63,22 +63,22 @@
   }
 
   .vertical-timeline-element:hover .vertical-timeline-element-date {
-    color: #3b82f6 !important;
+    color: #ff9c2e !important;
     transform: scale(1.05);
   }
 
   /* Icon circles */
   .vertical-timeline-element-icon {
     box-shadow:
-      0 0 0 4px rgba(30, 58, 138, 0.3),
+      0 0 0 4px rgba(255, 106, 0, 0.16),
       0 3px 10px rgba(0, 0, 0, 0.3);
     transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .vertical-timeline-element:hover .vertical-timeline-element-icon {
     box-shadow:
-      0 0 0 6px rgba(30, 58, 138, 0.5),
-      0 5px 20px rgba(30, 58, 138, 0.4);
+      0 0 0 6px rgba(255, 106, 0, 0.22),
+      0 5px 24px rgba(234, 88, 12, 0.32);
     transform: scale(1.1) rotate(5deg);
   }
 
@@ -116,7 +116,7 @@
       transform: translateY(-5px) scale(1.02);
 
       h3 {
-        color: #1e3a8a !important;
+        color: #ff9c2e !important;
       }
     }
   }
@@ -142,20 +142,20 @@
   }
 
   .vertical-timeline-element:hover .vertical-timeline-element-date {
-    color: #1e3a8a !important;
+    color: #ea580c !important;
   }
 
   /* Icon circles */
   .vertical-timeline-element-icon {
     box-shadow:
-      0 0 0 4px rgba(30, 58, 138, 0.2),
+      0 0 0 4px rgba(255, 106, 0, 0.16),
       0 3px 10px rgba(0, 0, 0, 0.2);
   }
 
   .vertical-timeline-element:hover .vertical-timeline-element-icon {
     box-shadow:
-      0 0 0 6px rgba(30, 58, 138, 0.4),
-      0 5px 20px rgba(30, 58, 138, 0.3);
+      0 0 0 6px rgba(255, 106, 0, 0.22),
+      0 5px 24px rgba(234, 88, 12, 0.28);
   }
 }
 
