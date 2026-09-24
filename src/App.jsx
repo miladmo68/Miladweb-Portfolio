@@ -24,6 +24,10 @@ function App() {
     window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = mode;
+  }, [mode]);
+
   return (
     <div
       className={`main-container ${

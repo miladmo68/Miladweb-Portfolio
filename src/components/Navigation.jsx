@@ -84,20 +84,21 @@ function Navigation({ parentToChild, modeChange }) {
     if (section) section.scrollIntoView({ behavior: "smooth" });
   };
 
-  // Alumica is intentionally dark-first; the toggle changes the page ambience
-  // while navigation remains in the same black-glass visual family.
-  const isLight = false;
+  const isLight = mode === "light";
 
   const styles = useMemo(() => {
-    const TEXT = "#ffffff";
-    const MUTED = "rgba(255,255,255,0.58)";
-    const BORDER = "rgba(255,255,255,0.12)";
-    const BG_TOP = "rgba(8,8,10,0.66)";
-    const BG_SCROLL = "rgba(5,5,6,0.88)";
-    const SHADOW = "0 18px 52px rgba(0,0,0,0.42)";
-    const DRAWER_BG =
-      "linear-gradient(180deg, rgba(14,14,16,0.98), rgba(0,0,0,0.98))";
-    const CARD_BG = "rgba(255,255,255,0.045)";
+    const TEXT = isLight ? "#18181b" : "#ffffff";
+    const MUTED = isLight ? "rgba(24,24,27,0.58)" : "rgba(255,255,255,0.58)";
+    const BORDER = isLight ? "rgba(24,24,27,0.12)" : "rgba(255,255,255,0.12)";
+    const BG_TOP = isLight ? "rgba(255,255,255,0.82)" : "rgba(8,8,10,0.66)";
+    const BG_SCROLL = isLight ? "rgba(255,255,255,0.95)" : "rgba(5,5,6,0.88)";
+    const SHADOW = isLight
+      ? "0 18px 52px rgba(24,24,27,0.10)"
+      : "0 18px 52px rgba(0,0,0,0.42)";
+    const DRAWER_BG = isLight
+      ? "linear-gradient(180deg, rgba(255,255,255,0.99), rgba(247,247,248,0.99))"
+      : "linear-gradient(180deg, rgba(14,14,16,0.98), rgba(0,0,0,0.98))";
+    const CARD_BG = isLight ? "rgba(255,255,255,0.86)" : "rgba(255,255,255,0.045)";
 
     return {
       TEXT,
@@ -109,7 +110,7 @@ function Navigation({ parentToChild, modeChange }) {
       DRAWER_BG,
       CARD_BG,
     };
-  }, []);
+  }, [isLight]);
 
   const LOGO_MOBILE = 66;
   const LOGO_DRAWER = 56;
@@ -323,8 +324,8 @@ function Navigation({ parentToChild, modeChange }) {
     position: "relative",
     transition: "all 0.25s cubic-bezier(0.4, 0, 0.2, 1)",
     "&:hover": {
-      background: isLight ? "rgba(30, 58, 138, 0.08)" : "rgba(255, 255, 255, 0.08)",
-      color: isLight ? "#1e3a8a" : "#fff",
+      background: isLight ? "rgba(255, 106, 0, 0.09)" : "rgba(255, 255, 255, 0.08)",
+      color: isLight ? "#b94708" : "#fff",
     },
   };
 
@@ -339,21 +340,21 @@ function Navigation({ parentToChild, modeChange }) {
         color: styles.TEXT,
         border: `1.5px solid ${styles.BORDER}`,
         background: isLight
-          ? "linear-gradient(135deg, rgba(255,255,255,0.9), rgba(245,248,255,0.8))"
-          : "linear-gradient(135deg, rgba(30,58,138,0.15), rgba(59,130,246,0.10))",
+          ? "linear-gradient(135deg, #ffffff, #f5f5f6)"
+          : "linear-gradient(135deg, rgba(255,138,0,0.14), rgba(234,88,12,0.08))",
         boxShadow: isLight
-          ? "0 4px 16px rgba(30, 58, 138, 0.12), inset 0 1px 2px rgba(255,255,255,0.8)"
+          ? "0 4px 16px rgba(24,24,27,0.10), inset 0 1px 2px rgba(255,255,255,0.95)"
           : "0 4px 16px rgba(0,0,0,0.3), inset 0 1px 2px rgba(255,255,255,0.1)",
         transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)",
         "&:hover": {
           background: isLight
-            ? "linear-gradient(135deg, rgba(30,58,138,0.08), rgba(59,130,246,0.06))"
-            : "linear-gradient(135deg, rgba(30,58,138,0.25), rgba(59,130,246,0.18))",
+            ? "linear-gradient(135deg, rgba(255,138,0,0.13), rgba(234,88,12,0.08))"
+            : "linear-gradient(135deg, rgba(255,138,0,0.22), rgba(234,88,12,0.14))",
           transform: "translateY(-2px) scale(1.05)",
           boxShadow: isLight
-            ? "0 8px 24px rgba(30, 58, 138, 0.2)"
-            : "0 8px 24px rgba(30, 58, 138, 0.4)",
-          borderColor: "#1e3a8a",
+            ? "0 8px 24px rgba(234,88,12,0.18)"
+            : "0 8px 24px rgba(234,88,12,0.3)",
+          borderColor: "#ff8a00",
         },
       }}
     >
@@ -374,17 +375,17 @@ function Navigation({ parentToChild, modeChange }) {
           ? "1px solid rgba(0,0,0,0.12)"
           : "1px solid rgba(255,255,255,0.14)",
         background: isLight
-          ? "linear-gradient(180deg, rgba(255,255,255,0.92), rgba(245,248,255,0.86))"
-          : "linear-gradient(180deg, rgba(12,16,26,0.78), rgba(10,14,23,0.70))",
+          ? "linear-gradient(180deg, #ffffff, #f5f5f6)"
+          : "linear-gradient(180deg, rgba(18,14,10,0.82), rgba(10,10,10,0.74))",
         boxShadow: isLight
-          ? "0 10px 24px rgba(0,0,0,0.12), 0 0 0 3px rgba(0,96,255,0.16)"
-          : "0 12px 28px rgba(0,0,0,0.40), 0 0 0 3px rgba(0,107,206,0.45)",
+          ? "0 10px 24px rgba(24,24,27,0.10), 0 0 0 3px rgba(255,138,0,0.12)"
+          : "0 12px 28px rgba(0,0,0,0.40), 0 0 0 3px rgba(255,106,0,0.2)",
         "&:before": {
           content: '""',
           position: "absolute",
           inset: -3,
           borderRadius: "999px",
-          border: "2px solid rgba(0,96,255,0.55)",
+          border: "2px solid rgba(255,138,0,0.5)",
           opacity: 0.75,
           pointerEvents: "none",
         },
@@ -392,7 +393,7 @@ function Navigation({ parentToChild, modeChange }) {
     >
       <MenuIcon
         sx={{
-          color: isLight ? "rgba(15,23,42,0.72)" : "rgba(255,255,255,0.90)",
+          color: isLight ? "rgba(24,24,27,0.8)" : "rgba(255,255,255,0.90)",
         }}
       />
     </IconButton>
@@ -549,7 +550,7 @@ function Navigation({ parentToChild, modeChange }) {
                 width: 2,
                 height: 40,
                 background: isLight
-                  ? "linear-gradient(180deg, transparent, rgba(30, 58, 138, 0.25), transparent)"
+                  ? "linear-gradient(180deg, transparent, rgba(234, 88, 12, 0.28), transparent)"
                   : "linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.25), transparent)",
                 borderRadius: 999,
               }}
@@ -582,11 +583,11 @@ function Navigation({ parentToChild, modeChange }) {
               ? "1px solid rgba(0,0,0,0.10)"
               : "1px solid rgba(255,255,255,0.12)",
             background: isLight
-              ? "linear-gradient(180deg, rgba(255,255,255,0.86), rgba(245,248,255,0.80))"
-              : "linear-gradient(180deg, rgba(12,16,26,0.74), rgba(10,14,23,0.70))",
+              ? "linear-gradient(180deg, rgba(255,255,255,0.96), rgba(247,247,248,0.92))"
+              : "linear-gradient(180deg, rgba(18,14,10,0.78), rgba(10,10,10,0.72))",
             boxShadow: isLight
-              ? "0 14px 34px rgba(0,0,0,0.12), 0 0 28px rgba(0,96,255,0.10)"
-              : "0 16px 40px rgba(0,0,0,0.48), 0 0 32px rgba(0,107,206,0.26)",
+              ? "0 14px 34px rgba(24,24,27,0.11), 0 0 28px rgba(255,138,0,0.07)"
+              : "0 16px 40px rgba(0,0,0,0.48), 0 0 32px rgba(255,106,0,0.16)",
             backdropFilter: "blur(14px)",
             display: "flex",
             alignItems: "center",
@@ -598,7 +599,7 @@ function Navigation({ parentToChild, modeChange }) {
               position: "absolute",
               inset: -50,
               background:
-                "radial-gradient(260px 100px at 18% 12%, rgba(0,96,255,0.18), transparent 70%)",
+                "radial-gradient(260px 100px at 18% 12%, rgba(255,138,0,0.16), transparent 70%)",
               filter: "blur(18px)",
               opacity: 0.9,
               pointerEvents: "none",
@@ -685,11 +686,11 @@ function Navigation({ parentToChild, modeChange }) {
             boxSizing: "border-box",
             width: drawerWidth,
             height: "100dvh",
-            background:
-              "radial-gradient(circle at 100% 0%, rgba(255,106,0,0.09), transparent 280px), linear-gradient(180deg, rgba(14,14,16,0.99), rgba(0,0,0,0.99))",
+            background: `radial-gradient(circle at 100% 0%, rgba(255,106,0,0.10), transparent 280px), ${styles.DRAWER_BG}`,
             borderLeft: "1px solid rgba(255,138,0,0.18)",
-            boxShadow:
-              "-24px 0 80px rgba(0,0,0,0.58), inset 1px 0 rgba(255,255,255,0.035)",
+            boxShadow: isLight
+              ? "-24px 0 80px rgba(90,52,18,0.18), inset 1px 0 rgba(255,255,255,0.8)"
+              : "-24px 0 80px rgba(0,0,0,0.58), inset 1px 0 rgba(255,255,255,0.035)",
             overflowX: "hidden",
           },
         }}
