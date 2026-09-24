@@ -10,6 +10,7 @@ import {
   Services,
 } from "./components";
 import "./index.scss";
+import "./assets/styles/alumica-theme.scss";
 
 const Project = lazy(() => import("./components/Project"));
 

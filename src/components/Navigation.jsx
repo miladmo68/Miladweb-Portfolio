@@ -84,25 +84,20 @@ function Navigation({ parentToChild, modeChange }) {
     if (section) section.scrollIntoView({ behavior: "smooth" });
   };
 
-  const isLight = mode !== "dark";
+  // Alumica is intentionally dark-first; the toggle changes the page ambience
+  // while navigation remains in the same black-glass visual family.
+  const isLight = false;
 
   const styles = useMemo(() => {
-    const TEXT = isLight ? "#0B1220" : "#fff";
-    const MUTED = isLight ? "rgba(11,18,32,0.62)" : "rgba(255,255,255,0.72)";
-    const BORDER = isLight ? "rgba(0,0,0,0.10)" : "rgba(255,255,255,0.12)";
-    const BG_TOP = isLight ? "rgba(255,255,255,0.85)" : "rgba(12,16,26,0.70)";
-    const BG_SCROLL = isLight
-      ? "rgba(255,255,255,0.96)"
-      : "rgba(10,14,23,0.92)";
-    const SHADOW = isLight
-      ? "0 10px 26px rgba(0,0,0,0.10)"
-      : "0 14px 34px rgba(0,0,0,0.45)";
-
-    const DRAWER_BG = isLight
-      ? "linear-gradient(180deg, rgba(255,255,255,0.98), rgba(248,250,255,0.96))"
-      : "linear-gradient(180deg, rgba(10,14,23,0.96), rgba(10,14,23,0.94))";
-
-    const CARD_BG = isLight ? "rgba(0,0,0,0.03)" : "rgba(255,255,255,0.06)";
+    const TEXT = "#ffffff";
+    const MUTED = "rgba(255,255,255,0.58)";
+    const BORDER = "rgba(255,255,255,0.12)";
+    const BG_TOP = "rgba(8,8,10,0.66)";
+    const BG_SCROLL = "rgba(5,5,6,0.88)";
+    const SHADOW = "0 18px 52px rgba(0,0,0,0.42)";
+    const DRAWER_BG =
+      "linear-gradient(180deg, rgba(14,14,16,0.98), rgba(0,0,0,0.98))";
+    const CARD_BG = "rgba(255,255,255,0.045)";
 
     return {
       TEXT,
@@ -114,7 +109,7 @@ function Navigation({ parentToChild, modeChange }) {
       DRAWER_BG,
       CARD_BG,
     };
-  }, [isLight]);
+  }, []);
 
   const LOGO_MOBILE = 66;
   const LOGO_DRAWER = 56;
@@ -429,8 +424,8 @@ function Navigation({ parentToChild, modeChange }) {
             height: "3px",
             width: `${progress}%`,
             background:
-              "linear-gradient(90deg, #1e3a8a 0%, #3b82f6 50%, #0ea5e9 100%)",
-            boxShadow: "0 0 10px rgba(59, 130, 246, 0.7)",
+              "linear-gradient(90deg, #ff8a00 0%, #ff6a00 50%, #ea580c 100%)",
+            boxShadow: "0 0 12px rgba(255, 106, 0, 0.55)",
             borderRadius: "0 3px 3px 0",
             transition: "width 0.12s linear",
             pointerEvents: "none",
@@ -524,15 +519,14 @@ function Navigation({ parentToChild, modeChange }) {
                     sx={{
                       ...desktopBtnSx,
                       ...(isActive && {
-                        background:
-                          "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
-                        color: "#fff",
-                        fontWeight: 800,
-                        boxShadow: "0 6px 18px rgba(30, 58, 138, 0.45)",
+                        background: "rgba(255,138,0,0.10)",
+                        color: "#ff941f",
+                        fontWeight: 650,
+                        boxShadow:
+                          "inset 0 0 0 1px rgba(255,138,0,0.24), 0 0 18px rgba(255,106,0,0.12)",
                         "&:hover": {
-                          background:
-                            "linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)",
-                          color: "#fff",
+                          background: "rgba(255,138,0,0.14)",
+                          color: "#ffa733",
                         },
                       }),
                     }}

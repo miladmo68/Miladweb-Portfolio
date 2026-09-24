@@ -47,6 +47,22 @@ export default function Main() {
   return (
     <div className="container" id="home">
       <div className="about-section">
+        <video
+          className="hero-video"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source
+            src="https://cdn.sceneai.art/Hero%20Section%20Video/5a6cf9a9-9f93-4e44-88f3-cf666065daf7.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <div className="hero-video-overlay" aria-hidden="true" />
+
         <div className="image-wrapper">
           <img src="/milad.png" alt="Avatar" />
         </div>

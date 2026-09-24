@@ -568,18 +568,24 @@ export default function Project() {
                 clickable
                 onClick={() => handleFilter(f.value)}
                 sx={{
-                  color: active ? "#ffffff" : "#252525",
-                  backgroundColor: active ? "#1e3a8a" : "#f5f5f5",
+                  color: active ? "#ffffff" : "rgba(255,255,255,0.72)",
+                  backgroundColor: active
+                    ? "rgba(255,106,0,0.16)"
+                    : "rgba(255,255,255,0.045)",
                   border: "1px solid",
-                  borderColor: active ? "#1e3a8a" : "#252525",
+                  borderColor: active
+                    ? "rgba(255,138,0,0.58)"
+                    : "rgba(255,255,255,0.12)",
                   padding: "6px 10px",
                   fontSize: "0.9rem",
                   transition: "all 0.3s ease",
                   cursor: "pointer",
                   "&:hover": {
-                    backgroundColor: active ? "#1e3a8a" : "#dbeafe",
-                    color: active ? "#fff" : "#1e3a8a",
-                    borderColor: "#1e3a8a",
+                    backgroundColor: active
+                      ? "rgba(255,106,0,0.22)"
+                      : "rgba(255,106,0,0.1)",
+                    color: "#fff",
+                    borderColor: "rgba(255,138,0,0.65)",
                   },
                 }}
               />
