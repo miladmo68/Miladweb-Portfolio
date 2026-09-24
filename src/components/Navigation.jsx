@@ -190,7 +190,8 @@ function Navigation({ parentToChild, modeChange }) {
             background: isLight
               ? "radial-gradient(circle at 30% 30%, rgba(0,0,0,0.06), rgba(0,0,0,0.02))"
               : "radial-gradient(circle at 30% 30%, rgba(255,255,255,0.12), rgba(255,255,255,0.06))",
-            boxShadow: "0 0 18px rgba(0,96,255,0.22)",
+            boxShadow:
+              "inset 0 1px rgba(255,255,255,0.08), 0 0 18px rgba(255,106,0,0.14)",
           }}
         >
           <CloseIcon />
@@ -242,10 +243,12 @@ function Navigation({ parentToChild, modeChange }) {
                 }}
                 sx={{
                   borderRadius: 2.2,
-                  background: styles.CARD_BG,
                   border: `1px solid ${
-                    isActive ? "rgba(0,96,255,0.35)" : styles.BORDER
+                    isActive ? "rgba(255,138,0,0.48)" : styles.BORDER
                   }`,
+                  background: isActive
+                    ? "linear-gradient(90deg, rgba(255,106,0,0.12), rgba(255,255,255,0.035))"
+                    : styles.CARD_BG,
                   px: 2,
                   py: 1.6,
                   position: "relative",
@@ -260,9 +263,12 @@ function Navigation({ parentToChild, modeChange }) {
                     top: 0,
                     bottom: 0,
                     width: 3,
-                    opacity: isActive ? 1 : 0.7,
+                    opacity: isActive ? 1 : 0.2,
                     background:
-                      "linear-gradient(180deg, rgba(0,96,255,0.85), rgba(0,96,255,0.20))",
+                      "linear-gradient(180deg, #ff9d00, #ea580c)",
+                    boxShadow: isActive
+                      ? "0 0 14px rgba(255,106,0,0.42)"
+                      : "none",
                   },
                 }}
               >
@@ -273,8 +279,10 @@ function Navigation({ parentToChild, modeChange }) {
                     borderRadius: 999,
                     mr: 1.4,
                     background:
-                      "radial-gradient(circle at 40% 40%, #73A6FF, #0060FF 80%)",
-                    boxShadow: "0 0 10px rgba(0,96,255,0.45)",
+                      "radial-gradient(circle at 38% 35%, #ffc266, #ff8a00 45%, #ea580c 85%)",
+                    boxShadow: isActive
+                      ? "0 0 12px rgba(255,106,0,0.52)"
+                      : "0 0 8px rgba(255,106,0,0.24)",
                   }}
                 />
                 <ListItemText
@@ -677,9 +685,11 @@ function Navigation({ parentToChild, modeChange }) {
             boxSizing: "border-box",
             width: drawerWidth,
             height: "100dvh",
-            background: styles.DRAWER_BG,
-            borderLeft: `1px solid ${styles.BORDER}`,
-            boxShadow: "0 30px 80px rgba(0,0,0,0.45)",
+            background:
+              "radial-gradient(circle at 100% 0%, rgba(255,106,0,0.09), transparent 280px), linear-gradient(180deg, rgba(14,14,16,0.99), rgba(0,0,0,0.99))",
+            borderLeft: "1px solid rgba(255,138,0,0.18)",
+            boxShadow:
+              "-24px 0 80px rgba(0,0,0,0.58), inset 1px 0 rgba(255,255,255,0.035)",
             overflowX: "hidden",
           },
         }}
