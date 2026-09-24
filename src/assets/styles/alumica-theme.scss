@@ -215,6 +215,10 @@ button[aria-label="open menu"]::before {
   filter: saturate(0.9) contrast(1.06) brightness(0.86);
 }
 
+.hero-video--stage {
+  display: none;
+}
+
 .hero-video-overlay {
   position: absolute;
   inset: 0;
@@ -331,12 +335,18 @@ button[aria-label="open menu"]::before {
   border-radius: 999px;
   font-size: 0.88rem;
   font-weight: 650;
-  color: #fff;
+  color: #fff !important;
   background: rgba(255, 255, 255, 0.055);
   border: 1px solid var(--al-line-strong);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 30px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(12px);
   transition: transform 0.3s ease, background 0.3s ease, box-shadow 0.3s ease;
+}
+
+.light-mode .about-section .content .hero-btn--ghost {
+  color: #fff !important;
+  border-color: var(--al-line-strong) !important;
+  background: rgba(255, 255, 255, 0.055) !important;
 }
 
 .about-section .content .hero-btn--primary {
@@ -943,6 +953,40 @@ button[aria-label="open menu"]::before {
   .light-mode .about-section {
     min-height: 100svh;
     padding: 124px 1rem 38px;
+  }
+
+  .hero-video--ambient {
+    opacity: 0.5;
+    filter: blur(16px) saturate(1.05) contrast(1.08) brightness(0.72);
+    transform: scale(1.12);
+  }
+
+  .hero-video--stage {
+    display: block;
+    object-fit: contain;
+    object-position: center 62%;
+    opacity: 0.72;
+    filter: saturate(1.15) contrast(1.08) brightness(0.8);
+    transform: scale(1.28);
+  }
+
+  .hero-video-overlay {
+    background:
+      radial-gradient(
+        ellipse at 50% 50%,
+        rgba(0, 0, 0, 0.34) 0%,
+        rgba(0, 0, 0, 0.12) 42%,
+        transparent 68%
+      ),
+      linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.82) 0%,
+        rgba(0, 0, 0, 0.3) 28%,
+        rgba(0, 0, 0, 0.2) 58%,
+        rgba(0, 0, 0, 0.52) 82%,
+        #000 100%
+      ),
+      radial-gradient(ellipse at 50% 54%, transparent 0%, rgba(0, 0, 0, 0.48) 86%);
   }
 
   .about-section .content h1.hero-name,

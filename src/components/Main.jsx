@@ -48,7 +48,21 @@ export default function Main() {
     <div className="container" id="home">
       <div className="about-section">
         <video
-          className="hero-video"
+          className="hero-video hero-video--ambient"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+        >
+          <source
+            src="https://cdn.sceneai.art/Hero%20Section%20Video/5a6cf9a9-9f93-4e44-88f3-cf666065daf7.mp4"
+            type="video/mp4"
+          />
+        </video>
+        <video
+          className="hero-video hero-video--stage"
           autoPlay
           muted
           loop
