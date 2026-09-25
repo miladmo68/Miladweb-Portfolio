@@ -489,6 +489,10 @@ button[aria-label="open menu"]::before {
     0 0 0 5px rgba(255, 138, 0, 0.055),
     inset 0 1px rgba(255, 255, 255, 0.1);
   backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    box-shadow 0.35s ease;
 }
 
 .about-section .content .image-wrapper {
@@ -506,6 +510,7 @@ button[aria-label="open menu"]::before {
   opacity: 0.42;
   filter: blur(15px);
   animation: none;
+  transition: opacity 0.35s ease, filter 0.35s ease;
 }
 
 .about-section .image-wrapper::after {
@@ -529,11 +534,30 @@ button[aria-label="open menu"]::before {
   object-fit: cover;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.48);
   filter: saturate(0.82) contrast(1.04);
+  transform: scale(1) rotate(0deg);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    filter 0.3s ease;
+}
+
+.about-section .image-wrapper:hover {
+  transform: translateY(-4px) scale(1.025);
+  border-color: rgba(255, 138, 0, 0.72);
+  box-shadow: 0 24px 44px rgba(0, 0, 0, 0.66),
+    0 0 0 5px rgba(255, 138, 0, 0.08),
+    0 0 28px rgba(255, 106, 0, 0.22),
+    inset 0 1px rgba(255, 255, 255, 0.12);
+}
+
+.about-section .image-wrapper:hover::before {
+  opacity: 0.7;
+  filter: blur(18px);
 }
 
 .about-section .image-wrapper:hover img {
-  transform: none;
+  transform: scale(1.075) rotate(2.5deg);
   border-color: #fff;
+  filter: saturate(1) contrast(1.04);
 }
 
 /* Section system */
@@ -1139,6 +1163,14 @@ html[data-theme="light"] img[alt="MiladWeb logo"] {
   background: rgba(24, 24, 27, 0.2);
   opacity: 0.42;
   filter: blur(16px);
+}
+
+.light-mode .about-section .image-wrapper:hover {
+  border-color: rgba(234, 88, 12, 0.62);
+  box-shadow: 0 24px 44px rgba(24, 24, 27, 0.16),
+    0 0 0 4px rgba(24, 24, 27, 0.045),
+    0 0 24px rgba(234, 88, 12, 0.14),
+    inset 0 1px rgba(255, 255, 255, 0.96);
 }
 
 .light-mode .about-section .image-wrapper::after {
