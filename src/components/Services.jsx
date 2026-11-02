@@ -1,124 +1,36 @@
-import React, { useEffect, useRef } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCode,
-  faLaptopCode,
-  faPencilRuler,
-  faShoppingCart,
-  faSearch,
-  faTools,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  VerticalTimeline,
-  VerticalTimelineElement,
-} from "react-vertical-timeline-component";
-import "react-vertical-timeline-component/style.min.css";
-import "../assets/styles/Timeline.scss";
+import { FiLayout, FiGlobe, FiShoppingBag, FiPenTool, FiZap, FiShield } from "react-icons/fi";
+import useReveal from "../hooks/useReveal";
+import SectionHead from "./sections/SectionHead";
+import { SERVICES } from "../data/site";
 
-const services = [
-  {
-    icon: faCode,
-    title: "Custom Web Development",
-    description:
-      "Build dynamic, responsive, and user-friendly websites tailored to meet your business goals and enhance user experience.",
-  },
-  {
-    icon: faLaptopCode,
-    title: "Full Stack Development",
-    description:
-      "Provide end-to-end solutions using React, Next.js, TypeScript, Node.js, and MongoDB/PostgreSQL to create scalable, dynamic web apps.",
-  },
-  {
-    icon: faPencilRuler,
-    title: "UI/UX Design",
-    description:
-      "Create intuitive, visually appealing designs ensuring seamless user experience across all devices.",
-  },
-  {
-    icon: faShoppingCart,
-    title: "E-commerce Solutions",
-    description:
-      "Develop and optimize e-commerce websites using WooCommerce and custom React storefronts.",
-  },
-  {
-    icon: faSearch,
-    title: "SEO Optimization",
-    description:
-      "Enhance your website’s visibility with proven SEO strategies, on-page optimization, and keyword research.",
-  },
-  {
-    icon: faTools,
-    title: "Website Maintenance & Support",
-    description:
-      "Offer ongoing support, updates, and troubleshooting to keep your website running smoothly and securely.",
-  },
-];
+const ICONS = [FiLayout, FiGlobe, FiShoppingBag, FiPenTool, FiZap, FiShield];
 
-function Timeline() {
-  const sectionRef = useRef(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
+export default function Services() {
+  const ref = useReveal();
   return (
-    <div
-      ref={sectionRef}
-      id="services"
-      className="fade-in-section services-section"
-      style={{ padding: "4rem 1rem" }}
-    >
-      <div
-        style={{ textAlign: "center", marginBottom: "3rem" }}
-        className="items-container"
-      >
-        <h2 className="section-title text-3xl font-extrabold text-center mb-2">
-          Services
-        </h2>
-        <p style={{ maxWidth: "700px", margin: "0 auto" }}>
-          I want your business to succeed, and I'm committed to doing everything
-          I can to make that happen. Below is an overview of the professional
-          web development services I offer, each designed to support your growth
-          and success.
-        </p>
-        <VerticalTimeline>
-          {services.map((service, index) => (
-            <VerticalTimelineElement
-              key={index}
-              className="vertical-timeline-element--work service-card"
-              date={`0${index + 1}`}
-              iconStyle={{
-                background: "linear-gradient(135deg, #ff8a00 0%, #ea580c 100%)",
-                color: "#fff",
-                boxShadow: "0 0 0 4px rgba(255,106,0,0.18)",
-              }}
-              icon={<FontAwesomeIcon icon={service.icon} />}
-            >
-              <h3 className="vertical-timeline-element-title">
-                {service.title}
-              </h3>
-              <p>{service.description}</p>
-            </VerticalTimelineElement>
-          ))}
-        </VerticalTimeline>
+    <section id="expertise" className="s-section" ref={ref} aria-labelledby="expertise-title">
+      <div className="s-container">
+        <SectionHead
+          id="expertise-title"
+          eyebrow="Services"
+          title="What I can build for you"
+          lead="From a single landing page to a full SaaS product — designed, built and shipped with care."
+        />
+        <ul className="s-services">
+          {SERVICES.map((s, i) => {
+            const Icon = ICONS[i % ICONS.length];
+            return (
+              <li key={s.title} className="s-service" data-reveal style={{ "--d": `${(i % 3) * 90}ms` }}>
+                <span className="s-service-icon" aria-hidden="true">
+                  <Icon />
+                </span>
+                <h3>{s.title}</h3>
+                <p>{s.text}</p>
+              </li>
+            );
+          })}
+        </ul>
       </div>
-    </div>
+    </section>
   );
 }
-
-export default Timeline;

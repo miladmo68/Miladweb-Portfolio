@@ -1,14 +1,11 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
-import {
-  Main,
-  Contact,
-  Navigation,
-  Footer,
-  About,
-  Services,
-} from "./components";
+import { Main, Contact, Navigation, Footer, About, Services, Skills } from "./components";
+import ClientMarquee from "./components/sections/ClientMarquee";
+import FeaturedWork from "./components/sections/FeaturedWork";
+import Testimonials from "./components/sections/Testimonials";
 import "./index.scss";
 import "./assets/styles/alumica-theme.scss";
+import "./assets/styles/site.scss";
 
 const Project = lazy(() => import("./components/Project"));
 
@@ -19,36 +16,28 @@ function App() {
     setMode((prev) => (prev === "dark" ? "light" : "dark"));
 
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: "smooth" });
-  }, []);
-
-  useEffect(() => {
     document.documentElement.dataset.theme = mode;
   }, [mode]);
 
   return (
-    <div
-      className={`main-container ${
-        mode === "dark" ? "dark-mode" : "light-mode"
-      }`}
-    >
+    <div className={`main-container ${mode === "dark" ? "dark-mode" : "light-mode"}`}>
       <Navigation parentToChild={{ mode }} modeChange={handleModeChange} />
 
-      <div className="mx-auto w-full max-w-[1536px] px-4">
-        <Main />
+      <main>
+        <div className="mx-auto w-full max-w-[1536px] px-4">
+          <Main />
+        </div>
+        <ClientMarquee />
         <About />
-
-        <Suspense
-          fallback={
-            <div style={{ padding: "2rem", textAlign: "center" }}>Loading…</div>
-          }
-        >
+        <FeaturedWork />
+        <Suspense fallback={<div className="s-loading" aria-hidden="true" />}>
           <Project />
         </Suspense>
-
+        <Skills />
         <Services />
+        <Testimonials />
         <Contact />
-      </div>
+      </main>
 
       <Footer />
     </div>

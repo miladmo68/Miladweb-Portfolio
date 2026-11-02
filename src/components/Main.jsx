@@ -1,48 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React from "react";
+import MailOutlineIcon from "@mui/icons-material/MailOutline";
+import { CONTACT } from "../data/site";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import "../assets/styles/Main.scss";
 
-const WORDS = [
-  "Full-Stack Developer",
-  "React & Next.js Developer",
-  "TypeScript Developer",
-];
-
-const TYPE_MS = 80;
-const ERASE_MS = 50;
-const PAUSE_MS = 2000;
-
 export default function Main() {
-  const [text, setText] = useState("");
-  const [wordIndex, setIndex] = useState(0);
-  const [deleting, setDel] = useState(false);
-  const timer = useRef();
-
   const scrollTo = (id) =>
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-
-  useEffect(() => {
-    const word = WORDS[wordIndex];
-
-    if (!deleting && text === word) {
-      timer.current = setTimeout(() => setDel(true), PAUSE_MS);
-      return () => clearTimeout(timer.current);
-    }
-
-    if (deleting && text === "") {
-      setDel(false);
-      setIndex((i) => (i + 1) % WORDS.length);
-      return;
-    }
-
-    const nextLength = text.length + (deleting ? -1 : 1);
-    const next = word.slice(0, nextLength);
-    const delay = deleting ? ERASE_MS : TYPE_MS;
-
-    timer.current = setTimeout(() => setText(next), delay);
-    return () => clearTimeout(timer.current);
-  }, [text, deleting, wordIndex]);
 
   return (
     <div className="container" id="home">
@@ -89,13 +54,11 @@ export default function Main() {
           </div>
 
           <h1 className="hero-name">
-            Milad <span className="name-accent">M.</span>
+            Milad <span className="name-accent">Mohammadi</span>
           </h1>
 
-          <p className="typed-wrapper">
-            I'm&nbsp;a&nbsp;
-            <span className="typed">{text}</span>
-            <span className="typed-cursor" aria-hidden="true" />
+          <p className="typed-wrapper hero-role">
+            Frontend-Focused Full-Stack Developer
           </p>
 
           <p className="hero-tagline">
@@ -115,7 +78,7 @@ export default function Main() {
             <button
               type="button"
               className="hero-btn hero-btn--ghost"
-              onClick={() => scrollTo("contact")}
+              onClick={() => scrollTo("connect")}
             >
               Get in Touch
             </button>
@@ -138,6 +101,9 @@ export default function Main() {
             >
               <LinkedInIcon />
             </a>
+            <a href={`mailto:${CONTACT.email}`} aria-label="Email Milad">
+              <MailOutlineIcon />
+            </a>
           </div>
 
           <div className="mobile_social_icons">
@@ -156,6 +122,9 @@ export default function Main() {
               rel="noreferrer"
             >
               <LinkedInIcon />
+            </a>
+            <a href={`mailto:${CONTACT.email}`} aria-label="Email Milad">
+              <MailOutlineIcon />
             </a>
           </div>
         </div>

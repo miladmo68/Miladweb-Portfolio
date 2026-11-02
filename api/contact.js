@@ -1,6 +1,10 @@
 // api/contact.js  (ESM چون package.json → "type":"module")
 import nodemailer from "nodemailer";
 
+// escape user input before putting it into the email HTML
+const esc = (v) =>
+  String(v).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
+
 // read JSON (Vercel + Vite)
 async function readJsonBody(req) {
   return await new Promise((resolve, reject) => {
@@ -31,9 +35,19 @@ export default async function handler(req, res) {
     return;
   }
 
-  const { name, email, message } = payload || {};
+  const { name, email, message, website } = payload || {};
+
+  // honeypot: real visitors never see or fill the "website" field
+  if (website) {
+    res.status(200).json({ ok: true });
+    return;
+  }
   if (!name || !email || !message) {
     res.status(400).json({ error: "Missing fields" });
+    return;
+  }
+  if (String(name).length > 120 || String(email).length > 200 || String(message).length > 5000) {
+    res.status(400).json({ error: "Message too long" });
     return;
   }
 
@@ -71,9 +85,10 @@ export default async function handler(req, res) {
       to: TO_EMAIL,
       subject: `New message — ${name}`,
       text: `From: ${name} <${email}>\n\n${message}`,
-      html: `<p><strong>From:</strong> ${name} &lt;${email}&gt;</p>
+      replyTo: /@/.test(email) ? String(email) : undefined,
+      html: `<p><strong>From:</strong> ${esc(name)} &lt;${esc(email)}&gt;</p>
              <p><strong>Message:</strong></p>
-             <p>${String(message).replace(/\n/g, "<br/>")}</p>`,
+             <p>${esc(message).replace(/\n/g, "<br/>")}</p>`,
     });
 
     res.status(200).json({ ok: true });

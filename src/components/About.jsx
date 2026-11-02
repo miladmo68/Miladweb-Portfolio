@@ -1,192 +1,108 @@
-import React, { useEffect, useRef, useState } from "react";
-import Skills from "./Skills";
-import { FiCode, FiZap, FiLayers, FiCloud } from "react-icons/fi";
+import { useEffect, useRef, useState } from "react";
+import useReveal from "../hooks/useReveal";
+import SectionHead from "./sections/SectionHead";
+import { PILLARS, STATS } from "../data/site";
 
-const stats = [
-  { value: "5+", label: "Years Experience" },
-  { value: "75+", label: "Projects Built" },
-  { value: "40+", label: "Technologies" },
-];
-
-const highlights = [
-  {
-    icon: <FiCode />,
-    title: "Full-Stack Development",
-    text: "Responsive apps, dashboards and user portals with React, Next.js and TypeScript, backed by Node.js, Express, MongoDB and PostgreSQL.",
-  },
-  {
-    icon: <FiZap />,
-    title: "Performance & SEO",
-    text: "Core Web Vitals, lazy loading and React Query caching for fast, search-friendly experiences that rank and convert.",
-  },
-  {
-    icon: <FiLayers />,
-    title: "Scalable Architecture",
-    text: "Reusable component systems, REST and GraphQL integrations, and tested code with Jest and React Testing Library.",
-  },
-  {
-    icon: <FiCloud />,
-    title: "Cloud & DevOps",
-    text: "CI/CD deployments on Vercel and AWS Amplify, with Amazon S3 for hosting and storage — shipping with confidence.",
-  },
-];
-
-/* animated count-up that runs once the section is revealed */
-function Stat({ value, label, run }) {
+/* animated count-up once the stats scroll into view */
+function Stat({ value, label }) {
+  const ref = useRef(null);
   const match = String(value).match(/^(\d+)(.*)$/);
-  const isNum = !!match;
   const target = match ? parseInt(match[1], 10) : 0;
   const suffix = match ? match[2] : "";
   const [n, setN] = useState(0);
 
-  // primitive deps only — using `match` (a fresh array each render) would
-  // restart the animation on every setN and freeze it near zero.
   useEffect(() => {
-    if (!run || !isNum) return;
+    const el = ref.current;
+    if (!el || !match) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setN(target);
+      return;
+    }
     let raf;
-    const duration = 1400;
-    const start = performance.now();
-    const tick = (now) => {
-      const p = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - p, 3);
-      setN(Math.round(target * eased));
-      if (p < 1) raf = requestAnimationFrame(tick);
+    const io = new IntersectionObserver(([e]) => {
+      if (!e.isIntersecting) return;
+      io.disconnect();
+      const start = performance.now();
+      const tick = (t) => {
+        const p = Math.min((t - start) / 1400, 1);
+        setN(Math.round(target * (1 - Math.pow(1 - p, 3))));
+        if (p < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+    });
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      cancelAnimationFrame(raf);
     };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [run, target, isNum]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [target]);
 
   return (
-    <div className="stat">
-      <span className="stat-value">{isNum ? `${n}${suffix}` : value}</span>
-      <span className="stat-label">{label}</span>
+    <div className="s-stat" ref={ref}>
+      <span className="s-stat-value">
+        {match ? `${n}${suffix}` : value}
+      </span>
+      <span className="s-stat-label">{label}</span>
     </div>
   );
 }
 
-function About() {
-  const sectionRef = useRef(null);
-  /* per-box scroll reveal — same pattern as the Portfolio cards: each box
-     observes itself and animates only when it actually scrolls into view. */
-  const [revealedItems, setRevealedItems] = useState(new Set());
-  const itemRefs = useRef({});
-
-  useEffect(() => {
-    /* About sits right below the hero — without a tighter bottom rootMargin
-       the section observer fires while the user is still in the hero area,
-       so the fade-in completes before they actually scroll to About. */
-    const sectionObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) entry.target.classList.add("animate-in");
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -40% 0px" },
-    );
-
-    if (sectionRef.current) sectionObserver.observe(sectionRef.current);
-
-    /* Per-box observer — mirrors the Portfolio card reveal pattern. */
-    const itemObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const id = entry.target.getAttribute("data-reveal-id");
-            if (id)
-              setRevealedItems((prev) => {
-                if (prev.has(id)) return prev;
-                const next = new Set(prev);
-                next.add(id);
-                return next;
-              });
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -60px 0px" },
-    );
-
-    const t = setTimeout(() => {
-      Object.values(itemRefs.current).forEach(
-        (el) => el && itemObserver.observe(el),
-      );
-    }, 30);
-
-    return () => {
-      clearTimeout(t);
-      sectionObserver.disconnect();
-      itemObserver.disconnect();
-    };
-  }, []);
-
-  const revealStyle = (id, delay = 0) => {
-    const shown = revealedItems.has(id);
-    return {
-      opacity: shown ? 1 : 0,
-      transform: shown ? "translateY(0)" : "translateY(28px)",
-      transition: `opacity 0.55s cubic-bezier(0.22,1,0.36,1) ${delay}s, transform 0.55s cubic-bezier(0.22,1,0.36,1) ${delay}s`,
-    };
-  };
-
-  const statsRevealed = revealedItems.has("stats");
+export default function About() {
+  const ref = useReveal();
 
   return (
-    <section ref={sectionRef} id="about" className="fade-in-section">
-      <div className="about-inner">
-        <h2 className="section-title">About Me</h2>
+    <section id="story" className="s-section" ref={ref} aria-labelledby="story-title">
+      <div className="s-container s-about">
+        <div className="s-about-intro">
+          <SectionHead
+            id="story-title"
+            eyebrow="About"
+            title={
+              <>
+                I turn complex ideas into <em>fast, polished</em> web products.
+              </>
+            }
+          />
+        </div>
 
-        <p className="about-lead">
-          I'm Milad Mohammadi, a frontend-focused Full-Stack Developer in
-          Toronto with 5+ years of experience building responsive web apps,
-          dashboards and user portals with React, Next.js and TypeScript. Most
-          recently I built investor-facing portals for an enterprise
-          asset-management platform at Blue Lighthouse.
-        </p>
-        <p className="about-lead about-lead--muted">
-          I work across the stack with Node.js, Express, MongoDB and
-          PostgreSQL, ship to Vercel and AWS, and care about reusable
-          components, clean code, testing and performance — products that are
-          built to last and easy to grow.
-        </p>
+        <div className="s-about-body">
+          <p className="s-body" data-reveal style={{ "--d": "120ms" }}>
+            I&apos;m Milad Mohammadi, a frontend-focused Full-Stack Developer in
+            Toronto. For more than five years I&apos;ve built responsive web
+            apps, dashboards and user portals with React, Next.js and
+            TypeScript — most recently investor-facing portals for an
+            enterprise asset-management platform.
+          </p>
+          <p className="s-body s-body--muted" data-reveal style={{ "--d": "200ms" }}>
+            I work across the stack with Node.js, Express, MongoDB and
+            PostgreSQL, ship to Vercel and AWS, and care about reusable
+            components, clean code, testing and performance. Through my studio
+            MiLink I also design and build websites for local businesses.
+          </p>
 
-        <div
-          className="about-stats"
-          ref={(el) => (itemRefs.current["stats"] = el)}
-          data-reveal-id="stats"
-          style={revealStyle("stats")}
-        >
-          {stats.map((s) => (
-            <Stat
-              key={s.label}
-              value={s.value}
-              label={s.label}
-              run={statsRevealed}
-            />
+          <div className="s-stats" data-reveal style={{ "--d": "280ms" }}>
+            {STATS.map((s) => (
+              <Stat key={s.label} {...s} />
+            ))}
+          </div>
+        </div>
+
+        <ul className="s-pillars">
+          {PILLARS.map((p, i) => (
+            <li
+              key={p.title}
+              className="s-pillar"
+              data-reveal
+              style={{ "--d": `${i * 90}ms` }}
+            >
+              <span className="s-pillar-num">0{i + 1}</span>
+              <h3>{p.title}</h3>
+              <p>{p.text}</p>
+            </li>
           ))}
-        </div>
-
-        <div className="about-highlights">
-          {highlights.map((h, i) => {
-            const id = `hl-${h.title}`;
-            return (
-              <article
-                className="highlight-card"
-                key={h.title}
-                ref={(el) => (itemRefs.current[id] = el)}
-                data-reveal-id={id}
-                style={revealStyle(id, Math.min(i * 0.08, 0.32))}
-              >
-                <span className="highlight-icon">{h.icon}</span>
-                <h3 className="highlight-title">{h.title}</h3>
-                <p className="highlight-text">{h.text}</p>
-              </article>
-            );
-          })}
-        </div>
+        </ul>
       </div>
-
-      <Skills />
     </section>
   );
 }
-
-export default About;

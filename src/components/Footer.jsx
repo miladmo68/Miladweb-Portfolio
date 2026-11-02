@@ -1,106 +1,55 @@
-import React from "react";
-import { FaGithub, FaLinkedinIn, FaInstagram, FaWhatsapp } from "react-icons/fa";
-import "../assets/styles/Footer.scss";
+import { FaGithub, FaLinkedinIn, FaWhatsapp } from "react-icons/fa";
+import { FiMail, FiArrowUp } from "react-icons/fi";
+import { CONTACT } from "../data/site";
 
-const navLinks = [
-  ["Home", "#home"],
-  ["About", "#about"],
-  ["Projects", "#projects"],
-  ["Services", "#services"],
-  ["Contact", "#contact"],
+const LINKS = [
+  ["About", "story"],
+  ["Work", "work"],
+  ["Stack", "stack"],
+  ["Services", "expertise"],
+  ["Contact", "connect"],
 ];
 
-const socials = [
-  { icon: <FaGithub />, label: "GitHub", href: "https://github.com/miladmo68" },
-  {
-    icon: <FaLinkedinIn />,
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/miladmo68/",
-  },
-  {
-    icon: <FaInstagram />,
-    label: "Instagram",
-    href: "https://instagram.com/milink.ca",
-  },
-  {
-    icon: <FaWhatsapp />,
-    label: "WhatsApp",
-    href: "https://wa.me/14376003139",
-  },
-];
+const go = (id) => document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
 
-function Footer() {
-  const year = new Date().getFullYear();
-
+export default function Footer() {
   return (
-    <footer className="site-footer">
-      <div className="footer-inner">
-        {/* brand */}
-        <div className="footer-brand">
-          <div className="footer-logo">
-            <img src="/Logo-Blue.png" alt="MiladWeb logo" />
-            <span>MiladWeb</span>
-          </div>
-          <p className="footer-tagline">
-            Full-Stack Developer building fast, scalable and SEO-friendly web
-            applications that help businesses grow.
+    <footer className="s-footer">
+      <div className="s-container">
+        <div className="s-footer-cta">
+          <p className="s-footer-big">
+            Have an idea? <a href={`mailto:${CONTACT.email}`}>{CONTACT.email}</a>
           </p>
-          <div className="footer-socials">
-            {socials.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer"
-                aria-label={s.label}
-                title={s.label}
-              >
-                {s.icon}
-              </a>
+        </div>
+        <div className="s-footer-bar">
+          <div className="s-footer-brand">
+            <img src="/Logo-Blue.png" alt="" width="36" height="36" />
+            <span>
+              <strong>Milad Mohammadi</strong>
+              <small>Frontend-Focused Full-Stack Developer · Toronto</small>
+            </span>
+          </div>
+          <nav className="s-footer-nav" aria-label="Footer">
+            {LINKS.map(([label, id]) => (
+              <button key={id} type="button" onClick={() => go(id)}>
+                {label}
+              </button>
             ))}
+          </nav>
+          <div className="s-footer-social">
+            <a href={CONTACT.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub"><FaGithub /></a>
+            <a href={CONTACT.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><FaLinkedinIn /></a>
+            <a href={CONTACT.whatsapp} target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><FaWhatsapp /></a>
+            <a href={`mailto:${CONTACT.email}`} aria-label="Email"><FiMail /></a>
           </div>
         </div>
-
-        {/* quick nav */}
-        <nav className="footer-col">
-          <h4>Navigate</h4>
-          <ul>
-            {navLinks.map(([label, href]) => (
-              <li key={label}>
-                <a href={href}>{label}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
-
-        {/* contact */}
-        <div className="footer-col">
-          <h4>Get in Touch</h4>
-          <ul>
-            <li>
-              <a href="tel:+14376003139">+1 (437) 600-3139</a>
-            </li>
-            <li>
-              <a href="https://wa.me/14376003139" target="_blank" rel="noreferrer">
-                Chat on WhatsApp
-              </a>
-            </li>
-            <li className="footer-muted">GTA, Ontario, Canada</li>
-          </ul>
+        <div className="s-footer-legal">
+          <span>© {new Date().getFullYear()} Milad Mohammadi</span>
+          <button type="button" className="s-top" onClick={() => go("home")}>
+            Back to top <FiArrowUp aria-hidden="true" />
+          </button>
         </div>
-      </div>
-
-      <div className="footer-bottom">
-        <p>© {year} MiladWeb. All rights reserved.</p>
-        <p>
-          Designed &amp; built by{" "}
-          <a href="https://miladweb.com" target="_blank" rel="noreferrer">
-            Miladweb.com
-          </a>
-        </p>
       </div>
     </footer>
   );
 }
-
-export default Footer;

@@ -20,10 +20,11 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 
 const navItems = [
   ["Home", "home"],
-  ["About", "about"],
-  ["Projects", "projects"],
-  ["Services", "services"],
-  ["Contact", "contact"],
+  ["About", "story"],
+  ["Work", "work"],
+  ["Stack", "stack"],
+  ["Services", "expertise"],
+  ["Contact", "connect"],
 ];
 
 function Navigation({ parentToChild, modeChange }) {
@@ -163,7 +164,7 @@ function Navigation({ parentToChild, modeChange }) {
                 textOverflow: "ellipsis",
               }}
             >
-              MiladWeb
+              Milad Mohammadi
             </Box>
             <Box
               sx={{
@@ -486,7 +487,7 @@ function Navigation({ parentToChild, modeChange }) {
                   transition: "all 0.3s ease",
                 }}
               >
-                MiladWeb
+                Milad Mohammadi
               </Box>
               {!scrolled && (
                 <Box
@@ -639,7 +640,7 @@ function Navigation({ parentToChild, modeChange }) {
                   textOverflow: "ellipsis",
                 }}
               >
-                MiladWeb
+                Milad Mohammadi
               </Box>
 
               {!scrolled && (

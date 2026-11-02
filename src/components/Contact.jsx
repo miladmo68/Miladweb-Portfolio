@@ -1,312 +1,164 @@
-import React, { useState, useEffect, useRef } from "react";
-import "../assets/styles/Contact.scss";
-
-import { Box, Button, TextField, Snackbar, Alert } from "@mui/material";
-import SendIcon from "@mui/icons-material/Send";
-import { FiMapPin, FiPhone } from "react-icons/fi";
-import {
-  FaWhatsapp,
-  FaGithub,
-  FaLinkedinIn,
-  FaInstagram,
-} from "react-icons/fa";
-
-const PHONE = "+1 (437) 600-3139";
-const PHONE_TEL = "+14376003139";
+import { useState } from "react";
+import { Snackbar, Alert } from "@mui/material";
+import { FiMail, FiPhone, FiMapPin, FiCopy, FiCheck, FiArrowUpRight, FiSend } from "react-icons/fi";
+import { FaWhatsapp, FaGithub, FaLinkedinIn } from "react-icons/fa";
+import useReveal from "../hooks/useReveal";
+import SectionHead from "./sections/SectionHead";
+import { CONTACT } from "../data/site";
 
 const channels = [
-  {
-    icon: <FiMapPin />,
-    label: "Location",
-    value: "GTA, Ontario, Canada",
-  },
-  {
-    icon: <FiPhone />,
-    label: "Phone",
-    value: PHONE,
-    href: `tel:${PHONE_TEL}`,
-  },
-  {
-    icon: <FaWhatsapp />,
-    label: "WhatsApp",
-    value: "Chat on WhatsApp",
-    href: `https://wa.me/${PHONE_TEL.replace("+", "")}`,
-  },
+  { icon: <FiPhone />, label: "Phone", value: CONTACT.phone, href: `tel:${CONTACT.phoneTel}` },
+  { icon: <FaWhatsapp />, label: "WhatsApp", value: "Chat on WhatsApp", href: CONTACT.whatsapp },
+  { icon: <FaLinkedinIn />, label: "LinkedIn", value: "in/miladmo68", href: CONTACT.linkedin },
+  { icon: <FaGithub />, label: "GitHub", value: "github.com/miladmo68", href: CONTACT.github },
+  { icon: <FiMapPin />, label: "Based in", value: CONTACT.location },
 ];
 
-const socials = [
-  { icon: <FaGithub />, label: "GitHub", href: "https://github.com/miladmo68" },
-  {
-    icon: <FaLinkedinIn />,
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/miladmo68/",
-  },
-  {
-    icon: <FaInstagram />,
-    label: "Instagram",
-    href: "https://instagram.com/milink.ca",
-  },
-];
+const EMPTY = { name: "", email: "", message: "", website: "" };
 
 export default function Contact() {
-  const sectionRef = useRef(null);
-
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
-  const [err, setErr] = useState({ name: false, email: false, message: false });
+  const ref = useReveal();
+  const [form, setForm] = useState(EMPTY);
+  const [errors, setErrors] = useState({});
+  const [status, setStatus] = useState("idle"); // idle | sending
   const [snack, setSnack] = useState({ open: false, ok: true });
+  const [copied, setCopied] = useState(false);
 
-  // CAPTCHA
-  const [captcha, setCaptcha] = useState({ question: "", answer: 0 });
-  const [userCaptcha, setUserCaptcha] = useState("");
-  const [captchaError, setCaptchaError] = useState(false);
-
-  useEffect(() => {
-    generateCaptcha();
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
-    );
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current);
-    }
-
-    return () => observer.disconnect();
-  }, []);
-
-  const generateCaptcha = () => {
-    const a = Math.floor(Math.random() * 10);
-    const b = Math.floor(Math.random() * 10);
-    setCaptcha({ question: `${a} + ${b}`, answer: a + b });
-    setUserCaptcha("");
-    setCaptchaError(false);
+  const set = (k) => (e) => {
+    setForm((f) => ({ ...f, [k]: e.target.value }));
+    setErrors((er) => ({ ...er, [k]: false }));
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const copyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText(CONTACT.email);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1800);
+    } catch {
+      window.location.href = `mailto:${CONTACT.email}`;
+    }
+  };
 
+  const submit = async (e) => {
+    e.preventDefault();
     const bad = {
-      name: name.trim() === "",
-      email: email.trim() === "",
-      message: message.trim() === "",
+      name: !form.name.trim(),
+      email: !form.email.trim(),
+      message: !form.message.trim(),
     };
-    setErr(bad);
+    setErrors(bad);
     if (bad.name || bad.email || bad.message) return;
 
-    if (parseInt(userCaptcha, 10) !== captcha.answer) {
-      setCaptchaError(true);
-      return;
-    }
-
+    setStatus("sending");
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify(form),
       });
-
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data?.error || "Send failed");
-
-      setName("");
-      setEmail("");
-      setMessage("");
-      generateCaptcha();
+      setForm(EMPTY);
       setSnack({ open: true, ok: true });
-    } catch (error) {
-      console.error("Send error →", error);
+    } catch (err) {
+      console.error("Send error →", err);
       setSnack({ open: true, ok: false });
+    } finally {
+      setStatus("idle");
     }
   };
 
-  const commonInputProps = {
-    variant: "outlined",
-    fullWidth: true,
-  };
-
   return (
-    <div ref={sectionRef} id="contact" className="fade-in-section">
-      <div className="items-container">
-        <div className="contact_wrapper">
-          {/* Header Section */}
-          <div className="contact-header">
-            <h1 className="contact-title">Get In Touch</h1>
-            <p className="contact-subtitle">
-              Have a digital vision? Let's make it a reality. Pick any channel
-              below or send me a message — I usually reply within a day.
-            </p>
+    <section id="connect" className="s-section" ref={ref} aria-labelledby="connect-title">
+      <div className="s-container s-contact">
+        <div className="s-contact-info">
+          <SectionHead
+            id="connect-title"
+            eyebrow="Contact"
+            title={
+              <>
+                Let&apos;s build something <em>great</em> together.
+              </>
+            }
+            lead="Have a project, a role or an idea? Send a message — I usually reply within a day."
+          />
+
+          <div className="s-email" data-reveal style={{ "--d": "200ms" }}>
+            <a className="s-email-link" href={`mailto:${CONTACT.email}`}>
+              <FiMail aria-hidden="true" />
+              {CONTACT.email}
+              <FiArrowUpRight className="s-email-arrow" aria-hidden="true" />
+            </a>
+            <button type="button" className="s-copy" onClick={copyEmail} aria-label="Copy email address">
+              {copied ? <FiCheck /> : <FiCopy />}
+              <span>{copied ? "Copied" : "Copy"}</span>
+            </button>
           </div>
 
-          <div className="contact-layout">
-            {/* Contact Info Panel */}
-            <aside className="contact-info">
-              <h2 className="contact-info-title">Let's connect</h2>
-              <p className="contact-info-text">
-                Whether it's a new project, a collaboration, or just a quick
-                question, I'd love to hear from you.
-              </p>
-
-              <ul className="contact-channels">
-                {channels.map((c) => {
-                  const inner = (
-                    <>
-                      <span className="channel-icon">{c.icon}</span>
-                      <span className="channel-text">
-                        <span className="channel-label">{c.label}</span>
-                        <span className="channel-value">{c.value}</span>
-                      </span>
-                    </>
-                  );
-                  return (
-                    <li className="channel" key={c.label}>
-                      {c.href ? (
-                        <a
-                          href={c.href}
-                          target={c.href.startsWith("http") ? "_blank" : undefined}
-                          rel="noreferrer"
-                        >
-                          {inner}
-                        </a>
-                      ) : (
-                        inner
-                      )}
-                    </li>
-                  );
-                })}
-              </ul>
-
-              <div className="contact-socials">
-                {socials.map((s) => (
-                  <a
-                    key={s.label}
-                    href={s.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={s.label}
-                    title={s.label}
-                  >
-                    {s.icon}
+          <ul className="s-channels" data-reveal style={{ "--d": "260ms" }}>
+            {channels.map((c) => (
+              <li key={c.label}>
+                {c.href ? (
+                  <a href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+                    <span className="s-channel-icon">{c.icon}</span>
+                    <span>
+                      <small>{c.label}</small>
+                      {c.value}
+                    </span>
                   </a>
-                ))}
-              </div>
-            </aside>
-
-            {/* Contact Form Card */}
-            <Box className="contact-form-card">
-            <Box
-              component="form"
-              noValidate
-              autoComplete="off"
-              className="contact-form"
-              onSubmit={handleSubmit}
-            >
-              {/* Name and Email Row */}
-              <div className="form-flex">
-                <TextField
-                  {...commonInputProps}
-                  required
-                  label="Your Name"
-                  placeholder="John Doe"
-                  value={name}
-                  error={err.name}
-                  helperText={err.name && "Please enter your name"}
-                  onChange={(e) => setName(e.target.value)}
-                />
-
-                <TextField
-                  {...commonInputProps}
-                  required
-                  label="Email / Phone"
-                  placeholder="john@example.com"
-                  value={email}
-                  error={err.email}
-                  helperText={err.email && "Please enter contact info"}
-                  onChange={(e) => setEmail(e.target.value)}
-                />
-              </div>
-
-              {/* Message Field */}
-              <TextField
-                {...commonInputProps}
-                required
-                multiline
-                rows={6}
-                label="Message"
-                placeholder="Tell me about your project..."
-                value={message}
-                error={err.message}
-                helperText={err.message && "Please enter your message"}
-                onChange={(e) => setMessage(e.target.value)}
-                sx={{ mt: 2 }}
-              />
-
-              {/* CAPTCHA and Submit Row */}
-              <Box className="form-footer">
-                <TextField
-                  {...commonInputProps}
-                  size="small"
-                  required
-                  label={`What is ${captcha.question}?`}
-                  placeholder="Answer"
-                  value={userCaptcha}
-                  error={captchaError}
-                  helperText={captchaError && "Incorrect answer"}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (/^\d*$/.test(val)) {
-                      setUserCaptcha(val);
-                      setCaptchaError(false);
-                    }
-                  }}
-                  className="captcha-input"
-                />
-
-                <Button
-                  type="submit"
-                  variant="contained"
-                  size="large"
-                  endIcon={<SendIcon />}
-                  className="submit-button"
-                >
-                  Send Message
-                </Button>
-              </Box>
-            </Box>
-            </Box>
-          </div>
+                ) : (
+                  <div>
+                    <span className="s-channel-icon">{c.icon}</span>
+                    <span>
+                      <small>{c.label}</small>
+                      {c.value}
+                    </span>
+                  </div>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
+
+        <form className="s-form" onSubmit={submit} noValidate data-reveal style={{ "--d": "140ms" }}>
+          <div className="s-form-row">
+            <label className={`s-field ${errors.name ? "has-error" : ""}`}>
+              <span>Your name</span>
+              <input type="text" name="name" autoComplete="name" value={form.name} onChange={set("name")} placeholder="Jane Doe" />
+              {errors.name && <em>Please enter your name</em>}
+            </label>
+            <label className={`s-field ${errors.email ? "has-error" : ""}`}>
+              <span>Email or phone</span>
+              <input type="text" name="email" autoComplete="email" value={form.email} onChange={set("email")} placeholder="jane@company.com" />
+              {errors.email && <em>Please add a way to reach you</em>}
+            </label>
+          </div>
+          <label className={`s-field ${errors.message ? "has-error" : ""}`}>
+            <span>Message</span>
+            <textarea name="message" rows={6} value={form.message} onChange={set("message")} placeholder="Tell me about your project or role…" />
+            {errors.message && <em>Please write a short message</em>}
+          </label>
+          {/* honeypot — hidden from people, filled by bots */}
+          <label className="s-hp" aria-hidden="true">
+            Website
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} />
+          </label>
+          <button type="submit" className="s-btn s-btn--primary s-btn--lg" disabled={status === "sending"}>
+            {status === "sending" ? "Sending…" : (<>Send message <FiSend aria-hidden="true" /></>)}
+          </button>
+        </form>
       </div>
 
-      {/* Snackbar Feedback */}
       <Snackbar
         open={snack.open}
-        autoHideDuration={4000}
-        onClose={() => setSnack({ ...snack, open: false })}
+        autoHideDuration={4500}
+        onClose={() => setSnack((s) => ({ ...s, open: false }))}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert
-          onClose={() => setSnack({ ...snack, open: false })}
-          severity={snack.ok ? "success" : "error"}
-          sx={{
-            width: "100%",
-            borderRadius: "12px",
-            boxShadow: "0 8px 24px rgba(0, 0, 0, 0.15)",
-          }}
-        >
-          {snack.ok
-            ? "Message sent successfully! 🎉"
-            : "Oops, something went wrong. Please try again."}
+        <Alert severity={snack.ok ? "success" : "error"} onClose={() => setSnack((s) => ({ ...s, open: false }))} sx={{ borderRadius: "12px" }}>
+          {snack.ok ? "Thanks! Your message is on its way." : `Something went wrong. Please email ${CONTACT.email}.`}
         </Alert>
       </Snackbar>
-    </div>
+    </section>
   );
 }

@@ -2,6 +2,18 @@
 
 Every production-ready portfolio project must also be added to this website.
 
+## Featured projects
+
+- The 4–6 strongest projects live in `FEATURED` in `src/data/site.js`, shown as
+  large case studies (summary, three highlights, tech, Live and Source).
+- A featured project must not also appear in the `PROJECTS` grid.
+
+## Other site content
+
+- Contact details, client names, stats, stack, services and testimonials are
+  all in `src/data/site.js`. Testimonials are quoted verbatim from
+  milink.ca/testimonials — never write or edit a quote.
+
 ## Project entries
 
 - Add the project to the `PROJECTS` array in `src/components/Project.jsx`.
@@ -27,4 +39,5 @@ Every production-ready portfolio project must also be added to this website.
 
 ## Skills
 
-- Keep `src/components/Skills.jsx` in sync with the current resume.
+- Keep `STACK` in `src/data/site.js` in sync with the current resume and
+  focused on the current stack (no Java, PHP or legacy tools).

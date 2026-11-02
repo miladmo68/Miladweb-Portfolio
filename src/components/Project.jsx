@@ -6,37 +6,7 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import CloseIcon from "@mui/icons-material/Close";
 import "../assets/styles/ProjectCards.scss";
 
-/* 1 ▸ screenshots: originals in src/assets/img, light JPEG copies in
-       src/assets/img/optimized/{card,full} (run `npm run optimize-images`).
-       Falls back to the original when an optimized copy doesn't exist yet. */
-const glob = (files) =>
-  Object.fromEntries(
-    Object.entries(files).map(([path, url]) => [
-      path.split("/").pop().replace(/\.[^.]+$/, ""),
-      url,
-    ]),
-  );
-const originals = import.meta.glob("../assets/img/*.{png,jpg,jpeg,gif}", {
-  eager: true,
-  import: "default",
-});
-const cardImgs = glob(
-  import.meta.glob("../assets/img/optimized/card/*.jpg", {
-    eager: true,
-    import: "default",
-  }),
-);
-const fullImgs = glob(
-  import.meta.glob("../assets/img/optimized/full/*.jpg", {
-    eager: true,
-    import: "default",
-  }),
-);
-const getImg = (file, size = "card") => {
-  const name = file.replace(/\.([^.]+)$/, (_, ext) => `-${ext.toLowerCase()}`);
-  const set = size === "full" ? fullImgs : cardImgs;
-  return set[name] || originals[`../assets/img/${file}`];
-};
+import { getImg } from "../utils/images";
 
 /* 2 ▸ filter buttons */
 const FILTERS = [
@@ -49,22 +19,6 @@ const FILTERS = [
    live / github are optional: buttons only render when the link exists. */
 const PROJECTS = [
   /* ── Web App ── */
-  {
-    title: "Northstar Ops",
-    img: "northstar-ops-dashboard.png",
-    cat: "app",
-    live: "https://miladmo68.github.io/northstar-ops-dashboard/",
-    github: "https://github.com/miladmo68/northstar-ops-dashboard",
-    tech: ["Next.js", "TypeScript", "React"],
-  },
-  {
-    title: "JobBuddy AI",
-    img: "job-apply-ai.png",
-    cat: "app",
-    live: "https://job-apply-ai-three.vercel.app/",
-    github: "https://github.com/miladmo68/Job-Apply-AI",
-    tech: ["Next.js", "TypeScript", "Supabase", "Gemini"],
-  },
   {
     title: "MiLink Analytics",
     img: "analytics-dashboard.png",
@@ -379,44 +333,6 @@ const PROJECTS = [
     tech: ["React"],
   },
   {
-    title: "Sign Up",
-    img: "SignUp.png",
-    cat: "app",
-    live: "https://miladmo68.github.io/SignUp/",
-    github: "https://github.com/miladmo68/SignUp",
-    tech: ["React", "Bootstrap"],
-  },
-  {
-    title: "Play List",
-    img: "PlayList.jpg",
-    cat: "app",
-    github: "https://github.com/miladmo68/PlayList",
-    tech: ["JavaScript", "CSS"],
-  },
-  {
-    title: "Feeder",
-    img: "Feeder.jpg",
-    cat: "app",
-    github: "https://github.com/miladmo68/Feeder",
-    tech: ["HTML", "CSS", "JavaScript"],
-  },
-  {
-    title: "Quiz App 1",
-    img: "Quiz-App1.png",
-    cat: "app",
-    live: "https://miladmo68.github.io/Quiz-App/",
-    github: "https://github.com/miladmo68/Quiz-App",
-    tech: ["React"],
-  },
-  {
-    title: "Todo List",
-    img: "Todo-List.jpg",
-    cat: "app",
-    live: "https://miladmo68.github.io/Todo-List/",
-    github: "https://github.com/miladmo68/Todo-List",
-    tech: ["React"],
-  },
-  {
     title: "Countdown App",
     img: "Countdown.png",
     cat: "app",
@@ -434,30 +350,6 @@ const PROJECTS = [
   },
 
   /* ── Web Design ── */
-  {
-    title: "Milink",
-    img: "Milink.png",
-    cat: "web",
-    live: "https://milink.ca/",
-    github: "https://github.com/miladmo68/milink-pro",
-    tech: ["Next.js", "Tailwind", "Supabase", "Stripe"],
-  },
-  {
-    title: "MapleGuard Insurance",
-    img: "mapleguard-insurance.png",
-    cat: "web",
-    live: "https://miladmo68.github.io/MapleGuard-Insurance/",
-    github: "https://github.com/miladmo68/MapleGuard-Insurance",
-    tech: ["Next.js", "TypeScript", "Tailwind", "Zod"],
-  },
-  {
-    title: "Kind Steps",
-    img: "kindsteps.png",
-    cat: "web",
-    live: "https://kindsteps.ca/",
-    github: "https://github.com/miladmo68/Kind-Steps-",
-    tech: ["HTML", "CSS", "JavaScript"],
-  },
   {
     title: "Zarsa Gold2",
     img: "zarsagold2.png",
@@ -572,11 +464,6 @@ const PROJECTS = [
   {
     title: "Hefaz System",
     img: "hefazsystem.jpg",
-    cat: "web",
-  },
-  {
-    title: "Milad Web 2",
-    img: "milad.png",
     cat: "web",
   },
   {
@@ -789,27 +676,22 @@ export default function Project() {
         sx={{ py: { xs: 4, sm: 6, md: 8 } }}
       >
         {/* heading */}
-        <Box
-          className="projects-intro"
-          textAlign="center"
-          mb={{ xs: 4, sm: 5, md: 6 }}
-        >
-          <h2 id="projects-heading" className="projects-heading">
-            Portfolio
+        <header className="s-head s-head--left s-container s-projects-head">
+          <p className="s-eyebrow is-in">
+            <span className="s-eyebrow-dot" aria-hidden="true" />
+            Archive
+          </p>
+          <h2 id="projects-heading" className="s-title is-in">
+            More projects
           </h2>
-          <p className="projects-subtitle">
-            Production web apps and client websites, newest and strongest
-            first. More on{" "}
-            <a
-              href="https://github.com/miladmo68"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
+          <p className="s-lead is-in">
+            Web apps, experiments and client websites — filter by type. More on{" "}
+            <a href="https://github.com/miladmo68" target="_blank" rel="noopener noreferrer">
               GitHub
             </a>
             .
           </p>
-        </Box>
+        </header>
 
         {/* filter chips */}
         <Box
