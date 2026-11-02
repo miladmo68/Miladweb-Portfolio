@@ -371,6 +371,7 @@ p {
 /* Services section visibility */
 .services-section {
   h1,
+  .section-title,
   p {
     color: white;
   }
@@ -383,6 +384,7 @@ p {
 
 .light-mode .services-section {
   h1,
+  .section-title,
   p {
     color: #0d1116;
   }

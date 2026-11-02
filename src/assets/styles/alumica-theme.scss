@@ -599,8 +599,11 @@ button[aria-label="open menu"]::before {
 }
 
 #about h1,
+#about .section-title,
 #projects h4,
+#projects .projects-heading,
 #services h1,
+#services .section-title,
 .contact-title,
 #skills .skills-heading {
   font-size: clamp(2.7rem, 5.5vw, 4.5rem) !important;
@@ -615,6 +618,8 @@ button[aria-label="open menu"]::before {
 
 #about h1::after,
 #services h1::after,
+#about .section-title::after,
+#services .section-title::after,
 #skills h2::before,
 .site-footer::before {
   display: none !important;
@@ -761,14 +766,12 @@ button[aria-label="open menu"]::before {
   padding-top: clamp(7rem, 11vw, 10rem);
 }
 
-#projects .MuiTypography-root,
-.light-mode #projects .MuiTypography-root,
-#projects p,
-#projects a {
+#projects .projects-subtitle,
+#projects .projects-subtitle a {
   color: var(--al-muted) !important;
 }
 
-#projects a:hover {
+#projects .projects-subtitle a:hover {
   color: var(--al-orange) !important;
 }
 
@@ -793,30 +796,6 @@ button[aria-label="open menu"]::before {
 
 #projects .MuiCard-root:hover img {
   filter: saturate(1) brightness(0.96) contrast(1.02);
-}
-
-#projects .overlay {
-  left: 6px !important;
-  bottom: 6px !important;
-  width: calc(100% - 12px) !important;
-  height: 52px !important;
-  border-radius: 8px 8px 12px 12px;
-  background: linear-gradient(90deg, rgba(8, 8, 10, 0.94), rgba(29, 14, 5, 0.88)) !important;
-  border-top: 1px solid rgba(255, 138, 0, 0.24);
-  backdrop-filter: blur(14px);
-}
-
-#projects .overlay .MuiTypography-root,
-#projects .overlay button,
-#projects .overlay a {
-  color: #fff !important;
-}
-
-#projects button:not(.MuiIconButton-root) {
-  border: 1px solid rgba(255, 138, 0, 0.44) !important;
-  border-radius: 999px !important;
-  color: #fff !important;
-  background: rgba(255, 106, 0, 0.08) !important;
 }
 
 /* Services */
@@ -1271,9 +1250,7 @@ html[data-theme="light"] img[alt="MiladWeb logo"] {
   background: rgba(255, 138, 0, 0.11) !important;
 }
 
-.light-mode #projects .MuiTypography-root,
-.light-mode #projects p,
-.light-mode #projects a {
+.light-mode #projects .projects-subtitle {
   color: var(--al-muted) !important;
 }
 
@@ -1285,11 +1262,6 @@ html[data-theme="light"] img[alt="MiladWeb logo"] {
 
 .light-mode #projects .MuiCard-root img {
   filter: saturate(0.88) brightness(0.98) contrast(1.02);
-}
-
-.light-mode #projects button:not(.MuiIconButton-root) {
-  color: #9e3c06 !important;
-  background: rgba(255, 138, 0, 0.08) !important;
 }
 
 .light-mode .services-section .vertical-timeline-element-content,

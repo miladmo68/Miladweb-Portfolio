@@ -1,26 +1,42 @@
 import { useState, useEffect, useRef } from "react";
-import {
-  Box,
-  Grid,
-  Card,
-  Chip,
-  IconButton,
-  Tooltip,
-  Typography,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@mui/material";
-import VisibilityIcon from "@mui/icons-material/Visibility";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
+import { Box, Grid, Card, Chip, Dialog, IconButton } from "@mui/material";
+import VisibilityIcon from "@mui/icons-material/VisibilityOutlined";
+import LaunchIcon from "@mui/icons-material/Launch";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import CloseIcon from "@mui/icons-material/Close";
+import "../assets/styles/ProjectCards.scss";
 
-/* 1 ▸ load every screenshot that lives in src/assets/img */
-const images = import.meta.glob("../assets/img/*.{png,jpg,jpeg,gif}", {
+/* 1 ▸ screenshots: originals in src/assets/img, light JPEG copies in
+       src/assets/img/optimized/{card,full} (run `npm run optimize-images`).
+       Falls back to the original when an optimized copy doesn't exist yet. */
+const glob = (files) =>
+  Object.fromEntries(
+    Object.entries(files).map(([path, url]) => [
+      path.split("/").pop().replace(/\.[^.]+$/, ""),
+      url,
+    ]),
+  );
+const originals = import.meta.glob("../assets/img/*.{png,jpg,jpeg,gif}", {
   eager: true,
   import: "default",
 });
-const getImg = (file) => images[`../assets/img/${file}`];
+const cardImgs = glob(
+  import.meta.glob("../assets/img/optimized/card/*.jpg", {
+    eager: true,
+    import: "default",
+  }),
+);
+const fullImgs = glob(
+  import.meta.glob("../assets/img/optimized/full/*.jpg", {
+    eager: true,
+    import: "default",
+  }),
+);
+const getImg = (file, size = "card") => {
+  const name = file.replace(/\.([^.]+)$/, (_, ext) => `-${ext.toLowerCase()}`);
+  const set = size === "full" ? fullImgs : cardImgs;
+  return set[name] || originals[`../assets/img/${file}`];
+};
 
 /* 2 ▸ filter buttons */
 const FILTERS = [
@@ -29,383 +45,568 @@ const FILTERS = [
   { label: "Web Design", value: "web" },
 ];
 
-/* 3 ▸ FULL PROJECT ARRAY */
+/* 3 ▸ FULL PROJECT ARRAY — best first inside each category.
+   live / github are optional: buttons only render when the link exists. */
 const PROJECTS = [
+  /* ── Web App ── */
   {
     title: "Northstar Ops",
     img: "northstar-ops-dashboard.png",
-    link: "https://miladmo68.github.io/northstar-ops-dashboard/",
     cat: "app",
-  },
-  {
-    title: "Millionaire Quiz",
-    img: "Millionaire-Quiz.png",
-    link: "https://miladmo68.github.io/Millionaire-Quiz/",
-    cat: "app",
-  },
-  {
-    title: "Zarsa Gold2",
-    img: "zarsagold2.png",
-    link: "https://zarsa2.vercel.app/",
-    cat: "web",
-  },
-  {
-    title: "Kind Steps",
-    img: "kindsteps.png",
-    link: "https://kindsteps.ca/",
-    cat: "web",
-  },
-  {
-    title: "Fair Construction",
-    img: "fairconstruction.png",
-    link: "https://fairconstruction-ca.vercel.app/",
-    cat: "web",
-  },
-  {
-    title: "Intershine",
-    img: "intershine.png",
-    link: "https://intershine-ca.vercel.app/",
-    cat: "web",
-  },
-  {
-    title: "Expenses",
-    img: "expenses.jpg",
-    link: "https://miladmo68.github.io/expenses/",
-    cat: "app",
-  },
-  {
-    title: "PEG Studio",
-    img: "pegstudio.png",
-    link: "https://peg-studio-ten.vercel.app/",
-    cat: "web",
-  },
-  {
-    title: "Book Library",
-    img: "Book-Library.png",
-    link: "https://miladmo68.github.io/Book-Library/",
-    cat: "app",
-  },
-  {
-    title: "Woodline",
-    img: "tarahanchoob.png",
-    link: "https://woodline-ir.vercel.app/",
-    cat: "web",
+    live: "https://miladmo68.github.io/northstar-ops-dashboard/",
+    github: "https://github.com/miladmo68/northstar-ops-dashboard",
+    tech: ["Next.js", "TypeScript", "React"],
   },
   {
     title: "Contact Manager",
     img: "Contact-Manager.png",
-    link: "https://contact-manager-coral-one.vercel.app/",
     cat: "app",
+    live: "https://contact-manager-coral-one.vercel.app/",
+    github: "https://github.com/miladmo68/Contact-Manager",
+    tech: ["Next.js", "TypeScript", "Tailwind"],
   },
   {
-    title: "Milink",
-    img: "Milink.png",
-    link: "https://milink.ca/",
-    cat: "web",
-  },
-  {
-    title: "User Directory",
-    img: "MY-USER-DIRECTORY.png",
-    link: "https://miladmo68.github.io/User-Directory/",
+    title: "Full-stack Employment",
+    img: "fullstack-employment.png",
     cat: "app",
-  },
-
-  {
-    title: "Note App",
-    img: "NoteApp.png",
-    link: "https://miladmo68.github.io/Note-App/",
-    cat: "app",
-  },
-  { title: "Tarahan Choob", img: "tarahanchoob.jpg", link: "#", cat: "web" },
-  {
-    title: "Todos Redux Toolkit",
-    img: "Todos-Redux-Toolkit.png",
-    link: "https://miladmo68.github.io/Todos-Redux-Toolkit/",
-    cat: "app",
-  },
-  {
-    title: "ShopEase",
-    img: "ShopEase.png",
-    link: "https://miladmo68.github.io/products",
-    cat: "app",
-  },
-  {
-    title: "Sky Contracting",
-    img: "sky.jpg",
-    link: "https://skyinc.ca/",
-    cat: "web",
-  },
-  {
-    title: "Quick Notes",
-    img: "Quick-Notes.png",
-    link: "https://miladmo68.github.io/QuickNotes/",
-    cat: "app",
-  },
-  {
-    title: "Countries Info App",
-    img: "COUNTRIES-INFO-APP.png",
-    link: "https://miladmo68.github.io/Countries-Info-App/#//",
-    cat: "app",
-  },
-  {
-    title: "Techfahm Systems",
-    img: "Techfahm.jpg",
-    link: "https://Techfahm.com/",
-    cat: "web",
-  },
-  {
-    title: "Fast Pizza",
-    img: "fast-pizza.png",
-    link: "https://miladmo68.github.io/fast-pizza/",
-    cat: "app",
-  },
-  {
-    title: "Image Gallery",
-    img: "Image-Gallery.jpg",
-    link: "https://miladmo68.github.io/Image-Gallery/",
-    cat: "app",
-  },
-  {
-    title: "Zarsa Gold",
-    img: "zarsagold.jpg",
-    link: "https://miladmo68.github.io/zarsa1/",
-    cat: "web",
-  },
-  {
-    title: "Countdown App",
-    img: "Countdown.png",
-    link: "https://miladmo68.github.io/Countdown/",
-    cat: "app",
-  },
-  {
-    title: "Bank App",
-    img: "Bank-App.png",
-    link: "https://miladmo68.github.io/Bank-App/",
-    cat: "app",
-  },
-  {
-    title: "Tic-Tac-Toe",
-    img: "tic-tac-toe.png",
-    link: "https://miladmo68.github.io/tic-tac-toe/",
-    cat: "app",
-  },
-  {
-    title: "Milad Web",
-    img: "miladweb2.png",
-    link: "https://miladmo68.github.io/Portfolio/",
-    cat: "web",
+    github: "https://github.com/miladmo68/Fullstack-Employment",
+    tech: ["React", "Spring Boot", "Java"],
   },
   {
     title: "E-commerce Store",
     img: "E-commerce-Store.png",
-    link: "https://miladmo68.github.io/E-commerce-Store/",
     cat: "app",
+    live: "https://miladmo68.github.io/E-commerce-Store/",
+    github: "https://github.com/miladmo68/E-commerce-Store",
+    tech: ["React", "React Router", "Tailwind"],
   },
   {
-    title: "Usepopcorn",
-    img: "usepopcorn.jpg",
-    link: "https://miladmo68.github.io/usepopcorn/",
+    title: "ShopEase",
+    img: "ShopEase.png",
     cat: "app",
-  },
-  { title: "Spa", img: "Spa.jpg", link: "#", cat: "web" },
-  {
-    title: "Gym App",
-    img: "gym-app.jpg",
-    link: "https://miladmo68.github.io/Gym-App/",
-    cat: "app",
+    live: "https://miladmo68.github.io/ShopEase/",
+    github: "https://github.com/miladmo68/ShopEase",
+    tech: ["React", "React Router", "Tailwind"],
   },
   {
-    title: "Task Manager",
-    img: "Task-Manager.png",
-    link: "https://miladmo68.github.io/Task-Manager/",
+    title: "Fast Pizza",
+    img: "fast-pizza.png",
     cat: "app",
-  },
-  { title: "Jahan Ariya", img: "jahanariya.jpg", link: "#", cat: "web" },
-  {
-    title: "Travel List",
-    img: "travel-list.png",
-    link: "https://miladmo68.github.io/travel-list/",
-    cat: "app",
+    live: "https://miladmo68.github.io/fast-pizza/",
+    github: "https://github.com/miladmo68/fast-pizza",
+    tech: ["React", "Redux Toolkit", "React Router"],
   },
   {
-    title: "Investment Calculator",
-    img: "Investment-Calculator.png",
-    link: "https://miladmo68.github.io/Investment-Calculator/",
+    title: "Millionaire Quiz",
+    img: "Millionaire-Quiz.png",
     cat: "app",
-  },
-  { title: "Asiakar Auto", img: "asiakar.png", link: "#", cat: "web" },
-  {
-    title: "Play List",
-    img: "PlayList.jpg",
-    link: "https://miladmo68.github.io/PlayList/",
-    cat: "app",
-  },
-  {
-    title: "Movieland",
-    img: "Movieland.jpg",
-    link: "https://miladmo68.github.io/Movieland/",
-    cat: "app",
-  },
-  { title: "Javan Food", img: "javanfood.png", link: "#", cat: "web" },
-  {
-    title: "Pokedex",
-    img: "Pokedex.jpg",
-    link: "https://miladmo68.github.io/Pokedex/",
-    cat: "app",
-  },
-  {
-    title: "Classy Weather",
-    img: "classy-weather.jpg",
-    link: "https://miladmo68.github.io/classy-weather/",
-    cat: "app",
-  },
-  { title: "Samanor", img: "samanor.jpg", link: "#", cat: "web" },
-  {
-    title: "Quiz App",
-    img: "Quiz-App.png",
-    link: "https://miladmo68.github.io/react-quiz/",
-    cat: "app",
-  },
-  {
-    title: "Upload Image ▶ GDrive",
-    img: "uploadImageToGoogleDrive.png",
-    link: "https://github.com/miladmo68/upload-Image-To-Google-Drive",
-    cat: "app",
-  },
-  { title: "Poya Josh", img: "poyajosh.jpg", link: "#", cat: "web" },
-  {
-    title: "Student System",
-    img: "student-system.png",
-    link: "https://github.com/miladmo68/student-system",
-    cat: "app",
-  },
-  {
-    title: "Sign Up",
-    img: "SignUp.png",
-    link: "https://miladmo68.github.io/SignUp/",
-    cat: "app",
-  },
-  { title: "RAAGS", img: "RAAGS.jpg", link: "#", cat: "web" },
-  {
-    title: "Shopping Cart",
-    img: "SHOPPING-CART.png",
-    link: "https://miladmo68.github.io/Shopping-Cart/",
-    cat: "app",
-  },
-  {
-    title: "Google Login Registration",
-    img: "Google-Login-Registration.png",
-    link: "https://github.com/miladmo68/Google-Login-Registration",
-    cat: "app",
-  },
-  { title: "Hefaz System", img: "hefazsystem.jpg", link: "#", cat: "web" },
-  {
-    title: "Full-stack Employment",
-    img: "fullstack-employment.png",
-    link: "https://github.com/miladmo68/Fullstack-Employment",
-    cat: "app",
-  },
-  {
-    title: "Food Recipe App",
-    img: "Food-Recipe-App.png",
-    link: "https://miladmo68.github.io/Food-Recipe-App/",
-    cat: "app",
-  },
-  { title: "Milad Web 2", img: "milad.png", link: "#", cat: "web" },
-  {
-    title: "Expense Tracker",
-    img: "Expense-Tracker.png",
-    link: "https://miladmo68.github.io/Expense-Tracker/",
-    cat: "app",
+    live: "https://miladmo68.github.io/Millionaire-Quiz/",
+    github: "https://github.com/miladmo68/Millionaire-Quiz",
+    tech: ["React"],
   },
   {
     title: "Contact API App",
     img: "Contact-API-App.png",
-    link: "https://github.com/miladmo68/Contact-API-App",
     cat: "app",
-  },
-  { title: "Iran Golden", img: "irangolden.jpg", link: "#", cat: "web" },
-  {
-    title: "Feeder",
-    img: "Feeder.jpg",
-    link: "https://miladmo68.github.io/Feeder/",
-    cat: "app",
+    github: "https://github.com/miladmo68/Contact-API-App",
+    tech: ["React", "Spring Boot", "REST API"],
   },
   {
-    title: "Todo List",
-    img: "Todo-List.jpg",
-    link: "https://miladmo68.github.io/Todo-List/",
+    title: "Shopping Cart",
+    img: "SHOPPING-CART.png",
     cat: "app",
-  },
-  { title: "Auto Studio", img: "carstudio.jpg", link: "#", cat: "web" },
-  {
-    title: "Eat & Split",
-    img: "eat-n-split.png",
-    link: "https://miladmo68.github.io/eat-n-split/",
-    cat: "app",
-  },
-  { title: "Octove Agency", img: "octove.jpg", link: "#", cat: "web" },
-  {
-    title: "PlacePicker",
-    img: "Place-Picker.png",
-    link: "https://miladmo68.github.io/Place-Picker/",
-    cat: "app",
+    live: "https://miladmo68.github.io/Shopping-Cart/",
+    github: "https://github.com/miladmo68/Shopping-Cart",
+    tech: ["React", "Redux Toolkit", "Tailwind"],
   },
   {
-    title: "Bakirkoy Zeugma",
-    img: "bakirkoyzeugmaapart.jpg",
-    link: "#",
-    cat: "web",
+    title: "Expense Tracker",
+    img: "Expense-Tracker.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Expense-Tracker/",
+    github: "https://github.com/miladmo68/Expense-Tracker",
+    tech: ["React", "Chakra UI", "ApexCharts"],
+  },
+  {
+    title: "Bank App",
+    img: "Bank-App.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Bank-App/",
+    github: "https://github.com/miladmo68/Bank-App",
+    tech: ["React", "Redux", "Redux Thunk"],
+  },
+  {
+    title: "Google Login Registration",
+    img: "Google-Login-Registration.png",
+    cat: "app",
+    github: "https://github.com/miladmo68/Google-Login-Registration",
+    tech: ["React", "Spring Boot", "OAuth"],
+  },
+  {
+    title: "Usepopcorn",
+    img: "usepopcorn.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/usepopcorn/",
+    github: "https://github.com/miladmo68/usepopcorn",
+    tech: ["React", "REST API"],
+  },
+  {
+    title: "Book Library",
+    img: "Book-Library.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Book-Library/",
+    github: "https://github.com/miladmo68/Book-Library",
+    tech: ["React", "React Router", "Tailwind"],
+  },
+  {
+    title: "Countries Info App",
+    img: "COUNTRIES-INFO-APP.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Countries-Info-App/",
+    github: "https://github.com/miladmo68/Countries-Info-App",
+    tech: ["React", "React Router", "Tailwind"],
+  },
+  {
+    title: "Todos Redux Toolkit",
+    img: "Todos-Redux-Toolkit.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Todos-Redux-Toolkit/",
+    github: "https://github.com/miladmo68/Todos-Redux-Toolkit",
+    tech: ["React", "Redux Toolkit", "Tailwind"],
+  },
+  {
+    title: "Quick Notes",
+    img: "Quick-Notes.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/QuickNotes/",
+    github: "https://github.com/miladmo68/QuickNotes",
+    tech: ["React", "Redux Toolkit", "Tailwind"],
+  },
+  {
+    title: "User Directory",
+    img: "MY-USER-DIRECTORY.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/User-Directory/",
+    github: "https://github.com/miladmo68/User-Directory",
+    tech: ["React", "Axios", "Tailwind"],
+  },
+  {
+    title: "Student System",
+    img: "student-system.png",
+    cat: "app",
+    github: "https://github.com/miladmo68/student-system",
+    tech: ["Java", "JavaScript"],
+  },
+  {
+    title: "Upload Image ▶ GDrive",
+    img: "uploadImageToGoogleDrive.png",
+    cat: "app",
+    github: "https://github.com/miladmo68/upload-Image-To-Google-Drive",
+    tech: ["Java", "Google Drive API"],
+  },
+  {
+    title: "Task Manager",
+    img: "Task-Manager.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Task-Manager/",
+    github: "https://github.com/miladmo68/Task-Manager",
+    tech: ["React", "Tailwind"],
+  },
+  {
+    title: "Food Recipe App",
+    img: "Food-Recipe-App.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Food-Recipe-App/",
+    github: "https://github.com/miladmo68/Food-Recipe-App",
+    tech: ["React", "React Router", "Tailwind"],
+  },
+  {
+    title: "Quiz App",
+    img: "Quiz-App.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/react-quiz/",
+    github: "https://github.com/miladmo68/react-quiz",
+    tech: ["React", "JSON Server"],
+  },
+  {
+    title: "Pokedex",
+    img: "Pokedex.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/Pokedex/",
+    github: "https://github.com/miladmo68/Pokedex",
+    tech: ["React", "Axios", "Styled Components"],
+  },
+  {
+    title: "SpaceX",
+    img: "SpaceX.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/SpaceX/",
+    github: "https://github.com/miladmo68/SpaceX",
+    tech: ["React", "Axios", "Styled Components"],
+  },
+  {
+    title: "Note App",
+    img: "NoteApp.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Note-App/",
+    github: "https://github.com/miladmo68/Note-App",
+    tech: ["React", "Tailwind"],
+  },
+  {
+    title: "Expenses",
+    img: "expenses.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/expenses/",
+    github: "https://github.com/miladmo68/expenses",
+    tech: ["React"],
+  },
+  {
+    title: "Gym App",
+    img: "gym-app.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/Gym-App/",
+    github: "https://github.com/miladmo68/Gym-App",
+    tech: ["React", "Tailwind"],
+  },
+  {
+    title: "Movieland",
+    img: "Movieland.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/Movieland/",
+    github: "https://github.com/miladmo68/Movieland",
+    tech: ["React", "REST API"],
+  },
+  {
+    title: "Classy Weather",
+    img: "classy-weather.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/classy-weather/",
+    github: "https://github.com/miladmo68/classy-weather",
+    tech: ["React", "REST API"],
   },
   {
     title: "Chat App",
     img: "Chat-App.jpg",
-    link: "https://miladmo68.github.io/Chat-App/",
     cat: "app",
+    live: "https://miladmo68.github.io/Chat-App/",
+    github: "https://github.com/miladmo68/Chat-App",
+    tech: ["Node.js", "JavaScript"],
   },
-  { title: "Net Lady", img: "netlady.jpg", link: "#", cat: "web" },
-  {
-    title: "SpaceX",
-    img: "SpaceX.jpg",
-    link: "https://miladmo68.github.io/SpaceX/",
-    cat: "app",
-  },
-  { title: "Ide System", img: "idesystem.jpg", link: "#", cat: "web" },
-  {
-    title: "Atomic Blog",
-    img: "Atomic-blog.jpg",
-    link: "https://miladmo68.github.io/Atomic-blog/",
-    cat: "app",
-  },
-  { title: "Tasvir Bartar", img: "tasvirbartar.jpg", link: "#", cat: "web" },
-  {
-    title: "Workout Timer",
-    img: "workout-timer.png",
-    link: "https://miladmo68.github.io/workout-timer/",
-    cat: "app",
-  },
-  { title: "MDF 14", img: "mdf14.jpg", link: "#", cat: "web" },
   {
     title: "Project Management",
     img: "Project-Management.png",
-    link: "https://miladmo68.github.io/Project-Management/",
     cat: "app",
+    live: "https://miladmo68.github.io/Project-Management/",
+    github: "https://github.com/miladmo68/Project-Management",
+    tech: ["React", "Tailwind"],
   },
   {
-    title: "Insurance Darmani",
-    img: "insurance-darmani.jpg",
-    link: "#",
-    cat: "web",
+    title: "Image Gallery",
+    img: "Image-Gallery.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/Image-Gallery/",
+    github: "https://github.com/miladmo68/Image-Gallery",
+    tech: ["React", "Tailwind"],
+  },
+  {
+    title: "Atomic Blog",
+    img: "Atomic-blog.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/Atomic-blog/",
+    github: "https://github.com/miladmo68/Atomic-blog",
+    tech: ["React"],
+  },
+  {
+    title: "Travel List",
+    img: "travel-list.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/travel-list/",
+    github: "https://github.com/miladmo68/travel-list",
+    tech: ["React"],
+  },
+  {
+    title: "Investment Calculator",
+    img: "Investment-Calculator.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Investment-Calculator/",
+    github: "https://github.com/miladmo68/Investment-Calculator",
+    tech: ["React"],
+  },
+  {
+    title: "Eat & Split",
+    img: "eat-n-split.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/eat-n-split/",
+    github: "https://github.com/miladmo68/eat-n-split",
+    tech: ["React"],
+  },
+  {
+    title: "Workout Timer",
+    img: "workout-timer.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/workout-timer/",
+    github: "https://github.com/miladmo68/workout-timer",
+    tech: ["React"],
+  },
+  {
+    title: "PlacePicker",
+    img: "Place-Picker.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Place-Picker/",
+    github: "https://github.com/miladmo68/Place-Picker",
+    tech: ["React"],
+  },
+  {
+    title: "Sign Up",
+    img: "SignUp.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/SignUp/",
+    github: "https://github.com/miladmo68/SignUp",
+    tech: ["React", "Bootstrap"],
+  },
+  {
+    title: "Play List",
+    img: "PlayList.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/PlayList/",
+    github: "https://github.com/miladmo68/PlayList",
+    tech: ["JavaScript", "CSS"],
+  },
+  {
+    title: "Feeder",
+    img: "Feeder.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/Feeder/",
+    github: "https://github.com/miladmo68/Feeder",
+    tech: ["HTML", "CSS", "JavaScript"],
   },
   {
     title: "Quiz App 1",
     img: "Quiz-App1.png",
-    link: "https://miladmo68.github.io/Quiz-App/",
     cat: "app",
+    live: "https://miladmo68.github.io/Quiz-App/",
+    github: "https://github.com/miladmo68/Quiz-App",
+    tech: ["React"],
   },
-  { title: "Metal Works", img: "metal.jpg", link: "#", cat: "web" },
+  {
+    title: "Todo List",
+    img: "Todo-List.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/Todo-List/",
+    github: "https://github.com/miladmo68/Todo-List",
+    tech: ["React"],
+  },
+  {
+    title: "Countdown App",
+    img: "Countdown.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/Countdown/",
+    github: "https://github.com/miladmo68/Countdown",
+    tech: ["React"],
+  },
+  {
+    title: "Tic-Tac-Toe",
+    img: "tic-tac-toe.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/tic-tac-toe/",
+    github: "https://github.com/miladmo68/tic-tac-toe",
+    tech: ["React"],
+  },
 
-  { title: "Sidhu Clinic", img: "Sidhu-Clinic.jpg", link: "#", cat: "web" },
+  /* ── Web Design ── */
+  {
+    title: "Milink",
+    img: "Milink.png",
+    cat: "web",
+    live: "https://milink.ca/",
+    github: "https://github.com/miladmo68/Milink",
+    tech: ["React", "Tailwind", "Framer Motion"],
+  },
+  {
+    title: "Kind Steps",
+    img: "kindsteps.png",
+    cat: "web",
+    live: "https://kindsteps.ca/",
+    github: "https://github.com/miladmo68/Kind-Steps-",
+    tech: ["HTML", "CSS", "JavaScript"],
+  },
+  {
+    title: "Zarsa Gold2",
+    img: "zarsagold2.png",
+    cat: "web",
+    live: "https://zarsa2.vercel.app/",
+    github: "https://github.com/miladmo68/zarsa2",
+    tech: ["HTML", "JavaScript", "Vercel"],
+  },
+  {
+    title: "Fair Construction",
+    img: "fairconstruction.png",
+    cat: "web",
+    live: "https://fairconstruction-ca.vercel.app/",
+    github: "https://github.com/miladmo68/fairconstruction.ca",
+    tech: ["HTML", "CSS", "JavaScript"],
+  },
+  {
+    title: "Intershine",
+    img: "intershine.png",
+    cat: "web",
+    live: "https://intershine-ca.vercel.app/",
+    github: "https://github.com/miladmo68/intershine.ca",
+    tech: ["HTML", "Node.js", "Express"],
+  },
+  {
+    title: "Sky Contracting",
+    img: "sky.jpg",
+    cat: "web",
+    live: "https://skyinc.ca/",
+  },
+  {
+    title: "Techfahm Systems",
+    img: "Techfahm.jpg",
+    cat: "web",
+    live: "https://Techfahm.com/",
+  },
+  {
+    title: "Woodline",
+    img: "tarahanchoob.png",
+    cat: "web",
+    live: "https://woodline-ir.vercel.app/",
+    github: "https://github.com/miladmo68/woodline.ir",
+    tech: ["HTML", "Node.js", "Express"],
+  },
+  {
+    title: "PEG Studio",
+    img: "pegstudio.png",
+    cat: "web",
+    live: "https://peg-studio-ten.vercel.app/",
+    github: "https://github.com/miladmo68/PegStudio",
+    tech: ["HTML", "SCSS", "JavaScript"],
+  },
+  {
+    title: "Milad Web",
+    img: "miladweb2.png",
+    cat: "web",
+    live: "https://miladmo68.github.io/Portfolio/",
+    github: "https://github.com/miladmo68/Portfolio",
+    tech: ["HTML", "CSS", "JavaScript"],
+  },
+  {
+    title: "Zarsa Gold",
+    img: "zarsagold.jpg",
+    cat: "web",
+    live: "https://miladmo68.github.io/zarsa1/",
+    github: "https://github.com/miladmo68/zarsa1",
+    tech: ["HTML", "CSS", "JavaScript"],
+  },
+  {
+    title: "Spa",
+    img: "Spa.jpg",
+    cat: "web",
+    github: "https://github.com/miladmo68/Spa",
+    tech: ["HTML", "CSS", "JavaScript"],
+  },
+
+  /* ── Earlier web design work (screenshots only) ── */
+  {
+    title: "Tarahan Choob",
+    img: "tarahanchoob.jpg",
+    cat: "web",
+  },
+  {
+    title: "Jahan Ariya",
+    img: "jahanariya.jpg",
+    cat: "web",
+  },
+  {
+    title: "Asiakar Auto",
+    img: "asiakar.png",
+    cat: "web",
+  },
+  {
+    title: "Javan Food",
+    img: "javanfood.png",
+    cat: "web",
+  },
+  {
+    title: "Samanor",
+    img: "samanor.jpg",
+    cat: "web",
+  },
+  {
+    title: "Poya Josh",
+    img: "poyajosh.jpg",
+    cat: "web",
+  },
+  {
+    title: "RAAGS",
+    img: "RAAGS.jpg",
+    cat: "web",
+  },
+  {
+    title: "Hefaz System",
+    img: "hefazsystem.jpg",
+    cat: "web",
+  },
+  {
+    title: "Milad Web 2",
+    img: "milad.png",
+    cat: "web",
+  },
+  {
+    title: "Iran Golden",
+    img: "irangolden.jpg",
+    cat: "web",
+  },
+  {
+    title: "Auto Studio",
+    img: "carstudio.jpg",
+    cat: "web",
+  },
+  {
+    title: "Octove Agency",
+    img: "octove.jpg",
+    cat: "web",
+  },
+  {
+    title: "Bakirkoy Zeugma",
+    img: "bakirkoyzeugmaapart.jpg",
+    cat: "web",
+  },
+  {
+    title: "Net Lady",
+    img: "netlady.jpg",
+    cat: "web",
+  },
+  {
+    title: "Ide System",
+    img: "idesystem.jpg",
+    cat: "web",
+  },
+  {
+    title: "Tasvir Bartar",
+    img: "tasvirbartar.jpg",
+    cat: "web",
+  },
+  {
+    title: "MDF 14",
+    img: "mdf14.jpg",
+    cat: "web",
+  },
+  {
+    title: "Insurance Darmani",
+    img: "insurance-darmani.jpg",
+    cat: "web",
+  },
+  {
+    title: "Metal Works",
+    img: "metal.jpg",
+    cat: "web",
+  },
+  {
+    title: "Sidhu Clinic",
+    img: "Sidhu-Clinic.jpg",
+    cat: "web",
+  },
 ];
 
 /* "All" view: alternate Web App / Web Design, keeping each list's own order */
@@ -422,11 +623,44 @@ const interleave = (list) => {
 const ALL_PROJECTS = interleave(PROJECTS);
 
 const CARD_W = 380;
-const ASPECT_16_9 = "56.25%";
 
 /* how many projects to show before "Show More" — same behaviour on every screen */
 const PAGE_MOBILE = 6;
 const PAGE_DESKTOP = 9;
+
+const CAT_LABEL = { app: "Web App", web: "Web Design" };
+
+/* Live / Code links — rendered only when the project actually has them */
+function ProjectLinks({ project, size = "sm" }) {
+  return (
+    <>
+      {project.live && (
+        <a
+          className={`pc-btn pc-btn--primary pc-btn--${size}`}
+          href={project.live}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`Open ${project.title} live site`}
+        >
+          <LaunchIcon fontSize="inherit" />
+          Live
+        </a>
+      )}
+      {project.github && (
+        <a
+          className={`pc-btn pc-btn--ghost pc-btn--${size}`}
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`View ${project.title} source code on GitHub`}
+        >
+          <GitHubIcon fontSize="inherit" />
+          Code
+        </a>
+      )}
+    </>
+  );
+}
 
 export default function Project() {
   const [filter, setFilter] = useState("all");
@@ -436,10 +670,7 @@ export default function Project() {
   const [isMobile, setIsMobile] = useState(false);
   const [limit, setLimit] = useState(PAGE_DESKTOP);
   const [loadingMore, setLoadingMore] = useState(false);
-
-  const [open, setOpen] = useState(false);
-  const [modalImg, setImg] = useState("");
-  const [modalTitle, setTitle] = useState("");
+  const [active, setActive] = useState(null);
 
   const step = isMobile ? PAGE_MOBILE : PAGE_DESKTOP;
 
@@ -463,7 +694,7 @@ export default function Project() {
   const visible = allFiltered.slice(0, limit);
   const hasMore = limit < allFiltered.length;
 
-  /* FIX 1 — reset animation set when filter changes */
+  /* reset animation set when filter changes */
   const handleFilter = (val) => {
     setFilter(val);
     setVisibleCards(new Set());
@@ -484,9 +715,7 @@ export default function Project() {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-in");
-          }
+          if (entry.isIntersecting) entry.target.classList.add("animate-in");
         });
       },
       { threshold: 0.1, rootMargin: "0px 0px -50px 0px" },
@@ -496,7 +725,7 @@ export default function Project() {
     return () => observer.disconnect();
   }, []);
 
-  /* FIX 2 — card entrance animation via IntersectionObserver */
+  /* card entrance animation via IntersectionObserver */
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -522,12 +751,6 @@ export default function Project() {
     };
   }, [filter, limit]);
 
-  const preview = (p) => {
-    setImg(getImg(p.img));
-    setTitle(p.title);
-    setOpen(true);
-  };
-
   return (
     <div className="container">
       <Box
@@ -535,38 +758,30 @@ export default function Project() {
         component="section"
         id="projects"
         className="fade-in-section"
+        aria-labelledby="projects-heading"
         sx={{ py: { xs: 4, sm: 6, md: 8 } }}
       >
         {/* heading */}
-        <Box textAlign="center" mb={{ xs: 4, sm: 5, md: 6 }}>
-          <Typography
-            variant="h4"
-            fontWeight={700}
-            sx={{ fontSize: { xs: "1.75rem", sm: "2rem", md: "2.125rem" } }}
-          >
+        <Box
+          className="projects-intro"
+          textAlign="center"
+          mb={{ xs: 4, sm: 5, md: 6 }}
+        >
+          <h2 id="projects-heading" className="projects-heading">
             Portfolio
-          </Typography>
-          <Typography
-            sx={{
-              maxWidth: 640,
-              mx: "auto",
-              mt: 1,
-              px: 2,
-              fontSize: { xs: "0.9rem", sm: "1rem" },
-            }}
-          >
-            A selection of my recent work. See more on{" "}
-            <Box
-              component="a"
+          </h2>
+          <p className="projects-subtitle">
+            Production web apps and client websites, newest and strongest
+            first. More on{" "}
+            <a
               href="https://github.com/miladmo68"
               target="_blank"
-              rel="noreferrer"
-              sx={{ textDecoration: "underline", fontWeight: 500 }}
+              rel="noopener noreferrer"
             >
               GitHub
-            </Box>
+            </a>
             .
-          </Typography>
+          </p>
         </Box>
 
         {/* filter chips */}
@@ -577,36 +792,19 @@ export default function Project() {
           gap={1}
           mb={{ xs: 3, sm: 4, md: 5 }}
           px={2}
+          role="group"
+          aria-label="Filter projects"
         >
           {FILTERS.map((f) => {
-            const active = filter === f.value;
+            const isActive = filter === f.value;
             return (
               <Chip
                 key={f.value}
                 label={f.label}
                 clickable
+                aria-pressed={isActive}
                 onClick={() => handleFilter(f.value)}
-                sx={{
-                  color: active ? "#ffffff" : "rgba(255,255,255,0.72)",
-                  backgroundColor: active
-                    ? "rgba(255,106,0,0.16)"
-                    : "rgba(255,255,255,0.045)",
-                  border: "1px solid",
-                  borderColor: active
-                    ? "rgba(255,138,0,0.58)"
-                    : "rgba(255,255,255,0.12)",
-                  padding: "6px 10px",
-                  fontSize: "0.9rem",
-                  transition: "all 0.3s ease",
-                  cursor: "pointer",
-                  "&:hover": {
-                    backgroundColor: active
-                      ? "rgba(255,106,0,0.22)"
-                      : "rgba(255,106,0,0.1)",
-                    color: "#fff",
-                    borderColor: "rgba(255,138,0,0.65)",
-                  },
-                }}
+                className={`project-filter${isActive ? " is-active" : ""}`}
               />
             );
           })}
@@ -621,7 +819,7 @@ export default function Project() {
         >
           {visible.map((p, index) => {
             const isVisible = visibleCards.has(p.title);
-            const delay = Math.min(index * 0.055, 0.7);
+            const delay = Math.min((index % step) * 0.055, 0.5);
 
             return (
               <Grid
@@ -629,6 +827,7 @@ export default function Project() {
                 ref={(el) => (cardRefs.current[p.title] = el)}
                 data-card-id={p.title}
                 sx={{
+                  display: "flex",
                   opacity: 0,
                   transform: "translateY(28px)",
                   animation: isVisible
@@ -645,262 +844,145 @@ export default function Project() {
                 }}
               >
                 <Card
-                  elevation={4}
+                  component="article"
+                  elevation={0}
+                  className="project-card"
                   sx={{
                     width: { xs: "calc(100vw - 40px)", sm: 360, md: CARD_W },
                     maxWidth: CARD_W,
-                    overflow: "hidden",
-                    position: "relative",
-                    /* light mode: clean white card */
-                    backgroundColor: "#ffffff",
-                    border: "1px solid rgba(30, 58, 138, 0.14)",
-                    borderRadius: "12px",
-                    /* dark mode: blue-tinted surface, clearly distinct from page bg */
-                    ".dark-mode &": {
-                      backgroundColor: "rgba(30, 58, 138, 0.22)",
-                      border: "1px solid rgba(59, 130, 246, 0.3)",
-                      backdropFilter: "blur(8px)",
-                    },
-                    transition:
-                      "transform 0.32s cubic-bezier(0.4,0,0.2,1), box-shadow 0.32s ease, border-color 0.32s ease",
-                    "&:hover": {
-                      transform: "translateY(-7px) scale(1.018)",
-                      boxShadow:
-                        "0 16px 48px rgba(30,58,138,0.45), 0 0 0 1px rgba(37,99,235,0.3)",
-                      borderColor: "rgba(37, 99, 235, 0.55)",
-                    },
-                    ".dark-mode &:hover": {
-                      boxShadow:
-                        "0 16px 48px rgba(59,130,246,0.35), 0 0 0 1px rgba(59,130,246,0.4)",
-                      borderColor: "rgba(59, 130, 246, 0.55)",
-                    },
-                    "&:hover .overlay": {
-                      transform: "translateY(0)",
-                      opacity: 1,
-                    },
-                    "@media (hover: none)": {
-                      "&:active": { transform: "scale(0.97)" },
-                    },
                   }}
                 >
-                  {/* thumbnail */}
-                  <Box
-                    position="relative"
-                    sx={{ width: "100%", pt: ASPECT_16_9 }}
+                  {/* thumbnail — opens the preview */}
+                  <button
+                    type="button"
+                    className="pc-thumb"
+                    onClick={() => setActive(p)}
+                    aria-label={`Preview ${p.title}`}
                   >
-                    <Box
-                      component="img"
+                    <img
                       src={getImg(p.img)}
-                      alt={p.title}
+                      alt={`${p.title} — ${CAT_LABEL[p.cat]} screenshot`}
                       loading="lazy"
-                      sx={{
-                        position: "absolute",
-                        top: 0,
-                        left: 0,
-                        width: "100%",
-                        height: "100%",
-                        objectFit: "cover",
-                        cursor: "pointer",
-                        transition: "transform 0.35s ease",
-                        "&:hover": { transform: "scale(1.05)" },
-                      }}
-                      onClick={() => preview(p)}
+                      decoding="async"
+                      width="380"
+                      height="214"
                     />
-                  </Box>
+                    <span className="pc-thumb-hint" aria-hidden="true">
+                      <VisibilityIcon fontSize="inherit" /> Preview
+                    </span>
+                  </button>
 
-                  {/* FIX 3 — overlay: hover on desktop, always visible on mobile */}
-                  <Box
-                    className="overlay"
-                    sx={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      width: "100%",
-                      height: 52,
-                      background:
-                        "linear-gradient(to right, rgba(30,58,138,0.92), rgba(14,165,233,0.82))",
-                      color: "white",
-                      display: "flex",
-                      alignItems: "center",
-                      px: 1,
-                      gap: 1,
-                      transform: "translateY(100%)",
-                      opacity: 0,
-                      transition:
-                        "transform 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.28s ease",
-                      /* always show on touch/mobile — no hover on touch screens */
-                      "@media (hover: none)": {
-                        transform: "translateY(0)",
-                        opacity: 1,
-                      },
-                    }}
-                  >
-                    <Typography
-                      variant="subtitle2"
-                      noWrap
-                      sx={{
-                        flexGrow: 1,
-                        pl: 0.5,
-                        fontSize: { xs: "0.8rem", sm: "0.875rem" },
-                      }}
-                    >
-                      {p.title}
-                    </Typography>
+                  <div className="pc-body">
+                    <div className="pc-head">
+                      <h3 className="pc-title">{p.title}</h3>
+                      <span className={`pc-cat pc-cat--${p.cat}`}>
+                        {CAT_LABEL[p.cat]}
+                      </span>
+                    </div>
 
-                    <Tooltip title="Preview">
-                      <IconButton
-                        size="small"
-                        sx={{ color: "white" }}
-                        onClick={() => preview(p)}
-                      >
-                        <VisibilityIcon fontSize="small" />
-                      </IconButton>
-                    </Tooltip>
-
-                    {p.link !== "#" && (
-                      <Tooltip title="Visit">
-                        <IconButton
-                          size="small"
-                          sx={{ color: "white" }}
-                          component="a"
-                          href={p.link}
-                          target="_blank"
-                          rel="noreferrer"
-                          onClick={(e) => e.stopPropagation()}
-                        >
-                          <OpenInNewIcon fontSize="small" />
-                        </IconButton>
-                      </Tooltip>
+                    {p.tech?.length > 0 && (
+                      <ul className="pc-tech" aria-label="Tech stack">
+                        {p.tech.map((t) => (
+                          <li key={t}>{t}</li>
+                        ))}
+                      </ul>
                     )}
-                  </Box>
+
+                    <div className="pc-actions">
+                      <button
+                        type="button"
+                        className="pc-btn pc-btn--ghost pc-btn--sm"
+                        onClick={() => setActive(p)}
+                      >
+                        <VisibilityIcon fontSize="inherit" />
+                        Preview
+                      </button>
+                      <ProjectLinks project={p} />
+                    </div>
+                  </div>
                 </Card>
               </Grid>
             );
           })}
         </Grid>
 
-        {/* mobile show-more button */}
+        {/* show-more button */}
         {hasMore && (
-          <Box
-            display="flex"
-            justifyContent="center"
-            mt={4}
-            sx={{
-              "@keyframes fadeSlideUp": {
-                from: { opacity: 0, transform: "translateY(16px)" },
-                to: { opacity: 1, transform: "translateY(0)" },
-              },
-              animation:
-                "fadeSlideUp 0.45s cubic-bezier(0.22,1,0.36,1) forwards",
-            }}
-          >
-            <Box
-              component="button"
+          <Box display="flex" justifyContent="center" mt={5}>
+            <button
+              type="button"
+              className="projects-more-btn"
               onClick={handleShowMore}
               disabled={loadingMore}
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                gap: 1,
-                px: 3.5,
-                py: 1.2,
-                fontSize: "0.95rem",
-                fontWeight: 600,
-                letterSpacing: "0.03em",
-                border: "2px solid",
-                borderColor: "#1e3a8a",
-                borderRadius: "50px",
-                background: "transparent",
-                color: "#1e3a8a",
-                cursor: "pointer",
-                transition: "all 0.28s cubic-bezier(0.4,0,0.2,1)",
-                ".dark-mode &": {
-                  borderColor: "#60a5fa",
-                  color: "#60a5fa",
-                },
-                "&:hover:not(:disabled)": {
-                  background: "#1e3a8a",
-                  color: "#fff",
-                  boxShadow: "0 8px 24px rgba(30,58,138,0.35)",
-                  transform: "translateY(-2px)",
-                  ".dark-mode &": {
-                    background: "#60a5fa",
-                    color: "#0f172a",
-                  },
-                },
-                "&:active:not(:disabled)": {
-                  transform: "scale(0.96)",
-                },
-                "&:disabled": {
-                  opacity: 0.6,
-                  cursor: "default",
-                },
-              }}
             >
               {loadingMore ? (
                 <>
-                  <Box
-                    component="span"
-                    sx={{
-                      width: 16,
-                      height: 16,
-                      border: "2px solid currentColor",
-                      borderTopColor: "transparent",
-                      borderRadius: "50%",
-                      display: "inline-block",
-                      "@keyframes spin": {
-                        to: { transform: "rotate(360deg)" },
-                      },
-                      animation: "spin 0.7s linear infinite",
-                    }}
-                  />
+                  <span className="projects-more-spinner" aria-hidden="true" />
                   Loading...
                 </>
               ) : (
                 <>Show More ({allFiltered.length - limit})</>
               )}
-            </Box>
+            </button>
           </Box>
         )}
 
         {/* preview dialog */}
         <Dialog
-          open={open}
-          onClose={() => setOpen(false)}
+          open={Boolean(active)}
+          onClose={() => setActive(null)}
           maxWidth="lg"
           fullWidth
-          sx={{ ".MuiBackdrop-root": { backgroundColor: "rgba(0,0,0,.9)" } }}
+          className="project-dialog"
+          aria-labelledby="project-dialog-title"
+          slotProps={{
+            backdrop: { className: "project-dialog-backdrop" },
+            paper: { className: "project-dialog-paper" },
+          }}
         >
-          <DialogTitle
-            sx={{
-              p: 1.2,
-              display: "flex",
-              justifyContent: "space-between",
-              bgcolor: "#3a3a3a",
-              color: "#fff",
-            }}
-          >
-            {modalTitle}
-            <IconButton onClick={() => setOpen(false)} sx={{ color: "#fff" }}>
-              <CloseIcon />
-            </IconButton>
-          </DialogTitle>
+          {active && (
+            <>
+              <div className="pd-header">
+                <div className="pd-heading">
+                  <span className={`pc-cat pc-cat--${active.cat}`}>
+                    {CAT_LABEL[active.cat]}
+                  </span>
+                  <h3 id="project-dialog-title" className="pd-title">
+                    {active.title}
+                  </h3>
+                </div>
+                <IconButton
+                  onClick={() => setActive(null)}
+                  aria-label="Close preview"
+                  className="pd-close"
+                >
+                  <CloseIcon />
+                </IconButton>
+              </div>
 
-          <DialogContent
-            sx={{
-              p: 0,
-              display: "flex",
-              justifyContent: "center",
-              bgcolor: "transparent",
-            }}
-          >
-            <Box
-              component="img"
-              src={modalImg}
-              alt={modalTitle}
-              sx={{ width: "100%", height: "auto" }}
-            />
-          </DialogContent>
+              <div className="pd-image">
+                <img
+                  src={getImg(active.img, "full")}
+                  alt={`${active.title} preview`}
+                />
+              </div>
+
+              {(active.live || active.github || active.tech?.length > 0) && (
+                <div className="pd-footer">
+                  {active.tech?.length > 0 && (
+                    <ul className="pc-tech" aria-label="Tech stack">
+                      {active.tech.map((t) => (
+                        <li key={t}>{t}</li>
+                      ))}
+                    </ul>
+                  )}
+                  <div className="pd-actions">
+                    <ProjectLinks project={active} size="lg" />
+                  </div>
+                </div>
+              )}
+            </>
+          )}
         </Dialog>
       </Box>
     </div>

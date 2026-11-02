@@ -2,49 +2,130 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-
-    <title>MiladWeb | Full-Stack Developer</title>
-
-    <meta
-      name="description"
-      content="MiladWeb personal website and web development portfolio."
-    />
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <title>Milad Mohammadi | Full-Stack Developer · React, Next.js &amp; TypeScript</title>
+    <meta
+      name="description"
+      content="Milad Mohammadi is a Toronto-based frontend-focused Full-Stack Developer with 5+ years building fast web apps, dashboards and portals with React, Next.js, TypeScript and Node.js."
+    />
+    <meta name="author" content="Milad Mohammadi" />
+    <meta
+      name="keywords"
+      content="Milad Mohammadi, MiladWeb, Full-Stack Developer, Frontend Developer, React Developer, Next.js Developer, TypeScript, Node.js, Toronto, Canada, Web Developer Portfolio"
+    />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="theme-color" content="#000000" />
+    <link rel="canonical" href="https://miladweb.com/" />
+
     <!-- Open Graph / Link Preview -->
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="MiladWeb" />
+    <meta property="og:locale" content="en_CA" />
     <meta property="og:url" content="https://miladweb.com/" />
-    <meta property="og:title" content="MiladWeb | Full-Stack Developer" />
-    <meta property="og:description" content="MiladWeb personal website and web development portfolio." />
+    <meta property="og:title" content="Milad Mohammadi | Full-Stack Developer" />
+    <meta
+      property="og:description"
+      content="Frontend-focused Full-Stack Developer in Toronto building fast web apps with React, Next.js, TypeScript and Node.js. See projects, experience and get in touch."
+    />
     <meta property="og:image" content="https://miladweb.com/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Milad Mohammadi, Frontend-Focused Full-Stack Developer" />
+    <meta property="profile:first_name" content="Milad" />
+    <meta property="profile:last_name" content="Mohammadi" />
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:url" content="https://miladweb.com/" />
-    <meta name="twitter:title" content="MiladWeb | Full-Stack Developer" />
-    <meta name="twitter:description" content="MiladWeb personal website and web development portfolio." />
+    <meta name="twitter:title" content="Milad Mohammadi | Full-Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Frontend-focused Full-Stack Developer in Toronto building fast web apps with React, Next.js, TypeScript and Node.js."
+    />
     <meta name="twitter:image" content="https://miladweb.com/og-image.png" />
+    <meta name="twitter:image:alt" content="Milad Mohammadi, Frontend-Focused Full-Stack Developer" />
 
-    <!-- Favicon -->
+    <!-- Icons -->
     <link rel="icon" type="image/png" href="/Logo-Blue.png" />
 
-    <!-- Preload background -->
-    <link rel="preload" as="image" href="/bg-dark.png" />
+    <!-- Hero video host -->
+    <link rel="preconnect" href="https://cdn.sceneai.art" crossorigin />
+    <link rel="preload" as="image" href="/milad-avatar.jpg" fetchpriority="high" />
 
-    <!-- Site name for Google -->
+    <!-- Structured data -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "WebSite",
-        "name": "MiladWeb",
-        "url": "https://miladweb.com"
+        "@graph": [
+          {
+            "@type": "WebSite",
+            "@id": "https://miladweb.com/#website",
+            "name": "MiladWeb",
+            "alternateName": "Milad Mohammadi Portfolio",
+            "url": "https://miladweb.com/",
+            "inLanguage": "en-CA",
+            "publisher": { "@id": "https://miladweb.com/#person" }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://miladweb.com/#profile",
+            "url": "https://miladweb.com/",
+            "name": "Milad Mohammadi | Full-Stack Developer",
+            "isPartOf": { "@id": "https://miladweb.com/#website" },
+            "mainEntity": { "@id": "https://miladweb.com/#person" }
+          },
+          {
+            "@type": "Person",
+            "@id": "https://miladweb.com/#person",
+            "name": "Milad Mohammadi",
+            "jobTitle": "Frontend-Focused Full-Stack Developer",
+            "description": "Full-Stack Developer with 5+ years building responsive web apps, dashboards and user portals with React, Next.js, TypeScript and Node.js.",
+            "url": "https://miladweb.com/",
+            "image": "https://miladweb.com/milad-avatar.jpg",
+            "address": {
+              "@type": "PostalAddress",
+              "addressLocality": "Toronto",
+              "addressRegion": "ON",
+              "addressCountry": "CA"
+            },
+            "sameAs": [
+              "https://www.linkedin.com/in/miladmo68/",
+              "https://github.com/miladmo68",
+              "https://milink.ca/"
+            ],
+            "knowsAbout": [
+              "React", "Next.js", "TypeScript", "JavaScript", "Node.js", "Express",
+              "MongoDB", "PostgreSQL", "Tailwind CSS", "Redux", "React Query",
+              "REST APIs", "GraphQL", "Jest", "AWS", "Vercel", "SEO"
+            ],
+            "alumniOf": [
+              { "@type": "CollegeOrUniversity", "name": "Limkokwing University of Creative Technology" },
+              { "@type": "CollegeOrUniversity", "name": "Azad University" }
+            ]
+          }
+        ]
       }
     </script>
   </head>
 
   <body>
     <div id="root"></div>
+    <noscript>
+      <main style="max-width:720px;margin:4rem auto;padding:0 1.5rem;font-family:sans-serif;color:#eee;background:#000">
+        <h1>Milad Mohammadi — Full-Stack Developer</h1>
+        <p>
+          Toronto-based frontend-focused Full-Stack Developer with 5+ years of
+          experience building web apps, dashboards and portals with React,
+          Next.js, TypeScript and Node.js.
+        </p>
+        <p>
+          <a href="https://github.com/miladmo68">GitHub</a> ·
+          <a href="https://www.linkedin.com/in/miladmo68/">LinkedIn</a>
+        </p>
+        <p>Please enable JavaScript to view the full portfolio.</p>
+      </main>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

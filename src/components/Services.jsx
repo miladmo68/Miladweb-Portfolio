@@ -26,7 +26,7 @@ const services = [
     icon: faLaptopCode,
     title: "Full Stack Development",
     description:
-      "Provide end-to-end solutions using HTML5, CSS3, React, Node.js, and MySQL/MongoDB to create scalable, dynamic web apps.",
+      "Provide end-to-end solutions using React, Next.js, TypeScript, Node.js, and MongoDB/PostgreSQL to create scalable, dynamic web apps.",
   },
   {
     icon: faPencilRuler,
@@ -38,7 +38,7 @@ const services = [
     icon: faShoppingCart,
     title: "E-commerce Solutions",
     description:
-      "Develop and optimize e-commerce websites using Shopify, WooCommerce, and custom solutions.",
+      "Develop and optimize e-commerce websites using WooCommerce and custom React storefronts.",
   },
   {
     icon: faSearch,
@@ -87,7 +87,9 @@ function Timeline() {
         style={{ textAlign: "center", marginBottom: "3rem" }}
         className="items-container"
       >
-        <h1 className="text-3xl font-extrabold text-center mb-2">Services</h1>
+        <h2 className="section-title text-3xl font-extrabold text-center mb-2">
+          Services
+        </h2>
         <p style={{ maxWidth: "700px", margin: "0 auto" }}>
           I want your business to succeed, and I'm committed to doing everything
           I can to make that happen. Below is an overview of the professional

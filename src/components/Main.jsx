@@ -5,8 +5,8 @@ import "../assets/styles/Main.scss";
 
 const WORDS = [
   "Full-Stack Developer",
-  "Front-End Developer",
-  "Software Developer",
+  "React & Next.js Developer",
+  "TypeScript Developer",
 ];
 
 const TYPE_MS = 80;
@@ -79,7 +79,13 @@ export default function Main() {
 
         <div className="content">
           <div className="image-wrapper">
-            <img src="/milad.png" alt="Avatar" />
+            <img
+              src="/milad-avatar.jpg"
+              alt="Milad Mohammadi, Full-Stack Developer"
+              width="160"
+              height="160"
+              fetchPriority="high"
+            />
           </div>
 
           <h1 className="hero-name">
@@ -93,8 +99,9 @@ export default function Main() {
           </p>
 
           <p className="hero-tagline">
-            I build fast, scalable and SEO-friendly web apps with React, Next.js
-            &amp; Node.js — turning ideas into polished products.
+            I build fast, accessible web apps, dashboards and portals with
+            React, Next.js, TypeScript &amp; Node.js — turning ideas into
+            polished products.
           </p>
 
           <div className="hero-cta">
@@ -117,6 +124,7 @@ export default function Main() {
           <div className="social_icons">
             <a
               href="https://github.com/miladmo68"
+              aria-label="GitHub profile"
               target="_blank"
               rel="noreferrer"
             >
@@ -124,6 +132,7 @@ export default function Main() {
             </a>
             <a
               href="https://www.linkedin.com/in/miladmo68/"
+              aria-label="LinkedIn profile"
               target="_blank"
               rel="noreferrer"
             >
@@ -134,6 +143,7 @@ export default function Main() {
           <div className="mobile_social_icons">
             <a
               href="https://github.com/miladmo68"
+              aria-label="GitHub profile"
               target="_blank"
               rel="noreferrer"
             >
@@ -141,6 +151,7 @@ export default function Main() {
             </a>
             <a
               href="https://www.linkedin.com/in/miladmo68/"
+              aria-label="LinkedIn profile"
               target="_blank"
               rel="noreferrer"
             >

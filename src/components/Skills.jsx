@@ -13,6 +13,7 @@ import {
 } from "react-icons/fa";
 import {
   SiJavascript,
+  SiTypescript,
   SiHtml5,
   SiCss3,
   SiTailwindcss,
@@ -21,6 +22,7 @@ import {
   SiDjango,
   SiMongodb,
   SiMysql,
+  SiPostgresql,
   SiPostman,
   SiHeroku,
   SiAdobephotoshop,
@@ -30,23 +32,53 @@ import {
   SiExpress,
   SiRedux,
   SiGraphql,
+  SiReactquery,
+  SiShadcnui,
+  SiMui,
+  SiJest,
+  SiTestinglibrary,
+  SiVercel,
+  SiAwsamplify,
+  SiAmazons3,
+  SiVite,
+  SiEthereum,
 } from "react-icons/si";
+import { TbApi } from "react-icons/tb";
 import Chip from "@mui/material/Chip";
 
-/* same skills as before, now organised into labelled groups */
+/* grouped to match the resume: core stack first, supporting tools after */
 const skillGroups = [
   {
     title: "Frontend",
     items: [
-      { label: "JavaScript", icon: <SiJavascript /> },
       { label: "React", icon: <FaReact /> },
       { label: "Next.js", icon: <SiNextdotjs /> },
-      { label: "Redux", icon: <SiRedux /> },
+      { label: "TypeScript", icon: <SiTypescript /> },
+      { label: "JavaScript (ES6+)", icon: <SiJavascript /> },
       { label: "HTML5", icon: <SiHtml5 /> },
       { label: "CSS3", icon: <SiCss3 /> },
-      { label: "TailwindCSS", icon: <SiTailwindcss /> },
-      { label: "Bootstrap", icon: <SiBootstrap /> },
+      { label: "Vite", icon: <SiVite /> },
       { label: "jQuery", icon: <SiJquery /> },
+    ],
+  },
+  {
+    title: "UI & Styling",
+    items: [
+      { label: "Tailwind CSS", icon: <SiTailwindcss /> },
+      { label: "shadcn/ui", icon: <SiShadcnui /> },
+      { label: "Material UI", icon: <SiMui /> },
+      { label: "Bootstrap", icon: <SiBootstrap /> },
+      { label: "Photoshop", icon: <SiAdobephotoshop /> },
+    ],
+  },
+  {
+    title: "State & Data",
+    items: [
+      { label: "React Query", icon: <SiReactquery /> },
+      { label: "Redux Toolkit", icon: <SiRedux /> },
+      { label: "Context API", icon: <FaReact /> },
+      { label: "REST APIs", icon: <TbApi /> },
+      { label: "GraphQL", icon: <SiGraphql /> },
     ],
   },
   {
@@ -54,7 +86,6 @@ const skillGroups = [
     items: [
       { label: "Node.js", icon: <FaNodeJs /> },
       { label: "Express.js", icon: <SiExpress /> },
-      { label: "GraphQL", icon: <SiGraphql /> },
       { label: "Python", icon: <FaPython /> },
       { label: "Django", icon: <SiDjango /> },
       { label: "PHP", icon: <FaPhp /> },
@@ -65,27 +96,43 @@ const skillGroups = [
     title: "Databases",
     items: [
       { label: "MongoDB", icon: <SiMongodb /> },
+      { label: "PostgreSQL", icon: <SiPostgresql /> },
       { label: "MySQL", icon: <SiMysql /> },
     ],
   },
   {
-    title: "Tools & Cloud",
+    title: "Testing",
+    items: [
+      { label: "Jest", icon: <SiJest /> },
+      { label: "React Testing Library", icon: <SiTestinglibrary /> },
+    ],
+  },
+  {
+    title: "Cloud & DevOps",
+    items: [
+      { label: "Vercel", icon: <SiVercel /> },
+      { label: "AWS Amplify", icon: <SiAwsamplify /> },
+      { label: "Amazon S3", icon: <SiAmazons3 /> },
+      { label: "AWS", icon: <FaAws /> },
+      { label: "Heroku", icon: <SiHeroku /> },
+    ],
+  },
+  {
+    title: "Tools & Workflow",
     items: [
       { label: "Git", icon: <FaGitAlt /> },
       { label: "GitHub", icon: <FaGithub /> },
-      { label: "AWS", icon: <FaAws /> },
-      { label: "Heroku", icon: <SiHeroku /> },
       { label: "Postman", icon: <SiPostman /> },
       { label: "NPM", icon: <SiNpm /> },
-      { label: "Photoshop", icon: <SiAdobephotoshop /> },
+      { label: "Web3 (wagmi, ethers.js)", icon: <SiEthereum /> },
     ],
   },
   {
     title: "CMS & E-commerce",
     items: [
       { label: "WordPress", icon: <FaWordpress /> },
-      { label: "Joomla", icon: <FaJoomla /> },
       { label: "WooCommerce", icon: <SiWoocommerce /> },
+      { label: "Joomla", icon: <FaJoomla /> },
     ],
   },
 ];
@@ -182,6 +229,7 @@ function Skills() {
                     label={item.label}
                     icon={React.cloneElement(item.icon, {
                       style: { fontSize: "1.3rem" },
+                      "aria-hidden": true,
                     })}
                     variant="outlined"
                     className="skill-chip"

@@ -3,31 +3,31 @@ import Skills from "./Skills";
 import { FiCode, FiZap, FiLayers, FiCloud } from "react-icons/fi";
 
 const stats = [
+  { value: "5+", label: "Years Experience" },
   { value: "75+", label: "Projects Built" },
-  { value: "28", label: "Technologies" },
-  { value: "100%", label: "Responsive & SEO" },
+  { value: "40+", label: "Technologies" },
 ];
 
 const highlights = [
   {
     icon: <FiCode />,
     title: "Full-Stack Development",
-    text: "End-to-end web apps with React, Next.js, Node.js and Express — from database design to a polished, accessible UI.",
+    text: "Responsive apps, dashboards and user portals with React, Next.js and TypeScript, backed by Node.js, Express, MongoDB and PostgreSQL.",
   },
   {
     icon: <FiZap />,
     title: "Performance & SEO",
-    text: "Core Web Vitals, lazy loading and smart caching for fast, search-friendly experiences that rank and convert.",
+    text: "Core Web Vitals, lazy loading and React Query caching for fast, search-friendly experiences that rank and convert.",
   },
   {
     icon: <FiLayers />,
     title: "Scalable Architecture",
-    text: "Clean, maintainable code built on REST and GraphQL APIs with a modular, component-driven structure.",
+    text: "Reusable component systems, REST and GraphQL integrations, and tested code with Jest and React Testing Library.",
   },
   {
     icon: <FiCloud />,
     title: "Cloud & DevOps",
-    text: "Reliable deployment and CI/CD pipelines on AWS, Vercel and Heroku — shipping with confidence.",
+    text: "CI/CD deployments on Vercel and AWS Amplify, with Amazon S3 for hosting and storage — shipping with confidence.",
   },
 ];
 
@@ -132,18 +132,20 @@ function About() {
   return (
     <section ref={sectionRef} id="about" className="fade-in-section">
       <div className="about-inner">
-        <h1>About Me</h1>
+        <h2 className="section-title">About Me</h2>
 
         <p className="about-lead">
-          I'm a Full-Stack Developer and Technology Consultant who builds
-          high-performance web applications that drive real business growth.
-          Using React, Next.js, Node.js and modern databases, I turn ideas into
-          fast, scalable products with exceptional user experiences.
+          I'm Milad Mohammadi, a frontend-focused Full-Stack Developer in
+          Toronto with 5+ years of experience building responsive web apps,
+          dashboards and user portals with React, Next.js and TypeScript. Most
+          recently I built investor-facing portals for an enterprise
+          asset-management platform at Blue Lighthouse.
         </p>
         <p className="about-lead about-lead--muted">
-          With hands-on delivery across e-commerce, SaaS and content platforms,
-          I care about clean code, accessibility and performance — solutions
-          that are built to last and easy to grow.
+          I work across the stack with Node.js, Express, MongoDB and
+          PostgreSQL, ship to Vercel and AWS, and care about reusable
+          components, clean code, testing and performance — products that are
+          built to last and easy to grow.
         </p>
 
         <div
