@@ -70,83 +70,96 @@ export default function Contact() {
 
   return (
     <section id="connect" className="s-section" ref={ref} aria-labelledby="connect-title">
-      <div className="s-container s-contact">
-        <div className="s-contact-info">
-          <SectionHead
-            id="connect-title"
-            eyebrow="Contact"
-            title={
-              <>
-                Let&apos;s build something <em>great</em> together.
-              </>
-            }
-            lead="Have a project, a role or an idea? Send a message — I usually reply within a day."
-          />
+      <div className="s-container">
+        <SectionHead
+          id="connect-title"
+          eyebrow="Contact"
+          title={
+            <>
+              Let&apos;s build something <em>great</em> together.
+            </>
+          }
+          lead="Have a project, a role or an idea? Send a message — I usually reply within a day."
+        />
 
-          <div className="s-email" data-reveal style={{ "--d": "200ms" }}>
-            <a className="s-email-link" href={`mailto:${CONTACT.email}`}>
-              <FiMail aria-hidden="true" />
-              {CONTACT.email}
-              <FiArrowUpRight className="s-email-arrow" aria-hidden="true" />
-            </a>
-            <button type="button" className="s-copy" onClick={copyEmail} aria-label="Copy email address">
-              {copied ? <FiCheck /> : <FiCopy />}
-              <span>{copied ? "Copied" : "Copy"}</span>
-            </button>
+        <div className="s-contact">
+          <div className="s-contact-card" data-reveal style={{ "--d": "120ms" }}>
+            <p className="s-contact-label">Email me directly</p>
+            <div className="s-email">
+              <a className="s-email-link" href={`mailto:${CONTACT.email}`}>
+                <FiMail aria-hidden="true" />
+                {CONTACT.email}
+                <FiArrowUpRight className="s-email-arrow" aria-hidden="true" />
+              </a>
+              <button type="button" className="s-copy" onClick={copyEmail} aria-label="Copy email address">
+                {copied ? <FiCheck /> : <FiCopy />}
+                <span>{copied ? "Copied" : "Copy"}</span>
+              </button>
+            </div>
+
+            <p className="s-contact-label">Or find me on</p>
+            <ul className="s-channels">
+              {channels.map((c) => (
+                <li key={c.label}>
+                  {c.href ? (
+                    <a href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
+                      <span className="s-channel-icon">{c.icon}</span>
+                      <span>
+                        <small>{c.label}</small>
+                        {c.value}
+                      </span>
+                    </a>
+                  ) : (
+                    <div>
+                      <span className="s-channel-icon">{c.icon}</span>
+                      <span>
+                        <small>{c.label}</small>
+                        {c.value}
+                      </span>
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
           </div>
 
-          <ul className="s-channels" data-reveal style={{ "--d": "260ms" }}>
-            {channels.map((c) => (
-              <li key={c.label}>
-                {c.href ? (
-                  <a href={c.href} target={c.href.startsWith("http") ? "_blank" : undefined} rel="noopener noreferrer">
-                    <span className="s-channel-icon">{c.icon}</span>
-                    <span>
-                      <small>{c.label}</small>
-                      {c.value}
-                    </span>
-                  </a>
-                ) : (
-                  <div>
-                    <span className="s-channel-icon">{c.icon}</span>
-                    <span>
-                      <small>{c.label}</small>
-                      {c.value}
-                    </span>
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
+          <form className="s-form" onSubmit={submit} noValidate data-reveal style={{ "--d": "200ms" }}>
+            <div className="s-form-head">
+              <h3>Send a message</h3>
+              <p>
+                <span className="s-live-dot" aria-hidden="true" /> Usually replies within 24 hours
+              </p>
+            </div>
+            <div className="s-form-row">
+              <label className={`s-field ${errors.name ? "has-error" : ""}`}>
+                <span>Your name</span>
+                <input type="text" name="name" autoComplete="name" value={form.name} onChange={set("name")} placeholder="Jane Doe" />
+                {errors.name && <em>Please enter your name</em>}
+              </label>
+              <label className={`s-field ${errors.email ? "has-error" : ""}`}>
+                <span>Email or phone</span>
+                <input type="text" name="email" autoComplete="email" value={form.email} onChange={set("email")} placeholder="jane@company.com" />
+                {errors.email && <em>Please add a way to reach you</em>}
+              </label>
+            </div>
+            <label className={`s-field s-field--grow ${errors.message ? "has-error" : ""}`}>
+              <span>Message</span>
+              <textarea name="message" rows={6} value={form.message} onChange={set("message")} placeholder="Tell me about your project or role…" />
+              {errors.message && <em>Please write a short message</em>}
+            </label>
+            {/* honeypot — hidden from people, filled by bots */}
+            <label className="s-hp" aria-hidden="true">
+              Website
+              <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} />
+            </label>
+            <div className="s-form-foot">
+              <p>Your details are only used to reply to you.</p>
+              <button type="submit" className="s-btn s-btn--primary s-btn--lg" disabled={status === "sending"}>
+                {status === "sending" ? "Sending…" : (<>Send message <FiSend aria-hidden="true" /></>)}
+              </button>
+            </div>
+          </form>
         </div>
-
-        <form className="s-form" onSubmit={submit} noValidate data-reveal style={{ "--d": "140ms" }}>
-          <div className="s-form-row">
-            <label className={`s-field ${errors.name ? "has-error" : ""}`}>
-              <span>Your name</span>
-              <input type="text" name="name" autoComplete="name" value={form.name} onChange={set("name")} placeholder="Jane Doe" />
-              {errors.name && <em>Please enter your name</em>}
-            </label>
-            <label className={`s-field ${errors.email ? "has-error" : ""}`}>
-              <span>Email or phone</span>
-              <input type="text" name="email" autoComplete="email" value={form.email} onChange={set("email")} placeholder="jane@company.com" />
-              {errors.email && <em>Please add a way to reach you</em>}
-            </label>
-          </div>
-          <label className={`s-field ${errors.message ? "has-error" : ""}`}>
-            <span>Message</span>
-            <textarea name="message" rows={6} value={form.message} onChange={set("message")} placeholder="Tell me about your project or role…" />
-            {errors.message && <em>Please write a short message</em>}
-          </label>
-          {/* honeypot — hidden from people, filled by bots */}
-          <label className="s-hp" aria-hidden="true">
-            Website
-            <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} />
-          </label>
-          <button type="submit" className="s-btn s-btn--primary s-btn--lg" disabled={status === "sending"}>
-            {status === "sending" ? "Sending…" : (<>Send message <FiSend aria-hidden="true" /></>)}
-          </button>
-        </form>
       </div>
 
       <Snackbar

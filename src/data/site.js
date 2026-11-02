@@ -49,12 +49,18 @@ export const PILLARS = [
 ];
 
 /* Featured case studies — strongest first.
-   shots: full-page captures in src/assets/img/featured (desktop 1100px wide,
-   mobile 360px wide); they auto-scroll inside the browser and phone frames. */
+   shots: full-page captures in src/assets/img/featured. The -sm files (760px /
+   240px wide) scroll inside the preview frames; the large ones (1100px / 360px)
+   load only in the full-screen viewer. */
 export const FEATURED = [
   {
     title: "Northstar Ops",
-    shots: { desktop: "northstar-desktop.jpg", mobile: "northstar-mobile.jpg" },
+    shots: {
+      desktop: "northstar-desktop.jpg",
+      mobile: "northstar-mobile.jpg",
+      desktopSm: "northstar-desktop-sm.jpg",
+      mobileSm: "northstar-mobile-sm.jpg",
+    },
     kind: "Web App · Dashboard",
     img: "northstar-ops-dashboard.png",
     summary:
@@ -70,7 +76,12 @@ export const FEATURED = [
   },
   {
     title: "JobBuddy AI",
-    shots: { desktop: "jobbuddy-desktop.jpg", mobile: "jobbuddy-mobile.jpg" },
+    shots: {
+      desktop: "jobbuddy-desktop.jpg",
+      mobile: "jobbuddy-mobile.jpg",
+      desktopSm: "jobbuddy-desktop-sm.jpg",
+      mobileSm: "jobbuddy-mobile-sm.jpg",
+    },
     kind: "SaaS · AI",
     img: "job-apply-ai.png",
     summary:
@@ -86,7 +97,12 @@ export const FEATURED = [
   },
   {
     title: "MiLink",
-    shots: { desktop: "milink-desktop.jpg", mobile: "milink-mobile.jpg" },
+    shots: {
+      desktop: "milink-desktop.jpg",
+      mobile: "milink-mobile.jpg",
+      desktopSm: "milink-desktop-sm.jpg",
+      mobileSm: "milink-mobile-sm.jpg",
+    },
     kind: "Agency Platform",
     img: "Milink.png",
     summary:
@@ -102,7 +118,12 @@ export const FEATURED = [
   },
   {
     title: "MapleGuard Insurance",
-    shots: { desktop: "mapleguard-desktop.jpg", mobile: "mapleguard-mobile.jpg" },
+    shots: {
+      desktop: "mapleguard-desktop.jpg",
+      mobile: "mapleguard-mobile.jpg",
+      desktopSm: "mapleguard-desktop-sm.jpg",
+      mobileSm: "mapleguard-mobile-sm.jpg",
+    },
     kind: "Website · Quote Flow",
     img: "mapleguard-insurance.png",
     summary:
@@ -118,7 +139,12 @@ export const FEATURED = [
   },
   {
     title: "Kind Steps ABA",
-    shots: { desktop: "kindsteps-desktop.jpg", mobile: "kindsteps-mobile.jpg" },
+    shots: {
+      desktop: "kindsteps-desktop.jpg",
+      mobile: "kindsteps-mobile.jpg",
+      desktopSm: "kindsteps-desktop-sm.jpg",
+      mobileSm: "kindsteps-mobile-sm.jpg",
+    },
     kind: "Client Website",
     img: "kindsteps.png",
     summary:

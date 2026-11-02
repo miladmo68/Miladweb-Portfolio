@@ -44,7 +44,12 @@ export default function Footer() {
           </div>
         </div>
         <div className="s-footer-legal">
-          <span>© {new Date().getFullYear()} Milad M.</span>
+          <span>
+            © {new Date().getFullYear()} Milad M. · Designed &amp; built by{" "}
+            <a className="s-credit" href="https://milink.ca" target="_blank" rel="noopener noreferrer">
+              milink.ca
+            </a>
+          </span>
           <button type="button" className="s-top" onClick={() => go("home")}>
             Back to top <FiArrowUp aria-hidden="true" />
           </button>
