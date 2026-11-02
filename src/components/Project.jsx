@@ -419,8 +419,8 @@ const PROJECTS = [
     img: "Milink.png",
     cat: "web",
     live: "https://milink.ca/",
-    github: "https://github.com/miladmo68/Milink",
-    tech: ["React", "Tailwind", "Framer Motion"],
+    github: "https://github.com/miladmo68/milink-pro",
+    tech: ["Next.js", "Tailwind", "Supabase", "Stripe"],
   },
   {
     title: "Kind Steps",

@@ -25,7 +25,6 @@ Every production-ready portfolio project must also be added to this website.
   those copies and fall back to the original if a copy is missing.
 - Confirm the image stays readable in the 16:9 card crop (it is anchored to the top).
 
-## Experience and skills
+## Skills
 
-- Keep `src/components/Experience.jsx` and `src/components/Skills.jsx` in sync
-  with the current resume.
+- Keep `src/components/Skills.jsx` in sync with the current resume.

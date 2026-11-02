@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import {
   Main,
-  Experience,
   Contact,
   Navigation,
   Footer,
@@ -38,7 +37,6 @@ function App() {
       <div className="mx-auto w-full max-w-[1536px] px-4">
         <Main />
         <About />
-        <Experience />
 
         <Suspense
           fallback={

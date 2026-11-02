@@ -21,7 +21,6 @@ import LightModeIcon from "@mui/icons-material/LightMode";
 const navItems = [
   ["Home", "home"],
   ["About", "about"],
-  ["Experience", "experience"],
   ["Projects", "projects"],
   ["Services", "services"],
   ["Contact", "contact"],
