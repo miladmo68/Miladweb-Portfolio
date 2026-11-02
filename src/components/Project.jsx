@@ -354,7 +354,7 @@ const PROJECTS = [
     title: "Zarsa Gold2",
     img: "zarsagold2.png",
     cat: "web",
-    live: "https://zarsa2.vercel.app/",
+    live: "https://zarsa.ca/",
     github: "https://github.com/miladmo68/zarsa2",
     tech: ["HTML", "JavaScript", "Vercel"],
   },
