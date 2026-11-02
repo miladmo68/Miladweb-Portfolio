@@ -25,7 +25,7 @@ export default function Footer() {
           <div className="s-footer-brand">
             <img src="/Logo-Blue.png" alt="" width="36" height="36" />
             <span>
-              <strong>Milad Mohammadi</strong>
+              <strong>Milad M.</strong>
               <small>Frontend-Focused Full-Stack Developer · Toronto</small>
             </span>
           </div>
@@ -44,7 +44,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="s-footer-legal">
-          <span>© {new Date().getFullYear()} Milad Mohammadi</span>
+          <span>© {new Date().getFullYear()} Milad M.</span>
           <button type="button" className="s-top" onClick={() => go("home")}>
             Back to top <FiArrowUp aria-hidden="true" />
           </button>

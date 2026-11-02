@@ -46,7 +46,7 @@ export default function Main() {
           <div className="image-wrapper">
             <img
               src="/milad-avatar.jpg"
-              alt="Milad Mohammadi, Full-Stack Developer"
+              alt="Milad M., Full-Stack Developer"
               width="160"
               height="160"
               fetchPriority="high"
@@ -54,7 +54,7 @@ export default function Main() {
           </div>
 
           <h1 className="hero-name">
-            Milad <span className="name-accent">Mohammadi</span>
+            Milad <span className="name-accent">M.</span>
           </h1>
 
           <p className="typed-wrapper hero-role">

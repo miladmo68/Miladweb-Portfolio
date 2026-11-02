@@ -164,7 +164,7 @@ function Navigation({ parentToChild, modeChange }) {
                 textOverflow: "ellipsis",
               }}
             >
-              Milad Mohammadi
+              Milad M.
             </Box>
             <Box
               sx={{
@@ -487,7 +487,7 @@ function Navigation({ parentToChild, modeChange }) {
                   transition: "all 0.3s ease",
                 }}
               >
-                Milad Mohammadi
+                Milad M.
               </Box>
               {!scrolled && (
                 <Box
@@ -640,7 +640,7 @@ function Navigation({ parentToChild, modeChange }) {
                   textOverflow: "ellipsis",
                 }}
               >
-                Milad Mohammadi
+                Milad M.
               </Box>
 
               {!scrolled && (

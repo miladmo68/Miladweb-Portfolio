@@ -68,7 +68,7 @@ export default function About() {
 
         <div className="s-about-body">
           <p className="s-body" data-reveal style={{ "--d": "120ms" }}>
-            I&apos;m Milad Mohammadi, a frontend-focused Full-Stack Developer in
+            I&apos;m Milad, a frontend-focused Full-Stack Developer in
             Toronto. For more than five years I&apos;ve built responsive web
             apps, dashboards and user portals with React, Next.js and
             TypeScript — most recently investor-facing portals for an
