@@ -2052,3 +2052,30 @@
     background-size: 100% 1px;
   }
 }
+
+.main-container .s-form-fallback {
+  display: grid;
+  gap: 0.75rem;
+  padding: 1rem 1.1rem;
+  border-radius: var(--s-radius-sm);
+  background: rgba(255, 106, 0, 0.08);
+  border: 1px solid rgba(255, 138, 0, 0.35);
+
+  p {
+    margin: 0;
+    font-size: max(13.5px, 0.9rem);
+    line-height: 1.55;
+    color: var(--al-text);
+  }
+  .s-btn {
+    justify-self: start;
+  }
+}
+@media (max-width: 600px) {
+  .main-container .s-form-fallback {
+    text-align: center;
+    .s-btn {
+      justify-self: stretch;
+    }
+  }
+}

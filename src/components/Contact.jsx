@@ -22,6 +22,7 @@ export default function Contact() {
   const [errors, setErrors] = useState({});
   const [status, setStatus] = useState("idle"); // idle | sending
   const [snack, setSnack] = useState({ open: false, ok: true });
+  const [fallback, setFallback] = useState(null); // mailto link when sending fails
   const [copied, setCopied] = useState(false);
 
   const set = (k) => (e) => {
@@ -59,9 +60,14 @@ export default function Contact() {
       const data = await res.json().catch(() => ({}));
       if (!res.ok) throw new Error(data?.error || "Send failed");
       setForm(EMPTY);
+      setFallback(null);
       setSnack({ open: true, ok: true });
     } catch (err) {
       console.error("Send error →", err);
+      // never lose a message: offer the visitor's own mail app, pre-filled
+      const subject = encodeURIComponent(`New message from ${form.name.trim()}`);
+      const body = encodeURIComponent(`${form.message.trim()}\n\n— ${form.name.trim()} (${form.email.trim()})`);
+      setFallback(`mailto:${CONTACT.email}?subject=${subject}&body=${body}`);
       setSnack({ open: true, ok: false });
     } finally {
       setStatus("idle");
@@ -152,6 +158,14 @@ export default function Contact() {
               Website
               <input type="text" name="website" tabIndex={-1} autoComplete="off" value={form.website} onChange={set("website")} />
             </label>
+            {fallback && (
+              <div className="s-form-fallback" role="alert">
+                <p>The form couldn&apos;t send right now. Your message is ready to go by email instead:</p>
+                <a className="s-btn s-btn--ghost" href={fallback}>
+                  <FiMail aria-hidden="true" /> Send it with my email app
+                </a>
+              </div>
+            )}
             <div className="s-form-foot">
               <p>Your details are only used to reply to you.</p>
               <button type="submit" className="s-btn s-btn--primary s-btn--lg" disabled={status === "sending"}>
@@ -169,7 +183,7 @@ export default function Contact() {
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert severity={snack.ok ? "success" : "error"} onClose={() => setSnack((s) => ({ ...s, open: false }))} sx={{ borderRadius: "12px" }}>
-          {snack.ok ? "Thanks! Your message is on its way." : `Something went wrong. Please email ${CONTACT.email}.`}
+          {snack.ok ? "Thanks! Your message is on its way." : "Couldn't send — use the email button in the form."}
         </Alert>
       </Snackbar>
     </section>
