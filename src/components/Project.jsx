@@ -408,6 +408,19 @@ const PROJECTS = [
   { title: "Sidhu Clinic", img: "Sidhu-Clinic.jpg", link: "#", cat: "web" },
 ];
 
+/* "All" view: alternate Web App / Web Design, keeping each list's own order */
+const interleave = (list) => {
+  const apps = list.filter((p) => p.cat === "app");
+  const webs = list.filter((p) => p.cat === "web");
+  const out = [];
+  for (let i = 0; i < Math.max(apps.length, webs.length); i++) {
+    if (i < apps.length) out.push(apps[i]);
+    if (i < webs.length) out.push(webs[i]);
+  }
+  return out;
+};
+const ALL_PROJECTS = interleave(PROJECTS);
+
 const CARD_W = 380;
 const ASPECT_16_9 = "56.25%";
 
@@ -444,7 +457,7 @@ export default function Project() {
   }, []);
 
   const allFiltered =
-    filter === "all" ? PROJECTS : PROJECTS.filter((p) => p.cat === filter);
+    filter === "all" ? ALL_PROJECTS : PROJECTS.filter((p) => p.cat === filter);
 
   /* show a few first on every screen, reveal the rest with the button */
   const visible = allFiltered.slice(0, limit);

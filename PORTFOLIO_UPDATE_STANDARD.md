@@ -8,6 +8,7 @@ Every production-ready portfolio project must also be added to this website.
 - Use the real project screenshot, production name, and verified live URL.
 - Set `cat: "app"` so the card appears under **Web App**, not Web Design.
 - Place the strongest and newest work near the top while keeping a curated order.
+- In the **All** view, cards alternate one Web App, one Web Design. This is automatic (`interleave` in `Project.jsx`), so just set `cat` correctly and keep each category's order.
 - Keep the existing Preview and Visit interactions working.
 - Verify the production build and both the All and Web App views before publishing.
 
