@@ -32,6 +32,12 @@ const FILTERS = [
 /* 3 ▸ FULL PROJECT ARRAY */
 const PROJECTS = [
   {
+    title: "Northstar Ops",
+    img: "northstar-ops-dashboard.png",
+    link: "https://miladmo68.github.io/northstar-ops-dashboard/",
+    cat: "app",
+  },
+  {
     title: "Millionaire Quiz",
     img: "Millionaire-Quiz.png",
     link: "https://miladmo68.github.io/Millionaire-Quiz/",
