@@ -959,3 +959,77 @@
     animation: none;
   }
 }
+
+/* ── Fit-to-screen on desktop ─────────────────────────────────────────
+   Everything scales with the viewport height as well as the width, so the
+   whole hero fits one screen on short laptops (13" MacBook, 125% Windows
+   zoom) and grows on large monitors. */
+@media (min-width: 1101px) {
+  .main-container .h2 {
+    --navh: 92px;
+    min-height: 100svh;
+    padding: calc(var(--navh) + clamp(0.75rem, 3.5vh, 3rem)) 0 clamp(1.5rem, 5vh, 5rem);
+  }
+  .main-container .h2-inner {
+    max-width: calc(clamp(1180px, 72vw, 1640px) + var(--s-gutter, 2rem) * 2);
+    gap: clamp(2rem, min(4.5vw, 7vh), 6rem);
+  }
+  .main-container .h2-status {
+    margin-bottom: clamp(0.7rem, 2.6vh, 1.9rem);
+    font-size: clamp(12px, 1.7vh, 14.5px);
+  }
+  .main-container .h2-name {
+    margin-bottom: clamp(0.6rem, 2vh, 1.5rem);
+    img {
+      width: clamp(32px, 4.8vh, 46px);
+      height: clamp(32px, 4.8vh, 46px);
+    }
+  }
+  .main-container .h2-title {
+    font-size: clamp(2.3rem, min(4.5vw, 8.2vh), 6.2rem) !important;
+  }
+  .main-container .h2-lead {
+    max-width: clamp(480px, 34vw, 640px);
+    margin-top: clamp(0.8rem, 2.5vh, 1.8rem);
+    font-size: clamp(0.95rem, min(1.25vw, 2.15vh), 1.3rem);
+    line-height: 1.65;
+  }
+  .main-container .h2-cta {
+    margin-top: clamp(1rem, 3.2vh, 2.5rem);
+  }
+  .main-container .h2-btn {
+    min-height: clamp(44px, 6.4vh, 60px);
+    padding: 0 clamp(1.2rem, 1.6vw, 2rem);
+    font-size: clamp(0.92rem, 1.75vh, 1.06rem);
+  }
+  .main-container .h2-meta {
+    margin-top: clamp(0.8rem, 2.6vh, 2.2rem);
+    > a {
+      width: clamp(38px, 5.4vh, 46px);
+      height: clamp(38px, 5.4vh, 46px);
+    }
+  }
+  /* the showcase never grows taller than the space the screen allows */
+  .main-container .h2-stage-wrap {
+    width: min(100%, calc((100svh - var(--navh) - 11rem) / 0.86));
+    justify-self: center;
+  }
+  .main-container .h2-caption {
+    margin-top: clamp(1.25rem, 4vh, 3.25rem);
+  }
+  .main-container .h2-code pre {
+    font-size: clamp(10.5px, 1.55vh, 14px);
+  }
+}
+
+/* very short desktop windows: drop the secondary name line */
+@media (min-width: 1101px) and (max-height: 680px) {
+  .main-container .h2-name {
+    display: none;
+  }
+}
+@media (min-width: 1101px) and (max-height: 760px) {
+  .main-container .h2-chip--a {
+    top: 1%;
+  }
+}
