@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { Main, Contact, Navigation, Footer, About, Services, Skills } from "./components";
+import HeroV2 from "./components/HeroV2";
 import ClientMarquee from "./components/sections/ClientMarquee";
 import FeaturedWork from "./components/sections/FeaturedWork";
 import Testimonials from "./components/sections/Testimonials";
@@ -8,6 +9,10 @@ import "./assets/styles/alumica-theme.scss";
 import "./assets/styles/site.scss";
 
 const Project = lazy(() => import("./components/Project"));
+
+/* Hero: "v2" = editorial headline + 3D showcase; "classic" = DNA-video hero.
+   Switch back by setting this to "classic" (also tagged in git: hero-classic). */
+const HERO = "v2";
 
 function App() {
   const [mode, setMode] = useState("dark");
@@ -24,9 +29,13 @@ function App() {
       <Navigation parentToChild={{ mode }} modeChange={handleModeChange} />
 
       <main>
-        <div className="mx-auto w-full max-w-[1536px] px-4">
-          <Main />
-        </div>
+        {HERO === "v2" ? (
+          <HeroV2 />
+        ) : (
+          <div className="mx-auto w-full max-w-[1536px] px-4">
+            <Main />
+          </div>
+        )}
         <ClientMarquee />
         <About />
         <FeaturedWork />
