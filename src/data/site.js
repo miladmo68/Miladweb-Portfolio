@@ -49,10 +49,12 @@ export const PILLARS = [
 ];
 
 /* Featured case studies — strongest first.
-   img refers to a file in src/assets/img (optimized copies are picked up automatically). */
+   shots: full-page captures in src/assets/img/featured (desktop 1100px wide,
+   mobile 360px wide); they auto-scroll inside the browser and phone frames. */
 export const FEATURED = [
   {
     title: "Northstar Ops",
+    shots: { desktop: "northstar-desktop.jpg", mobile: "northstar-mobile.jpg" },
     kind: "Web App · Dashboard",
     img: "northstar-ops-dashboard.png",
     summary:
@@ -68,6 +70,7 @@ export const FEATURED = [
   },
   {
     title: "JobBuddy AI",
+    shots: { desktop: "jobbuddy-desktop.jpg", mobile: "jobbuddy-mobile.jpg" },
     kind: "SaaS · AI",
     img: "job-apply-ai.png",
     summary:
@@ -83,6 +86,7 @@ export const FEATURED = [
   },
   {
     title: "MiLink",
+    shots: { desktop: "milink-desktop.jpg", mobile: "milink-mobile.jpg" },
     kind: "Agency Platform",
     img: "Milink.png",
     summary:
@@ -98,6 +102,7 @@ export const FEATURED = [
   },
   {
     title: "MapleGuard Insurance",
+    shots: { desktop: "mapleguard-desktop.jpg", mobile: "mapleguard-mobile.jpg" },
     kind: "Website · Quote Flow",
     img: "mapleguard-insurance.png",
     summary:
@@ -113,6 +118,7 @@ export const FEATURED = [
   },
   {
     title: "Kind Steps ABA",
+    shots: { desktop: "kindsteps-desktop.jpg", mobile: "kindsteps-mobile.jpg" },
     kind: "Client Website",
     img: "kindsteps.png",
     summary:

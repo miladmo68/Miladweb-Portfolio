@@ -3,7 +3,14 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import useReveal from "../../hooks/useReveal";
 import SectionHead from "./SectionHead";
 import { FEATURED } from "../../data/site";
-import { getImg } from "../../utils/images";
+import { getImg, getShot } from "../../utils/images";
+
+/* scroll speed scales with page length so every site moves at the same pace */
+const setPace = (e) => {
+  const img = e.currentTarget;
+  const ratio = img.naturalHeight / img.naturalWidth;
+  img.style.setProperty("--dur", `${Math.min(Math.max(ratio * 6, 10), 34)}s`);
+};
 
 /* Featured case studies — large alternating rows */
 export default function FeaturedWork() {
@@ -31,18 +38,35 @@ export default function FeaturedWork() {
                 data-reveal
               >
                 <span className="s-case-frame">
-                  <span className="s-case-dots" aria-hidden="true">
+                  <span className="s-case-bar" aria-hidden="true">
                     <i /> <i /> <i />
+                    <span className="s-case-url">{p.live.replace(/^https?:\/\//, "").replace(/\/$/, "")}</span>
                   </span>
-                  <img
-                    src={getImg(p.img, "full")}
-                    alt={`${p.title} screenshot`}
-                    loading="lazy"
-                    decoding="async"
-                    width="1600"
-                    height="1000"
-                  />
+                  <span className="s-case-screen">
+                    <img
+                      className="s-shot"
+                      src={p.shots ? getShot(p.shots.desktop) : getImg(p.img, "full")}
+                      alt={`${p.title} desktop website`}
+                      loading="lazy"
+                      decoding="async"
+                      onLoad={setPace}
+                    />
+                  </span>
                 </span>
+                {p.shots?.mobile && (
+                  <span className="s-case-phone" aria-hidden="true">
+                    <span className="s-case-phone-screen">
+                      <img
+                        className="s-shot s-shot--phone"
+                        src={getShot(p.shots.mobile)}
+                        alt=""
+                        loading="lazy"
+                        decoding="async"
+                        onLoad={setPace}
+                      />
+                    </span>
+                  </span>
+                )}
               </a>
 
               <div className="s-case-body">

@@ -31,3 +31,12 @@ export const getImg = (file, size = "card") => {
   const set = size === "full" ? fullImgs : cardImgs;
   return set[name] || originals[`../assets/img/${file}`];
 };
+
+/* full-page captures for the featured case studies */
+const featured = byName(
+  import.meta.glob("../assets/img/featured/*.jpg", {
+    eager: true,
+    import: "default",
+  }),
+);
+export const getShot = (file) => featured[file.replace(/\.[^.]+$/, "")];

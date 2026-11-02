@@ -7,6 +7,9 @@ Every production-ready portfolio project must also be added to this website.
 - The 4–6 strongest projects live in `FEATURED` in `src/data/site.js`, shown as
   large case studies (summary, three highlights, tech, Live and Source).
 - A featured project must not also appear in the `PROJECTS` grid.
+- Each featured project has full-page captures in `src/assets/img/featured/`
+  (`<slug>-desktop.jpg` 1100px wide, `<slug>-mobile.jpg` 360px wide). They
+  auto-scroll inside the browser and phone frames.
 
 ## Other site content
 
