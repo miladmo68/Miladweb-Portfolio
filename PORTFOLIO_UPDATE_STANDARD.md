@@ -21,6 +21,10 @@ Every production-ready portfolio project must also be added to this website.
 ## Project entries
 
 - Add the project to the `PROJECTS` array in `src/components/Project.jsx`.
+- For the daily portfolio series, the strongest current project may lead
+  `FEATURED`; starting with the second project, add each release to the
+  **Web App** list in **More projects**. Promote a later project to `FEATURED`
+  only when it improves the curated set, and never duplicate it in both places.
 - Use the real project screenshot and production name.
 - Set `cat: "app"` for **Web App** or `cat: "web"` for **Web Design**.
 - `live` — the verified live URL. Leave it out if there is no working live site.
