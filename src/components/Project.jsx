@@ -20,6 +20,14 @@ const FILTERS = [
 const PROJECTS = [
   /* ── Web App ── */
   {
+    title: "Atelier Rooms",
+    img: "atelier-rooms.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/atelier-rooms/",
+    github: "https://github.com/miladmo68/atelier-rooms",
+    tech: ["React", "Express", "MongoDB adapter", "Vite"],
+  },
+  {
     title: "MiLink Analytics",
     img: "analytics-dashboard.png",
     cat: "app",
