@@ -20,6 +20,14 @@ const FILTERS = [
 const PROJECTS = [
   /* ── Web App ── */
   {
+    title: "Tomorrowline",
+    img: "tomorrowline.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/tomorrowline-planner/",
+    github: "https://github.com/miladmo68/tomorrowline-planner",
+    tech: ["Next.js", "TypeScript", "React", "Playwright"],
+  },
+  {
     title: "Atelier Rooms",
     img: "atelier-rooms.png",
     cat: "app",
