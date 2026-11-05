@@ -20,6 +20,14 @@ const FILTERS = [
 const PROJECTS = [
   /* ── Web App ── */
   {
+    title: "Daymark",
+    img: "daymark-clinic.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/daymark-clinic/",
+    github: "https://github.com/miladmo68/daymark-clinic",
+    tech: ["React", "Express", "MongoDB adapter", "TypeScript"],
+  },
+  {
     title: "Tomorrowline",
     img: "tomorrowline.png",
     cat: "app",
