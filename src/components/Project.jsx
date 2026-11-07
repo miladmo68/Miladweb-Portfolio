@@ -383,6 +383,14 @@ const PROJECTS = [
 
   /* ── Web Design ── */
   {
+    title: "Techfahm Systems",
+    img: "techfahm.png",
+    cat: "web",
+    live: "https://techfahm.com/",
+    github: "https://github.com/miladmo68/Techfahm",
+    tech: ["Next.js", "TypeScript", "Tailwind", "Motion"],
+  },
+  {
     title: "Zarsa Gold2",
     img: "zarsagold2.png",
     cat: "web",
@@ -411,12 +419,6 @@ const PROJECTS = [
     img: "sky.jpg",
     cat: "web",
     live: "https://skyinc.ca/",
-  },
-  {
-    title: "Techfahm Systems",
-    img: "Techfahm.jpg",
-    cat: "web",
-    live: "https://Techfahm.com/",
   },
   {
     title: "Woodline",
