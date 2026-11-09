@@ -20,6 +20,14 @@ const FILTERS = [
 const PROJECTS = [
   /* ── Web App ── */
   {
+    title: "Parcel & Pine",
+    img: "parcel-pine-homes.png",
+    cat: "app",
+    live: "https://miladmo68.github.io/parcel-pine-homes/",
+    github: "https://github.com/miladmo68/parcel-pine-homes",
+    tech: ["React", "TypeScript", "Express", "MongoDB adapter"],
+  },
+  {
     title: "Mallow & Ember",
     img: "mallow-ember-kitchen.jpg",
     cat: "app",
