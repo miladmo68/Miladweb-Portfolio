@@ -20,6 +20,14 @@ const FILTERS = [
 const PROJECTS = [
   /* ── Web App ── */
   {
+    title: "Velvet Frame",
+    img: "velvet-frame-cinema.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/velvet-frame-cinema/",
+    github: "https://github.com/miladmo68/velvet-frame-cinema",
+    tech: ["Next.js", "React", "TypeScript", "GitHub Pages"],
+  },
+  {
     title: "Parcel & Pine",
     img: "parcel-pine-homes.png",
     cat: "app",
