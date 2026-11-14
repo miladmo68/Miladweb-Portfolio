@@ -20,6 +20,14 @@ const FILTERS = [
 const PROJECTS = [
   /* ── Web App ── */
   {
+    title: "Sable & Sky",
+    img: "sable-sky-hotel.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/sable-sky-hotel/",
+    github: "https://github.com/miladmo68/sable-sky-hotel",
+    tech: ["React", "TypeScript", "Express", "MongoDB adapter"],
+  },
+  {
     title: "Velvet Frame",
     img: "velvet-frame-cinema.jpg",
     cat: "app",
