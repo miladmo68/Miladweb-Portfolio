@@ -20,6 +20,14 @@ const FILTERS = [
 const PROJECTS = [
   /* ── Web App ── */
   {
+    title: "Ivory Arc",
+    img: "ivory-arc-wedding-studio.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/ivory-arc-wedding-studio/",
+    github: "https://github.com/miladmo68/ivory-arc-wedding-studio",
+    tech: ["Next.js", "React", "TypeScript", "Playwright"],
+  },
+  {
     title: "Sable & Sky",
     img: "sable-sky-hotel.jpg",
     cat: "app",
