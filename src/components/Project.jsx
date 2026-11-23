@@ -423,6 +423,14 @@ const PROJECTS = [
 
   /* ── Web Design ── */
   {
+    title: "Tarahan Choob",
+    img: "tarahanchoob.png",
+    cat: "web",
+    live: "https://tarahanchoob.com/",
+    github: "https://github.com/miladmo68/woodline.ir",
+    tech: ["HTML", "Node.js", "Express"],
+  },
+  {
     title: "Techfahm Systems",
     img: "techfahm.png",
     cat: "web",
@@ -461,14 +469,6 @@ const PROJECTS = [
     live: "https://skyinc.ca/",
   },
   {
-    title: "Woodline",
-    img: "tarahanchoob.png",
-    cat: "web",
-    live: "https://woodline-ir.vercel.app/",
-    github: "https://github.com/miladmo68/woodline.ir",
-    tech: ["HTML", "Node.js", "Express"],
-  },
-  {
     title: "PEG Studio",
     img: "pegstudio.png",
     cat: "web",
@@ -500,11 +500,6 @@ const PROJECTS = [
   },
 
   /* ── Earlier web design work (screenshots only) ── */
-  {
-    title: "Tarahan Choob",
-    img: "tarahanchoob.jpg",
-    cat: "web",
-  },
   {
     title: "Jahan Ariya",
     img: "jahanariya.jpg",
