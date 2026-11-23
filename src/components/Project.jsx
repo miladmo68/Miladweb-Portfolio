@@ -28,6 +28,14 @@ const PROJECTS = [
     tech: ["Next.js", "React", "TypeScript", "Playwright"],
   },
   {
+    title: "Tandem Device Studio",
+    img: "tandem-device-studio.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/tandem-device-studio/",
+    github: "https://github.com/miladmo68/tandem-device-studio",
+    tech: ["React", "TypeScript", "Express", "MongoDB adapter"],
+  },
+  {
     title: "Sable & Sky",
     img: "sable-sky-hotel.jpg",
     cat: "app",
