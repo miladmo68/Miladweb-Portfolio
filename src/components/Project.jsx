@@ -20,6 +20,14 @@ const FILTERS = [
 const PROJECTS = [
   /* ── Web App ── */
   {
+    title: "Kestrel Motor Co.",
+    img: "kestrel-motor-co.jpg",
+    cat: "app",
+    live: "https://miladmo68.github.io/kestrel-motor-co/",
+    github: "https://github.com/miladmo68/kestrel-motor-co",
+    tech: ["Next.js", "React", "TypeScript", "Playwright"],
+  },
+  {
     title: "Ivory Arc",
     img: "ivory-arc-wedding-studio.jpg",
     cat: "app",
